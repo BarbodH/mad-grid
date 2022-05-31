@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/results_background"
+    tools:context=".ResultsActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#D3D3D3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/results_titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/results_title"
+            android:textColor="#000000"
+            android:textSize="60sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/results_highestPlaceholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/highest_placeholder"
+            android:textColor="#000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/results_titleText" />
+
+        <Button
+            android:id="@+id/results_homeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="openHome"
+            android:text="@string/button_home"
+            app:layout_constraintBottom_toBottomOf="@+id/results_settingsButton"
+            app:layout_constraintEnd_toStartOf="@+id/results_resetButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/results_settingsButton"
+            app:layout_constraintTop_toTopOf="@+id/results_settingsButton"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/results_resetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="openGame"
+            android:text="@string/button_reset"
+            app:layout_constraintBottom_toBottomOf="@+id/results_homeButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/results_homeButton"
+            app:layout_constraintTop_toTopOf="@+id/results_homeButton"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/results_settingsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"
+            android:onClick="openSettings"
+            android:text="@string/button_settings"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/results_homeButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/results_highestText" />
+
+        <TextView
+            android:id="@+id/results_highestText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/game_highest"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/results_highestValue"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/results_scoreText" />
+
+        <TextView
+            android:id="@+id/results_highestValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/score_placeholder"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/results_highestText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/results_highestText"
+            app:layout_constraintTop_toTopOf="@+id/results_highestText" />
+
+        <TextView
+            android:id="@+id/results_scoreText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/game_score"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="@+id/results_highestText"
+            app:layout_constraintTop_toBottomOf="@+id/results_highestPlaceholder" />
+
+        <TextView
+            android:id="@+id/results_scoreValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/score_placeholder"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/results_scoreText"
+            app:layout_constraintEnd_toEndOf="@+id/results_highestValue"
+            app:layout_constraintTop_toTopOf="@+id/results_scoreText" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

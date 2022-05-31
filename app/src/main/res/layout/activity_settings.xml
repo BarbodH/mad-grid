@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".SettingsActivity">
+
+    <Switch
+        android:id="@+id/settingsMusicSwitch"
+        android:layout_width="130dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="32dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:text="@string/settings_music"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingsTitle" />
+
+    <Switch
+        android:id="@+id/settingsVibrationSwitch"
+        android:layout_width="130dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="32dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:text="@string/settings_vibration"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingsMusicSwitch" />
+
+    <Switch
+        android:id="@+id/settingsSoundSwitch"
+        android:layout_width="130dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="32dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:text="@string/settings_sound"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingsVibrationSwitch" />
+
+    <TextView
+        android:id="@+id/settingsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_title"
+        android:textColor="#000000"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <Button
+        android:id="@+id/settings_saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:onClick="saveSettings"
+        android:text="@string/settings_save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingsSoundSwitch" />
+</androidx.constraintlayout.widget.ConstraintLayout>
