@@ -7,31 +7,24 @@ import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.os.Vibrator;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 public class GameActivity extends AppCompatActivity {
     // data variable(s)
-    private String stringMode;
-    boolean isPlaying = false; // indicates whether user is playing their turn
-    ArrayList<Integer> key = new ArrayList<>(); // stores the correct sequence of box indexes
-    int score = 0;
-    int turnIndex = 0;
+    private MadGrid madGrid;
+    private boolean isPlaying = false; // indicates whether user is playing their turn
+    private int turnIndex;
     private final Handler handler = new Handler(); // used for delaying executions
     private SoundPlayer soundPlayer;
     private Vibrator vibrator;
+    // data variables associated with settings
     public static final String SHARED_PREFS = "sharedPrefs"; // stores & loads information global in app
-    private String highestScoreString;
     private MediaPlayer mediaPlayer;
     private boolean music;
     private boolean vibration;
@@ -48,8 +41,14 @@ public class GameActivity extends AppCompatActivity {
 
         // retrieve game mode from MainActivity/ResultsActivity
         Intent intent = getIntent();
-        this.stringMode = intent.getStringExtra("mode");
-        ((TextView)findViewById(R.id.game_mode)).setText(this.stringMode);
+        String mode = intent.getStringExtra("mode");
+        ((TextView)findViewById(R.id.game_mode)).setText(mode);
+        // load highest score
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        String stringHighestScore = sharedPreferences.getString(mode, "0");
+        int highestScore = Integer.parseInt(stringHighestScore);
+        // initialize MadGrid instance using game mode & highest score
+        madGrid = new MadGrid(mode, highestScore);
 
         // start background music only if music is enabled
         loadSettings();
@@ -82,9 +81,8 @@ public class GameActivity extends AppCompatActivity {
      */
     public void resetGame(View view) {
         if(isPlaying) {
-            this.score = 0;
-            this.turnIndex = 0;
-            this.key.clear();
+            madGrid.resetScore();
+            madGrid.clearKey();
             initializeNewTurn();
         }
     }
@@ -96,10 +94,9 @@ public class GameActivity extends AppCompatActivity {
      * 'isPlaying' boolean is changed to true to recognize user's response.
      */
     private void initializeNewTurn() {
-        loadHighestScore();
         updateHighestScoreViews();
-        updateScore();
-        incrementKey();
+        updateScoreView();
+        madGrid.incrementKey();
         displaySequence();
     }
 
@@ -108,31 +105,12 @@ public class GameActivity extends AppCompatActivity {
      * Precondition(s): none
      * Postcondition(s): 'score' is set to key length and its display is updated
      */
-    private void updateScore() {
-        this.score = this.key.size();
-        String stringScore = Integer.toString(this.score);
+    private void updateScoreView() {
+        madGrid.incrementScore();
+        String stringScore = Integer.toString(madGrid.getScore());
         ((TextView)findViewById(R.id.game_score)).setText(stringScore);
-        int highestScore = Integer.parseInt(this.highestScoreString);
-        if (this.score > highestScore) {
+        if (madGrid.isHighestScore()) {
             ((TextView)findViewById(R.id.game_highest)).setText(stringScore);
-        }
-    }
-
-    /**
-     * Adds new integers to the key depending on game mode
-     * Precondition(s): 'stringMode' is already initialized as 'Classic', 'Difficult', or 'Expert'
-     * Postcondition(s): integer within [1, 4] is added to key.
-     */
-    private void incrementKey() {
-        // initialization
-        Random rand = new Random();
-        int increment = stringMode.equals("Classic") ? 1 : stringMode.equals("Difficult") ? 2 : 3;
-        // processing & calculation
-        for (int i = 0; i < increment; i++) {
-            key.add(rand.nextInt(4) + 1);
-        }
-        if (this.vibration) {
-            vibrator.vibrate(100);
         }
     }
 
@@ -145,10 +123,10 @@ public class GameActivity extends AppCompatActivity {
         // initialization
         this.isPlaying = false;
         int delay = 750;
-        int delayIncrement = stringMode.equals("Expert") ? 300 : 750;
+        int delayIncrement = madGrid.getMode().equals("Expert") ? 300 : 750;
 
         // start display of sequence
-        for (int k : this.key) {
+        for (int k : madGrid.getKey()) {
             // handler object prevents simultaneous grid animations
             handler.postDelayed(() -> toBounce(k), delay);
             delay += delayIncrement;
@@ -178,7 +156,7 @@ public class GameActivity extends AppCompatActivity {
         BounceInterpolator bounceInterpolator = new BounceInterpolator(0.2, 20);
 
         // animation speed is higher in 'Expert' mode
-        if (this.stringMode.equals("Expert")) {
+        if (madGrid.getMode().equals("Expert")) {
             animation = AnimationUtils.loadAnimation(this, R.anim.bounce_fast);
         } else {
             animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
@@ -190,8 +168,7 @@ public class GameActivity extends AppCompatActivity {
     /**
      * When user is playing, determines correctness of their response and updates game status
      * Precondition(s): none
-     * Postcondition(s): increments score if provided response is correct. Otherwise ends game.
-     * In case of correct response, method also updates 'turnIndex'
+     * Postcondition(s): in case of correct response, method increments 'turnIndex' or initializes new turn; otherwise game ends
      * @param view - button clicked
      */
     public void handleBoxClick(View view) {
@@ -201,8 +178,8 @@ public class GameActivity extends AppCompatActivity {
                 soundPlayer.playClickSound();
             }
             int boxIndex = determineButtonIndex(view);
-            if (boxIndex == key.get(turnIndex)) {
-                if (turnIndex < key.size() - 1) {
+            if (boxIndex == madGrid.getKey().get(turnIndex)) {
+                if (turnIndex < madGrid.getKey().size() - 1) {
                     turnIndex++;
                 } else {
                     turnIndex = 0;
@@ -268,19 +245,15 @@ public class GameActivity extends AppCompatActivity {
             soundPlayer.playGameOverSound();
         }
 
-        // determine if user has achieved new high score
-        int highestScore = Integer.parseInt(this.highestScoreString);
-        if (this.score > highestScore) {
-            saveNewHighestScore(this.score); // saves new high score in SharedPreferences
-            isHighest = true;
-        }
+        // save new highest score in SharedPreferences (if higher than previous highest score)
+        saveNewHighestScore(); // saves new high score in SharedPreferences
 
         // send user to ResultsActivity and pass on necessary information
         Intent intent = new Intent(this, ResultsActivity.class);
-        String scoreString = Integer.toString(this.score);
+        String scoreString = Integer.toString(madGrid.getScore());
         intent.putExtra("score", scoreString);
-        intent.putExtra("isHighest", isHighest);
-        intent.putExtra("mode", this.stringMode);
+        intent.putExtra("isHighest", madGrid.isHighestScore());
+        intent.putExtra("mode", madGrid.getMode());
         startActivity(intent);
     }
 
@@ -296,36 +269,13 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     * Helper method to save new high score in SharedPreferences
-     * Precondition(s): 'newHighest' score is a positive integer
-     * Postcondition(s): 'newHighest' score value is shared to SharedPreferences
-     * @param newHighest - achieved high score
-     */
-    private void saveNewHighestScore(int newHighest) {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        String newHighestString = Integer.toString(newHighest);
-        editor.putString(this.stringMode, newHighestString); // key: mode, value: mode's new high score
-        editor.apply();
-    }
-
-    /**
-     * Helper method to load current game mode's highest score from SharedPreferences
-     * Precondition(s): none
-     * Postcondition(s): highest score of current game mode is loaded
-     */
-    private void loadHighestScore() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        this.highestScoreString = sharedPreferences.getString(this.stringMode, "0"); // default value: 0
-    }
-
-    /**
      * Helper method to update highest score view during game
      * Precondition(s): none
      * Postcondition(s): highest score view is updated to display newly achieved high score
      */
     private void updateHighestScoreViews() {
-        ((TextView)findViewById(R.id.game_highest)).setText(this.highestScoreString);
+        String highestScoreString = String.valueOf(madGrid.getHighestScore());
+        ((TextView)findViewById(R.id.game_highest)).setText(highestScoreString);
     }
 
     /**
@@ -339,5 +289,20 @@ public class GameActivity extends AppCompatActivity {
         this.music = sharedPreferences.getBoolean("Music", false);
         this.vibration = sharedPreferences.getBoolean("Vibration", false);
         this.sound = sharedPreferences.getBoolean("Sound", false);
+    }
+
+    /**
+     * Helper method to save new high score in SharedPreferences
+     * Precondition(s): 'newHighest' score is a positive integer
+     * Postcondition(s): 'newHighest' score value is shared to SharedPreferences
+     */
+    public void saveNewHighestScore() {
+        if (madGrid.isHighestScore()) {
+            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            String newHighestString = Integer.toString(madGrid.getScore());
+            editor.putString(madGrid.getMode(), newHighestString); // key: mode, value: mode's new high score
+            editor.apply();
+        }
     }
 }
