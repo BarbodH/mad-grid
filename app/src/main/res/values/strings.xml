@@ -33,4 +33,15 @@
     <string name="mode_classic_difficult_speed">Regular Sequence Dispaly Speed</string>
     <string name="mode_expert_speed">Fast Sequence Display Speed</string>
     <string name="settings_save">Save</string>
+    <string name="credits">
+        <b>Developer</b>
+        \nBarbod Habibi
+
+        \n\n<b>Icon Images</b>
+        \nMusic icon by Jemis Mali, from <i>IconScout</i>
+        \nVibration icon by Unicons from <i>IconScout</i>
+        \nSound icon by Amru ID, from <i>IconScout</i>
+        \nRate icon by Google Inc., from <i>IconScout</i>
+        \nGitHub icon by Pixel Icons, from <i>IconScout</i>
+    </string>
 </resources>
