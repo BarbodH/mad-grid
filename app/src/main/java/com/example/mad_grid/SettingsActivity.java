@@ -5,6 +5,7 @@ import androidx.appcompat.widget.SwitchCompat;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -67,5 +68,48 @@ public class SettingsActivity extends AppCompatActivity {
         // return to homepage (start MainActivity)
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    /**
+     * Opens project repository on browser
+     * Precondition(s): none
+     * Postcondition(s): Mad-Grid GitHub repository is opened on a browser
+     * @param view - user interface
+     */
+    public void openGitHub(View view) {
+        openURL("https://github.com/BarbodH/Mad-Grid");
+    }
+
+    /**
+     * NOTE: Mad Grid is not published yet; current method is linked to Google Play homepage
+     * Opens app page on Google Play
+     * Precondition(s): none
+     * Postcondition(s): Mad Grid application page is opened on Google Play (either browser/app)
+     * @param view - user interface
+     */
+    public void openGooglePlay(View view) {
+        // NOTE: link should be replaced once Mad Grid is published on Google Play
+        openURL("https://play.google.com/store/games");
+    }
+
+    /**
+     * Helper method - opens input URL
+     * Precondition(s): 'url' is a valid URL
+     * Postcondition(s): input URL is opened on a browser
+     * @param url - string URL
+     */
+    private void openURL(String url) {
+        Uri uri = Uri.parse(url);
+        startActivity(new Intent(Intent.ACTION_VIEW, uri));
+    }
+
+    /**
+     * Opens the credits page
+     * Precondition(s): none
+     * Postcondition(s): CreditsActivity is started
+     * @param view - user interface
+     */
+    public void openCredits(View view) {
+        startActivity(new Intent(this, CreditsActivity.class));
     }
 }

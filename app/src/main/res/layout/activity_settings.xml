@@ -10,7 +10,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/settings_bar">
 
         <ImageView
             android:layout_width="50dp"
@@ -34,124 +35,251 @@
         android:layout_height="wrap_content" >
 
         <LinearLayout
-            android:background="@drawable/settings_background_game"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="40dp"
-            android:orientation="vertical"
-            android:padding="15dp">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Game"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <RelativeLayout
+            <!-- Game Settings -->
+            <LinearLayout
+                android:background="@drawable/settings_background_game"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp" >
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:id="@+id/settingsMusicIcon"
-                    android:src="@drawable/settings_music_icon"
-                    android:background="@drawable/settings_background_game_icon"
-                    android:padding="8dp" />
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="40dp"
+                android:orientation="vertical"
+                android:padding="15dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="Music"
+                    android:text="Game"
                     android:textColor="#000000"
-                    android:textStyle="bold"
-                    android:layout_toEndOf="@+id/settingsMusicIcon"
-                    android:layout_marginStart="20dp"
-                    />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/settingsMusicSwitch"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:switchMinWidth="50dp"
-                    android:theme="@style/settingsSwitch"/>
-            </RelativeLayout>
+                    android:layout_marginTop="20dp" >
 
-            <RelativeLayout
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/settingsMusicIcon"
+                        android:src="@drawable/settings_music_icon"
+                        android:background="@drawable/settings_background_game_icon"
+                        android:padding="8dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Music"
+                        android:textColor="#000000"
+                        android:textStyle="bold"
+                        android:layout_toEndOf="@+id/settingsMusicIcon"
+                        android:layout_marginStart="20dp"
+                        />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/settingsMusicSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:switchMinWidth="50dp"
+                        android:theme="@style/settingsSwitch"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp" >
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/settingsVibrationIcon"
+                        android:src="@drawable/settings_vibration_icon"
+                        android:background="@drawable/settings_background_game_icon"
+                        android:padding="8dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Vibration"
+                        android:textColor="#000000"
+                        android:textStyle="bold"
+                        android:layout_toEndOf="@+id/settingsVibrationIcon"
+                        android:layout_marginStart="20dp"
+                        />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/settingsVibrationSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:switchMinWidth="50dp"
+                        android:theme="@style/settingsSwitch"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp" >
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/settingsSoundIcon"
+                        android:src="@drawable/settings_sound_icon"
+                        android:background="@drawable/settings_background_game_icon"
+                        android:padding="8dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Sound"
+                        android:textColor="#000000"
+                        android:textStyle="bold"
+                        android:layout_toEndOf="@+id/settingsSoundIcon"
+                        android:layout_marginStart="20dp"
+                        />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/settingsSoundSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:switchMinWidth="50dp"
+                        android:theme="@style/settingsSwitch"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!-- Social Settings -->
+            <LinearLayout
+                android:background="@drawable/settings_background_game"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp" >
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:id="@+id/settingsVibrationIcon"
-                    android:src="@drawable/settings_vibration_icon"
-                    android:background="@drawable/settings_background_game_icon"
-                    android:padding="8dp" />
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="40dp"
+                android:orientation="vertical"
+                android:padding="15dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="Vibration"
+                    android:text="Social"
                     android:textColor="#000000"
-                    android:textStyle="bold"
-                    android:layout_toEndOf="@+id/settingsVibrationIcon"
-                    android:layout_marginStart="20dp"
-                    />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/settingsVibrationSwitch"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:switchMinWidth="50dp"
-                    android:theme="@style/settingsSwitch"/>
-            </RelativeLayout>
+                    android:layout_marginTop="20dp" >
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp" >
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/settingsRateIcon"
+                        android:src="@drawable/settings_rate_icon"
+                        android:background="@drawable/settings_background_game_icon"
+                        android:padding="8dp" />
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:id="@+id/settingsSoundIcon"
-                    android:src="@drawable/settings_sound_icon"
-                    android:background="@drawable/settings_background_game_icon"
-                    android:padding="8dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Rate on Google Play"
+                        android:textColor="#000000"
+                        android:textStyle="bold"
+                        android:layout_toEndOf="@+id/settingsRateIcon"
+                        android:layout_marginStart="20dp"
+                        />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/settings_arrow_icon"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:onClick="openGooglePlay"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="Sound"
-                    android:textColor="#000000"
-                    android:textStyle="bold"
-                    android:layout_toEndOf="@+id/settingsSoundIcon"
-                    android:layout_marginStart="20dp"
-                    />
+                    android:layout_marginTop="20dp" >
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/settingsSoundSwitch"
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/settingsGitHubIcon"
+                        android:src="@drawable/settings_github_icon"
+                        android:background="@drawable/settings_background_game_icon"
+                        android:padding="8dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="View on GitHub"
+                        android:textColor="#000000"
+                        android:textStyle="bold"
+                        android:layout_toEndOf="@+id/settingsGitHubIcon"
+                        android:layout_marginStart="20dp"
+                        />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/settings_arrow_icon"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:onClick="openGitHub"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:switchMinWidth="50dp"
-                    android:theme="@style/settingsSwitch"/>
-            </RelativeLayout>
+                    android:layout_marginTop="20dp" >
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/settingsCreditIcon"
+                        android:src="@drawable/settings_credits_icon"
+                        android:background="@drawable/settings_background_game_icon"
+                        android:padding="8dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Credits"
+                        android:textColor="#000000"
+                        android:textStyle="bold"
+                        android:layout_toEndOf="@+id/settingsCreditIcon"
+                        android:layout_marginStart="20dp"
+                        />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/settings_arrow_icon"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:onClick="openCredits"/>
+                </RelativeLayout>
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mad_grid" >
+    package="com.example.mad_grid">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
+        android:name=".MadGridApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MadGrid"
-        android:name="com.example.mad_grid.MadGridApp" >
+        android:theme="@style/Theme.MadGrid">
+        <activity
+            android:name=".CreditsActivity"
+            android:exported="false" />
         <activity
             android:name=".ResultsActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DescriptionActivity"
             android:exported="false"
             android:label="Description"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SettingsActivity"
             android:exported="false"
             android:label="Settings"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".GameActivity"
             android:exported="false"
