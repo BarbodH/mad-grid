@@ -31,7 +31,7 @@
             android:label="Settings"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
-        <activity
+        <activity android:theme="@style/Theme.AppCompat.NoActionBar"
             android:name=".GameActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
