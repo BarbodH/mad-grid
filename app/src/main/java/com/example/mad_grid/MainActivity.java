@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     // data variables
-    private final String[] modeStrings = {"Classic", "Difficult", "Expert"};
+    private final String[] modeStrings = {"Classic", "Reverse", "Crazy"};
     private int mode; // stores index [0, 2] for 'modeString' array
 
     @Override
@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Helper method - updates game mode displayed on homepage as follows:
      *  0: Classic
-     *  1: Difficult
-     *  2: Expert
+     *  1: Reverse
+     *  2: Crazy
      * Precondition(s): 'mode' is an integer between 0 and 2
      * Postcondition(s): game mode display is updated
      */

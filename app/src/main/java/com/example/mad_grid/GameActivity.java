@@ -15,6 +15,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class GameActivity extends AppCompatActivity {
     // data variable(s)
     private MadGrid madGrid;
@@ -144,7 +147,7 @@ public class GameActivity extends AppCompatActivity {
         // initialization
         this.isPlaying = false;
         int delay = 750;
-        int delayIncrement = madGrid.getMode().equals("Expert") ? 300 : 750;
+        final int delayIncrement = 750;
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -152,12 +155,21 @@ public class GameActivity extends AppCompatActivity {
             }
         }, 450);
 
-
         // start display of sequence
-        for (int k : madGrid.getKey()) {
-            // handler object prevents simultaneous grid animations
-            handler.postDelayed(() -> toBounce(k), delay);
-            delay += delayIncrement;
+        if (madGrid.getMode().equals("Reverse")) { // iterate backwards through key for 'Reverse' mode
+            for (int index = madGrid.getKey().size() - 1; index >= 0; index--) {
+                int item = madGrid.getKey().get(index);
+                // handler object prevents simultaneous grid animations
+                handler.postDelayed(() -> toBounce(item), delay);
+                delay += delayIncrement;
+            }
+        }
+        else { // iterate regularly through key for 'Classic' and 'Crazy' modes
+            for (int k : madGrid.getKey()) {
+                // handler object prevents simultaneous grid animations
+                handler.postDelayed(() -> toBounce(k), delay);
+                delay += delayIncrement;
+            }
         }
 
         // handler object delays change of value of 'isPlaying' until whole sequence is displayed
@@ -203,18 +215,10 @@ public class GameActivity extends AppCompatActivity {
      * @param buttonIndex - index of target button
      */
     private void toBounce(int buttonIndex) {
-        // initialization
         int buttonID = determineButtonID(buttonIndex);
-        Button button = (Button)findViewById(buttonID);
-        Animation animation;
+        Button button = (Button) findViewById(buttonID);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
         BounceInterpolator bounceInterpolator = new BounceInterpolator(0.2, 20);
-
-        // animation speed is higher in 'Expert' mode
-        if (madGrid.getMode().equals("Expert")) {
-            animation = AnimationUtils.loadAnimation(this, R.anim.bounce_fast);
-        } else {
-            animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        }
         animation.setInterpolator(bounceInterpolator);
         button.startAnimation(animation);
     }

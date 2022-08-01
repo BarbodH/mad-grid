@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/drawable/game_control_button.xml" value="0.287" />
         <entry key="app/src/main/res/drawable/grid_background.xml" value="0.1965" />
         <entry key="app/src/main/res/drawable/grid_button_background.xml" value="0.1965" />
+        <entry key="app/src/main/res/drawable/grid_button_background_inactive.xml" value="0.287" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1965" />
         <entry key="app/src/main/res/drawable/round_back_night_mode.xml" value="0.211" />
         <entry key="app/src/main/res/drawable/round_back_white10_20.xml" value="0.211" />
@@ -18,7 +19,7 @@
         <entry key="app/src/main/res/drawable/settings_background_game_icon.xml" value="0.1645" />
         <entry key="app/src/main/res/layout/activity_credits.xml" value="0.17065868263473055" />
         <entry key="app/src/main/res/layout/activity_description.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/activity_game.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_game.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_results.xml" value="0.39719202898550726" />
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.33" />
