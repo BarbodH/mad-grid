@@ -19,7 +19,7 @@ public class MadGrid {
 
     /**
      * Constructor initializing MadGrid class instance in GameActivity
-     * Precondition(s): 'stringMode' is either equal to 'Classic', 'Difficult', or 'Expert'
+     * Precondition(s): 'stringMode' is either equal to 'Classic', 'Reverse', or 'Crazy'
      * Postcondition(s): MadGrid object is initialized with a key and given mode
      * @param stringMode - game mode (string version)
      * @param highestScore - highest score of current game mode
@@ -33,7 +33,7 @@ public class MadGrid {
 
     /**
      * Multi-parameter constructor intended for testing
-     * Precondition(s): 'stringMode' is either equal to 'Classic', 'Difficult', or 'Expert'
+     * Precondition(s): 'stringMode' is either equal to 'Classic', 'Reverse', or 'Crazy'
      *                  'score' and 'highestScore' are non-negative integers
      *                  'length' is a positive integer
      * Postcondition(s): MadGrid object is initialized with given parameters
@@ -57,16 +57,28 @@ public class MadGrid {
 
     /**
      * Adds new integers to the key depending on game mode
-     * Precondition(s): 'stringMode' is already initialized as 'Classic', 'Difficult', or 'Expert'
-     * Postcondition(s): integer within [1, 4] is added to key
+     * Precondition(s): 'stringMode' is already initialized as 'Classic', 'Reverse', or 'Crazy'
+     * Postcondition(s): integer within [1, 4] is added to the key according to game mode
      */
     public void incrementKey() {
         // initialization
         Random rand = new Random();
-        int increment = stringMode.equals("Classic") ? 1 : stringMode.equals("Difficult") ? 2 : 3;
-        // processing & calculation
-        for (int index = 0; index < increment; index++) {
+
+        // 'Classic' game mode: increment by 1
+        if (this.stringMode.equals("Classic")) {
             this.key.add(rand.nextInt(4) + 1);
+        }
+        // 'Reverse' game mode: increment by 1; reverse key
+        else if (this.stringMode.equals("Reverse")) {
+            this.key.add(0, rand.nextInt(4) + 1);
+        }
+        // 'Crazy' game mode: increment by 1; reset entire key each time
+        else {
+            int newKeyLength = this.key.size() + 1;
+            this.key.clear();
+            for (int index = 0; index < newKeyLength; index++) {
+                key.add(rand.nextInt(4) + 1);
+            }
         }
     }
 

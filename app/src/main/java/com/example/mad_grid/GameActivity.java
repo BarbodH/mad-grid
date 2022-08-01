@@ -7,13 +7,16 @@ import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Vibrator;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class GameActivity extends AppCompatActivity {
     // data variable(s)
@@ -22,12 +25,10 @@ public class GameActivity extends AppCompatActivity {
     private int turnIndex;
     private final Handler handler = new Handler(); // used for delaying executions
     private SoundPlayer soundPlayer;
-    private Vibrator vibrator;
     // data variables associated with settings
     public static final String SHARED_PREFS = "sharedPrefs"; // stores & loads information global in app
     private MediaPlayer mediaPlayer;
     private boolean music;
-    private boolean vibration;
     private boolean sound;
 
     @Override
@@ -37,7 +38,6 @@ public class GameActivity extends AppCompatActivity {
 
         // object initializations
         soundPlayer = new SoundPlayer(this);
-        vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
 
         // retrieve game mode from MainActivity/ResultsActivity
         Intent intent = getIntent();
@@ -58,8 +58,32 @@ public class GameActivity extends AppCompatActivity {
             mediaPlayer.start();
         }
 
+        // adjust grid dimensions dynamically according to device dimensions
+        adjustGridDimensions();
+
         // start game
         initializeNewTurn();
+    }
+
+    /**
+     * Adjusts grid dimensions dynamically according to device dimensions
+     * Precondition(s): none
+     * Postcondition(s): Grid width & height are set to 95% of the device's width/height (whichever is smaller)
+     */
+    private void adjustGridDimensions() {
+        // initialization
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        // smaller dimension (width/height) should be used, in case of a tablet
+        int madGrid_dimension = (int) ((Math.min(displayMetrics.widthPixels, displayMetrics.heightPixels)) * 0.95);
+
+        // set adjusted dimension size to gridLayout
+        View view = findViewById(R.id.gridLayout);
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        layoutParams.width = madGrid_dimension;
+        layoutParams.height = madGrid_dimension;
+        view.setLayoutParams(layoutParams);
     }
 
     /**
@@ -123,13 +147,29 @@ public class GameActivity extends AppCompatActivity {
         // initialization
         this.isPlaying = false;
         int delay = 750;
-        int delayIncrement = madGrid.getMode().equals("Expert") ? 300 : 750;
+        final int delayIncrement = 750;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                deactivateButtons(); // turn off button feedback to user
+            }
+        }, 450);
 
         // start display of sequence
-        for (int k : madGrid.getKey()) {
-            // handler object prevents simultaneous grid animations
-            handler.postDelayed(() -> toBounce(k), delay);
-            delay += delayIncrement;
+        if (madGrid.getMode().equals("Reverse")) { // iterate backwards through key for 'Reverse' mode
+            for (int index = madGrid.getKey().size() - 1; index >= 0; index--) {
+                int item = madGrid.getKey().get(index);
+                // handler object prevents simultaneous grid animations
+                handler.postDelayed(() -> toBounce(item), delay);
+                delay += delayIncrement;
+            }
+        }
+        else { // iterate regularly through key for 'Classic' and 'Crazy' modes
+            for (int k : madGrid.getKey()) {
+                // handler object prevents simultaneous grid animations
+                handler.postDelayed(() -> toBounce(k), delay);
+                delay += delayIncrement;
+            }
         }
 
         // handler object delays change of value of 'isPlaying' until whole sequence is displayed
@@ -137,9 +177,35 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void run() {
                 GameActivity.this.isPlaying = true;
-                Toast.makeText(GameActivity.this, "Start your turn!", Toast.LENGTH_SHORT).show();
+                activateButtons(); // turn on button feedback to user
             }
         }, delay);
+    }
+
+    /**
+     * Helper method to activate button feedback to user when game is ongoing ('isPlaying' = true)
+     * Precondition(s): none
+     * Postcondition(s): buttons' background becomes lighter with ripple effect
+     */
+    private void activateButtons() {
+        for (int index = 1; index <= 4; index++) {
+            int id = determineButtonID(index);
+            View view = findViewById(id);
+            view.setBackgroundResource(R.drawable.grid_button_background);
+        }
+    }
+
+    /**
+     * Helper method to deactivate button feedback to user during sequence display ('isPlaying' = false)
+     * Precondition(s): none
+     * Postcondition(s): buttons' background becomes darker without ripple effect
+     */
+    private void deactivateButtons() {
+        for (int index = 1; index <= 4; index++) {
+            int id = determineButtonID(index);
+            View view = findViewById(id);
+            view.setBackgroundResource(R.drawable.grid_button_background_inactive);
+        }
     }
 
     /**
@@ -149,18 +215,10 @@ public class GameActivity extends AppCompatActivity {
      * @param buttonIndex - index of target button
      */
     private void toBounce(int buttonIndex) {
-        // initialization
         int buttonID = determineButtonID(buttonIndex);
-        Button button = (Button)findViewById(buttonID);
-        Animation animation;
+        Button button = (Button) findViewById(buttonID);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
         BounceInterpolator bounceInterpolator = new BounceInterpolator(0.2, 20);
-
-        // animation speed is higher in 'Expert' mode
-        if (madGrid.getMode().equals("Expert")) {
-            animation = AnimationUtils.loadAnimation(this, R.anim.bounce_fast);
-        } else {
-            animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        }
         animation.setInterpolator(bounceInterpolator);
         button.startAnimation(animation);
     }
@@ -287,7 +345,6 @@ public class GameActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         // variables are loaded with default value of 'false'
         this.music = sharedPreferences.getBoolean("Music", false);
-        this.vibration = sharedPreferences.getBoolean("Vibration", false);
         this.sound = sharedPreferences.getBoolean("Sound", false);
     }
 
