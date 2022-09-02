@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -15,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -52,8 +54,8 @@ public class GameActivity extends AppCompatActivity {
 
         // start background music only if music is enabled
         loadSettings();
+        mediaPlayer = MediaPlayer.create(GameActivity.this, R.raw.background_music);
         if (this.music) {
-            mediaPlayer = MediaPlayer.create(GameActivity.this, R.raw.background_music);
             mediaPlayer.setLooping(true);
             mediaPlayer.start();
         }
