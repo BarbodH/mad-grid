@@ -27,8 +27,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:fontFamily="@font/ibm_plex_sans_bold"
             android:text="Credits"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF "
             android:textSize="18sp"
             android:textStyle="bold" />
     </RelativeLayout>
@@ -37,11 +38,12 @@
         android:id="@+id/creditsText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/ibm_plex_sans_medium"
         android:gravity="center|top"
+        android:lineSpacingMultiplier="1.5"
         android:text="@string/credits"
         android:textColor="#000000"
         android:textSize="16sp"
-        android:lineSpacingMultiplier="1.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mad-Grid</string>
+    <string name="app_name">Mad Grid</string>
     <string name="homepage_start">Start Game</string>
     <string name="homepage_description">Description</string>
     <string name="button_settings">Settings</string>
