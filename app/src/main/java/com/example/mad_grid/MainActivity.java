@@ -45,6 +45,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Opens guide page
+     * Precondition(s): none
+     * Postcondition(s): GuideActivity is started
+     */
+    public void openGuide(View view) {
+        Intent intent = new Intent(this, GuideActivity.class);
+        startActivity(intent);
+    }
+
+    /**
      * opens settings page
      * Precondition(s): none
      * Postcondition(s): SettingsActivity is started
