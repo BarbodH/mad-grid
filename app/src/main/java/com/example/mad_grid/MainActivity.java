@@ -34,20 +34,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * opens description page
-     * Precondition(s): none
-     * Postcondition(s): DescriptionActivity is started
-     * @param view - user interface
-     */
-    public void openDescription(View view) {
-        Intent intent = new Intent(this, DescriptionActivity.class);
-        startActivity(intent);
-    }
-
-    /**
-     * Opens guide page
+     * opens guide page
      * Precondition(s): none
      * Postcondition(s): GuideActivity is started
+     * @param view - user interface
      */
     public void openGuide(View view) {
         Intent intent = new Intent(this, GuideActivity.class);

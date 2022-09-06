@@ -23,12 +23,6 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DescriptionActivity"
-            android:exported="false"
-            android:label="Description"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".SettingsActivity"
             android:exported="false"
             android:label="Settings"
