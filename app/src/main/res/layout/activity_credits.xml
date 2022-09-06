@@ -21,6 +21,7 @@
             android:layout_height="50dp"
             android:onClick="returnToSettings"
             android:padding="14dp"
+            android:contentDescription="@string/menu_back_button"
             android:src="@drawable/back_btn" />
 
         <TextView
@@ -28,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/ibm_plex_sans_bold"
-            android:text="Credits"
+            android:text="@string/settings_credits"
             android:textColor="#FFFFFF "
             android:textSize="18sp"
             android:textStyle="bold" />

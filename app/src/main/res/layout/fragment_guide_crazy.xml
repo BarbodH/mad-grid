@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/guide_fragment_crazy"
-        android:text="Tap to watch demonstration."
+        android:text="@string/guide_watch_demonstration"
         android:fontFamily="@font/ibm_plex_sans_medium"
         android:textColor="#000000"
         android:layout_marginHorizontal="20dp" />
@@ -62,7 +62,8 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:id="@+id/guide_inactive_icon_crazy"
-                android:background="@drawable/guide_grid_background_inactive" />
+                android:background="@drawable/guide_grid_background_inactive"
+                android:contentDescription="@string/guide_inactive_icon" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -71,7 +72,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_toEndOf="@+id/guide_inactive_icon_crazy"
                 android:fontFamily="@font/ibm_plex_sans_medium"
-                android:text="Watch and memorize sequence"
+                android:text="@string/guide_inactive_button"
                 android:textColor="#000000"
                 android:textStyle="bold" />
 
@@ -86,7 +87,8 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:id="@+id/guide_active_icon_crazy"
-                android:background="@drawable/guide_grid_background_active" />
+                android:background="@drawable/guide_grid_background_active"
+                android:contentDescription="@string/guide_active_icon" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -95,7 +97,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_toEndOf="@+id/guide_active_icon_crazy"
                 android:fontFamily="@font/ibm_plex_sans_medium"
-                android:text="Replicate the displayed sequence"
+                android:text="@string/guide_active_button"
                 android:textColor="#000000"
                 android:textStyle="bold" />
 
@@ -103,41 +105,36 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/guide_description_2_crazy"
         android:background="@drawable/settings_background_game"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/guide_description_1_crazy"
         android:layout_margin="15dp"
+        android:padding="10dp"
         android:orientation="vertical" >
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/guide_special_note_icon_crazy"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/guide_hint_icon"
+            android:padding="8dp"
+            android:contentDescription="@string/guide_hint_icon"/>
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            android:layout_centerInParent="true"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/guide_special_note_icon_crazy"
+            android:fontFamily="@font/ibm_plex_sans_medium"
+            android:text="@string/guide_crazy"
+            android:textColor="#000000"
+            android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/guide_special_note_icon_crazy"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/guide_hint_icon"
-                android:padding="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="20dp"
-                android:layout_toEndOf="@+id/guide_special_note_icon_crazy"
-                android:fontFamily="@font/ibm_plex_sans_medium"
-                android:text="Sequence completely resets in each level"
-                android:textColor="#000000"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
