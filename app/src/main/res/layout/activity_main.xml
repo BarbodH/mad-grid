@@ -72,8 +72,8 @@
         android:layout_marginEnd="64dp"
         android:backgroundTint="#2E2EFF"
         android:fontFamily="@font/ibm_plex_sans_semibold"
-        android:onClick="openDescription"
-        android:text="@string/homepage_description"
+        android:onClick="openGuide"
+        android:text="@string/guide_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homepageStartButton" />

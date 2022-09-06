@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MadGrid">
         <activity
+            android:name=".GuideActivity"
+            android:exported="false" />
+        <activity
             android:name=".CreditsActivity"
             android:exported="false" />
         <activity
@@ -20,21 +23,16 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DescriptionActivity"
-            android:exported="false"
-            android:label="Description"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".SettingsActivity"
             android:exported="false"
             android:label="Settings"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:theme="@style/Theme.AppCompat.NoActionBar"
+        <activity
             android:name=".GameActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

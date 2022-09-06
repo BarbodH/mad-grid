@@ -10,4 +10,7 @@
 
     <color name="cyan_settings_icon">#5CFFFF</color>
     <color name="settings_bar">#2E2EFF</color>
+
+    <color name="game_button_inactive">#0047AB</color>
+    <color name="game_button_active">#1F51FF</color>
 </resources>
