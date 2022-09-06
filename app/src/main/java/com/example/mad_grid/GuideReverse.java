@@ -43,13 +43,13 @@ public class GuideReverse extends Fragment {
     /**
      * onPause() method is called when user exits current fragment
      * Precondition(s): none
-     * Postcondition(s): ____________________
+     * Postcondition(s): demonstration video and progress bar are both reset
      */
     @Override
     public void onPause() {
         super.onPause();
 
-        VideoView videoView = (VideoView) getView().findViewById(R.id.guide_fragment_video_reverse);
+        VideoView videoView = (VideoView) Objects.requireNonNull(getView()).findViewById(R.id.guide_fragment_video_reverse);
         String path = "android.resource://" + Objects.requireNonNull(getActivity()).getPackageName() + "/" + R.raw.guide_video_reverse;
         videoView.setVideoURI(Uri.parse(path));
         videoView.pause();

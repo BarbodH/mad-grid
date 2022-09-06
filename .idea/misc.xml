@@ -10,6 +10,9 @@
         <entry key="app/src/main/res/drawable/grid_background.xml" value="0.1965" />
         <entry key="app/src/main/res/drawable/grid_button_background.xml" value="0.1965" />
         <entry key="app/src/main/res/drawable/grid_button_background_inactive.xml" value="0.287" />
+        <entry key="app/src/main/res/drawable/guide_background_dark_blue.xml" value="0.279" />
+        <entry key="app/src/main/res/drawable/guide_grid_background_active.xml" value="0.279" />
+        <entry key="app/src/main/res/drawable/guide_grid_background_inactive.xml" value="0.279" />
         <entry key="app/src/main/res/drawable/guide_progressbar.xml" value="0.279" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1965" />
         <entry key="app/src/main/res/drawable/results_menu_background.xml" value="0.279" />
@@ -26,8 +29,8 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_results.xml" value="0.39719202898550726" />
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_guide_classic.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_guide_crazy.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_guide_classic.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_guide_crazy.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_guide_reverse.xml" value="0.4036458333333333" />
       </map>
     </option>

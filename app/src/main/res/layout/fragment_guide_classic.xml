@@ -21,33 +21,84 @@
             android:id="@+id/guide_fragment_video_classic"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="5dp" />
+            android:layout_margin="15dp" />
 
         <FrameLayout
             android:id="@+id/placeholder_classic_guide_video_thumbnail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="5dp"
+            android:layout_margin="15dp"
             android:background="@drawable/guide_video_thumbnail" />
 
     </FrameLayout>
 
-    <ProgressBar
-        android:id="@+id/guide_progressbar_classic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:progressDrawable="@drawable/guide_progressbar"
-        app:layout_constraintTop_toBottomOf="@id/guide_fragment_classic"
-        android:layout_marginHorizontal="10dp" />
-
     <TextView
+        android:id="@+id/guide_video_caption_classic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/guide_progressbar_classic"
+        app:layout_constraintTop_toBottomOf="@id/guide_fragment_classic"
         android:text="Tap to watch demonstration."
         android:fontFamily="@font/ibm_plex_sans_medium"
         android:textColor="#000000"
-        android:layout_marginHorizontal="10dp" />
+        android:layout_marginHorizontal="20dp" />
+
+    <LinearLayout
+        android:id="@+id/guide_description_1_classic"
+        android:background="@drawable/settings_background_game"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/guide_video_caption_classic"
+        android:layout_margin="15dp"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/guide_inactive_icon_classic"
+                android:background="@drawable/guide_grid_background_inactive" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@+id/guide_inactive_icon_classic"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="Watch and memorize sequence"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/guide_active_icon_classic"
+                android:background="@drawable/guide_grid_background_active" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@+id/guide_active_icon_classic"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="Replicate the displayed sequence"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
