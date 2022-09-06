@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,14 +17,15 @@
             android:layout_height="50dp"
             android:onClick="returnHome"
             android:padding="14dp"
-            android:src="@drawable/back_btn" />
+            android:src="@drawable/back_btn"
+            android:contentDescription="@string/menu_back_button" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/ibm_plex_sans_bold"
-            android:text="@string/settings_title"
+            android:text="@string/menu_settings"
             android:textColor="#FFFFFF "
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -55,7 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ibm_plex_sans_semibold"
-                    android:text="Game"
+                    android:text="@string/settings_title_game"
                     android:textColor="#000000"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -66,12 +66,13 @@
                     android:layout_marginTop="20dp" >
 
                     <ImageView
+                        android:id="@+id/settingsMusicIcon"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:id="@+id/settingsMusicIcon"
-                        android:src="@drawable/settings_music_icon"
                         android:background="@drawable/settings_background_game_icon"
-                        android:padding="8dp" />
+                        android:padding="8dp"
+                        android:src="@drawable/settings_music_icon"
+                        android:contentDescription="@string/settings_music_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -80,7 +81,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_toEndOf="@+id/settingsMusicIcon"
                         android:fontFamily="@font/ibm_plex_sans_medium"
-                        android:text="Music"
+                        android:text="@string/settings_music"
                         android:textColor="#000000"
                         android:textStyle="bold" />
 
@@ -100,12 +101,13 @@
                     android:layout_marginTop="20dp" >
 
                     <ImageView
+                        android:id="@+id/settingsVibrationIcon"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:id="@+id/settingsVibrationIcon"
-                        android:src="@drawable/settings_vibration_icon"
                         android:background="@drawable/settings_background_game_icon"
-                        android:padding="8dp" />
+                        android:padding="8dp"
+                        android:src="@drawable/settings_vibration_icon"
+                        android:contentDescription="@string/settings_vibration_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -114,7 +116,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_toEndOf="@+id/settingsVibrationIcon"
                         android:fontFamily="@font/ibm_plex_sans_medium"
-                        android:text="Vibration"
+                        android:text="@string/settings_vibration"
                         android:textColor="#000000"
                         android:textStyle="bold" />
 
@@ -134,12 +136,13 @@
                     android:layout_marginTop="20dp" >
 
                     <ImageView
+                        android:id="@+id/settingsSoundIcon"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:id="@+id/settingsSoundIcon"
-                        android:src="@drawable/settings_sound_icon"
                         android:background="@drawable/settings_background_game_icon"
-                        android:padding="8dp" />
+                        android:padding="8dp"
+                        android:src="@drawable/settings_sound_icon"
+                        android:contentDescription="@string/settings_sound_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -148,7 +151,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_toEndOf="@+id/settingsSoundIcon"
                         android:fontFamily="@font/ibm_plex_sans_medium"
-                        android:text="Sound"
+                        android:text="@string/settings_sound"
                         android:textColor="#000000"
                         android:textStyle="bold" />
 
@@ -178,7 +181,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ibm_plex_sans_semibold"
-                    android:text="Social"
+                    android:text="@string/settings_title_social"
                     android:textColor="#000000"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -189,12 +192,13 @@
                     android:layout_marginTop="20dp" >
 
                     <ImageView
+                        android:id="@+id/settingsRateIcon"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:id="@+id/settingsRateIcon"
-                        android:src="@drawable/settings_rate_icon"
                         android:background="@drawable/settings_background_game_icon"
-                        android:padding="8dp" />
+                        android:padding="8dp"
+                        android:src="@drawable/settings_rate_icon"
+                        android:contentDescription="@string/settings_rate_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -203,17 +207,18 @@
                         android:layout_marginStart="20dp"
                         android:layout_toEndOf="@+id/settingsRateIcon"
                         android:fontFamily="@font/ibm_plex_sans_medium"
-                        android:text="Rate on Google Play"
+                        android:text="@string/settings_rate"
                         android:textColor="#000000"
                         android:textStyle="bold" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/settings_arrow_icon"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:onClick="openGooglePlay"/>
+                        android:onClick="openGooglePlay"
+                        android:src="@drawable/settings_arrow_icon"
+                        android:contentDescription="@string/settings_open_page_icon" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -227,7 +232,8 @@
                         android:id="@+id/settingsGitHubIcon"
                         android:src="@drawable/settings_github_icon"
                         android:background="@drawable/settings_background_game_icon"
-                        android:padding="8dp" />
+                        android:padding="8dp"
+                        android:contentDescription="@string/settings_github_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -236,17 +242,18 @@
                         android:layout_marginStart="20dp"
                         android:layout_toEndOf="@+id/settingsGitHubIcon"
                         android:fontFamily="@font/ibm_plex_sans_medium"
-                        android:text="View on GitHub"
+                        android:text="@string/settings_github"
                         android:textColor="#000000"
                         android:textStyle="bold" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/settings_arrow_icon"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:onClick="openGitHub"/>
+                        android:onClick="openGitHub"
+                        android:src="@drawable/settings_arrow_icon"
+                        android:contentDescription="@string/settings_open_page_icon" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -260,7 +267,8 @@
                         android:id="@+id/settingsCreditIcon"
                         android:src="@drawable/settings_credits_icon"
                         android:background="@drawable/settings_background_game_icon"
-                        android:padding="8dp" />
+                        android:padding="8dp"
+                        android:contentDescription="@string/settings_credits_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -269,17 +277,18 @@
                         android:layout_marginStart="20dp"
                         android:layout_toEndOf="@+id/settingsCreditIcon"
                         android:fontFamily="@font/ibm_plex_sans_medium"
-                        android:text="Credits"
+                        android:text="@string/settings_credits"
                         android:textColor="#000000"
                         android:textStyle="bold" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/settings_arrow_icon"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:onClick="openCredits"/>
+                        android:onClick="openCredits"
+                        android:src="@drawable/settings_arrow_icon"
+                        android:contentDescription="@string/settings_open_page_icon" />
                 </RelativeLayout>
 
             </LinearLayout>
