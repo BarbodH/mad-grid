@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
      * Postcondition(s): game mode display is updated
      */
     private void updateModeDisplay() {
-        ((TextView)findViewById(R.id.homepage_mode)).setText(modeStrings[this.mode]);
+        ((TextView)findViewById(R.id.homepage_text_mode)).setText(modeStrings[this.mode]);
     }
 
     /**

@@ -8,6 +8,7 @@
     tools:context=".ResultsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/results_constraint_layout_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/results_menu_background"
@@ -17,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/results_titleText"
+            android:id="@+id/results_text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
@@ -32,7 +33,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/results_highestPlaceholder"
+            android:id="@+id/results_text_placeholder_highest_score_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/ibm_plex_sans_medium"
@@ -40,10 +41,10 @@
             android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/results_titleText" />
+            app:layout_constraintTop_toBottomOf="@+id/results_text_title" />
 
         <Button
-            android:id="@+id/results_homeButton"
+            android:id="@+id/results_button_home"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#2E2EFF"
@@ -51,15 +52,15 @@
             android:onClick="openHome"
             android:text="@string/menu_home"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/results_settingsButton"
-            app:layout_constraintEnd_toStartOf="@+id/results_resetButton"
+            app:layout_constraintBottom_toBottomOf="@+id/results_button_settings"
+            app:layout_constraintEnd_toStartOf="@+id/results_button_reset"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/results_settingsButton"
-            app:layout_constraintTop_toTopOf="@+id/results_settingsButton"
+            app:layout_constraintStart_toEndOf="@+id/results_button_settings"
+            app:layout_constraintTop_toTopOf="@+id/results_button_settings"
             app:layout_constraintVertical_bias="1.0" />
 
         <Button
-            android:id="@+id/results_resetButton"
+            android:id="@+id/results_button_reset"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -69,15 +70,15 @@
             android:onClick="openGame"
             android:text="@string/menu_reset"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/results_homeButton"
+            app:layout_constraintBottom_toBottomOf="@+id/results_button_home"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/results_homeButton"
-            app:layout_constraintTop_toTopOf="@+id/results_homeButton"
+            app:layout_constraintStart_toEndOf="@+id/results_button_home"
+            app:layout_constraintTop_toTopOf="@+id/results_button_home"
             app:layout_constraintVertical_bias="1.0" />
 
         <Button
-            android:id="@+id/results_settingsButton"
+            android:id="@+id/results_button_settings"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -90,13 +91,13 @@
             android:text="@string/menu_settings"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/results_homeButton"
+            app:layout_constraintEnd_toStartOf="@+id/results_button_home"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/results_highestText" />
+            app:layout_constraintTop_toBottomOf="@+id/results_text_highest" />
 
         <TextView
-            android:id="@+id/results_highestText"
+            android:id="@+id/results_text_highest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -104,27 +105,27 @@
             android:text="@string/results_highest"
             android:textColor="#000000"
             android:textSize="24sp"
-            app:layout_constraintEnd_toStartOf="@+id/results_highestValue"
+            app:layout_constraintEnd_toStartOf="@+id/results_text_placeholder_highest_value"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/results_scoreText" />
+            app:layout_constraintTop_toBottomOf="@+id/results_text_score" />
 
         <TextView
-            android:id="@+id/results_highestValue"
+            android:id="@+id/results_text_placeholder_highest_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/ibm_plex_sans_medium"
             android:text="@string/placeholder_score"
             android:textColor="#242449"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/results_highestText"
+            app:layout_constraintBottom_toBottomOf="@+id/results_text_highest"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/results_highestText"
-            app:layout_constraintTop_toTopOf="@+id/results_highestText" />
+            app:layout_constraintStart_toEndOf="@+id/results_text_highest"
+            app:layout_constraintTop_toTopOf="@+id/results_text_highest" />
 
         <TextView
-            android:id="@+id/results_scoreText"
+            android:id="@+id/results_text_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -132,20 +133,20 @@
             android:text="@string/results_score"
             android:textColor="#000000"
             android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="@+id/results_highestText"
-            app:layout_constraintTop_toBottomOf="@+id/results_highestPlaceholder" />
+            app:layout_constraintStart_toStartOf="@+id/results_text_highest"
+            app:layout_constraintTop_toBottomOf="@+id/results_text_placeholder_highest_score_message" />
 
         <TextView
-            android:id="@+id/results_scoreValue"
+            android:id="@+id/results_text_placeholder_score_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/ibm_plex_sans_medium"
             android:text="@string/placeholder_score"
             android:textColor="#242449"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/results_scoreText"
-            app:layout_constraintEnd_toEndOf="@+id/results_highestValue"
-            app:layout_constraintTop_toTopOf="@+id/results_scoreText" />
+            app:layout_constraintBottom_toBottomOf="@+id/results_text_score"
+            app:layout_constraintEnd_toEndOf="@+id/results_text_placeholder_highest_value"
+            app:layout_constraintTop_toTopOf="@+id/results_text_score" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

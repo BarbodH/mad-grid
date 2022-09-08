@@ -23,11 +23,11 @@ public class GuideCrazy extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_guide_crazy, container, false);
 
-        VideoView videoView = (VideoView) rootView.findViewById(R.id.guide_fragment_video_crazy);
+        VideoView videoView = (VideoView) rootView.findViewById(R.id.guide_fragment_crazy_video);
         String path = "android.resource://" + Objects.requireNonNull(getActivity()).getPackageName() + "/" + R.raw.guide_video_crazy;
         videoView.setVideoURI(Uri.parse(path));
 
-        FrameLayout frameLayout = (FrameLayout) rootView.findViewById(R.id.placeholder_crazy_guide_video_thumbnail);
+        FrameLayout frameLayout = (FrameLayout) rootView.findViewById(R.id.guide_fragment_crazy_frame_layout);
 
         frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +49,7 @@ public class GuideCrazy extends Fragment {
     public void onPause() {
         super.onPause();
 
-        VideoView videoView = (VideoView) Objects.requireNonNull(getView()).findViewById(R.id.guide_fragment_video_crazy);
+        VideoView videoView = (VideoView) Objects.requireNonNull(getView()).findViewById(R.id.guide_fragment_crazy_video);
         String path = "android.resource://" + Objects.requireNonNull(getActivity()).getPackageName() + "/" + R.raw.guide_video_crazy;
         videoView.setVideoURI(Uri.parse(path));
         videoView.pause();

@@ -22,7 +22,7 @@ public class GuideActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
 
-        tabLayout = findViewById(R.id.guide_navbar);
+        tabLayout = findViewById(R.id.guide_tab_layout_navbar);
         viewpager = findViewById(R.id.guide_viewpager);
 
         tabLayout.setupWithViewPager(viewpager);

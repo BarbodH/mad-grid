@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/homepage_mode"
+        android:id="@+id/homepage_text_mode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -19,12 +19,12 @@
         android:textColor="#000000"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/homepageStartButton"
-        app:layout_constraintEnd_toStartOf="@+id/homepageIncreaseDifficulty"
-        app:layout_constraintStart_toEndOf="@+id/homepageDecreaseDifficulty" />
+        app:layout_constraintBottom_toTopOf="@+id/homepage_button_start"
+        app:layout_constraintEnd_toStartOf="@+id/homepage_image_switch_right"
+        app:layout_constraintStart_toEndOf="@+id/homepage_image_switch_left" />
 
     <ImageButton
-        android:id="@+id/homepageDecreaseDifficulty"
+        android:id="@+id/homepage_image_switch_left"
         android:contentDescription="@string/menu_mode_left"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -32,12 +32,12 @@
         android:layout_marginBottom="48dp"
         android:onClick="decreaseDifficulty"
         android:src="@drawable/chevron_left"
-        app:layout_constraintBottom_toTopOf="@+id/homepageStartButton"
+        app:layout_constraintBottom_toTopOf="@+id/homepage_button_start"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
-        android:id="@+id/homepageIncreaseDifficulty"
+        android:id="@+id/homepage_image_switch_right"
         android:contentDescription="@string/menu_mode_right"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -45,12 +45,12 @@
         android:layout_marginBottom="48dp"
         android:onClick="increaseDifficulty"
         android:src="@drawable/chevron_right"
-        app:layout_constraintBottom_toTopOf="@+id/homepageStartButton"
+        app:layout_constraintBottom_toTopOf="@+id/homepage_button_start"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
-        android:id="@+id/homepageStartButton"
+        android:id="@+id/homepage_button_start"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
@@ -66,7 +66,7 @@
         app:layout_constraintVertical_bias="0.42000002" />
 
     <Button
-        android:id="@+id/homepageRulesButton"
+        android:id="@+id/homepage_button_guide"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
@@ -78,10 +78,10 @@
         android:text="@string/menu_guide"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homepageStartButton" />
+        app:layout_constraintTop_toBottomOf="@+id/homepage_button_start" />
 
     <Button
-        android:id="@+id/homepageSettingsButton"
+        android:id="@+id/homepage_button_settings"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
@@ -93,6 +93,6 @@
         android:text="@string/menu_settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homepageRulesButton" />
+        app:layout_constraintTop_toBottomOf="@+id/homepage_button_guide" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

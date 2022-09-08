@@ -42,9 +42,9 @@ public class SettingsActivity extends AppCompatActivity {
      * Postcondition(s): Switches are checked/unchecked according to loaded boolean settings in Shared Preferences
      */
     private void updateSettingsView() {
-        ((SwitchCompat) findViewById(R.id.settingsMusicSwitch)).setChecked(this.music);
-        ((SwitchCompat) findViewById(R.id.settingsVibrationSwitch)).setChecked(this.vibration);
-        ((SwitchCompat) findViewById(R.id.settingsSoundSwitch)).setChecked(this.sound);
+        ((SwitchCompat) findViewById(R.id.settings_switch_music)).setChecked(this.music);
+        ((SwitchCompat) findViewById(R.id.settings_switch_vibration)).setChecked(this.vibration);
+        ((SwitchCompat) findViewById(R.id.settings_switch_sound)).setChecked(this.sound);
     }
 
     /**
@@ -57,9 +57,9 @@ public class SettingsActivity extends AppCompatActivity {
         // save settings
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        boolean musicOn = ((SwitchCompat) findViewById(R.id.settingsMusicSwitch)).isChecked();
-        boolean VibrationOn = ((SwitchCompat) findViewById(R.id.settingsVibrationSwitch)).isChecked();
-        boolean soundOn = ((SwitchCompat) findViewById(R.id.settingsSoundSwitch)).isChecked();
+        boolean musicOn = ((SwitchCompat) findViewById(R.id.settings_switch_music)).isChecked();
+        boolean VibrationOn = ((SwitchCompat) findViewById(R.id.settings_switch_vibration)).isChecked();
+        boolean soundOn = ((SwitchCompat) findViewById(R.id.settings_switch_sound)).isChecked();
         editor.putBoolean("Music", musicOn);
         editor.putBoolean("Vibration", VibrationOn);
         editor.putBoolean("Sound", soundOn);

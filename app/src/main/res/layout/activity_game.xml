@@ -8,7 +8,7 @@
     tools:context=".GameActivity">
 
     <TextView
-        android:id="@+id/game_mode"
+        android:id="@+id/game_text_mode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -19,12 +19,12 @@
         android:textColor="#000000"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        app:layout_constraintBottom_toTopOf="@+id/game_grid_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <GridLayout
-        android:id="@+id/gridLayout"
+        android:id="@+id/game_grid_layout"
         android:layout_width="400dp"
         android:layout_height="400dp"
         android:layout_margin="10sp"
@@ -39,7 +39,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/game_box1"
+            android:id="@+id/game_button_box_1"
             android:background="@drawable/grid_button_background_inactive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
             android:textSize="34sp" />
 
         <Button
-            android:id="@+id/game_box2"
+            android:id="@+id/game_button_box_2"
             android:background="@drawable/grid_button_background_inactive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
             android:textSize="24sp" />
 
         <Button
-            android:id="@+id/game_box3"
+            android:id="@+id/game_button_box_3"
             android:background="@drawable/grid_button_background_inactive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
             android:textSize="24sp" />
 
         <Button
-            android:id="@+id/game_box4"
+            android:id="@+id/game_button_box_4"
             android:background="@drawable/grid_button_background_inactive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
     </GridLayout>
 
     <Button
-        android:id="@+id/game_reset_button"
+        android:id="@+id/game_button_reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -118,7 +118,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/game_home_button"
+        android:id="@+id/game_button_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -132,7 +132,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/game_scoreText"
+        android:id="@+id/game_text_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -142,12 +142,12 @@
         android:text="@string/results_score"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/game_score"
+        app:layout_constraintBottom_toBottomOf="@+id/game_text_placeholder_score_value"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/game_score" />
+        app:layout_constraintTop_toTopOf="@+id/game_text_placeholder_score_value" />
 
     <TextView
-        android:id="@+id/game_score"
+        android:id="@+id/game_text_placeholder_score_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -157,12 +157,12 @@
         android:text="@string/placeholder_score"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
-        app:layout_constraintStart_toEndOf="@+id/game_scoreText"
+        app:layout_constraintBottom_toTopOf="@+id/game_grid_layout"
+        app:layout_constraintStart_toEndOf="@+id/game_text_score"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/game_highestText"
+        android:id="@+id/game_text_highest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -172,10 +172,10 @@
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/game_scoreText" />
+        app:layout_constraintTop_toBottomOf="@+id/game_text_score" />
 
     <TextView
-        android:id="@+id/game_highest"
+        android:id="@+id/game_text_placeholder_highest_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -184,7 +184,7 @@
         android:text="@string/placeholder_score"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/game_highestText"
-        app:layout_constraintTop_toBottomOf="@+id/game_score" />
+        app:layout_constraintStart_toEndOf="@+id/game_text_highest"
+        app:layout_constraintTop_toBottomOf="@+id/game_text_placeholder_score_value" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

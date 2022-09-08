@@ -24,15 +24,15 @@ public class ResultsActivity extends AppCompatActivity {
         boolean isHighest = intent.getBooleanExtra("isHighest", false);
         this.stringMode = intent.getStringExtra("mode");
 
-        // update results view for user
-        ((TextView)findViewById(R.id.results_scoreValue)).setText(scoreString);
-        ((TextView)findViewById(R.id.results_highestValue)).setText(loadHighestScore());
+        // update results view for user results_scoreValue
+        ((TextView)findViewById(R.id.results_text_placeholder_score_value)).setText(scoreString);
+        ((TextView)findViewById(R.id.results_text_placeholder_highest_value)).setText(loadHighestScore());
         // display congratulations message if new high score is achieved
         if (isHighest) {
             String congratsMessage = String.format("New High Score for %s mode.", this.stringMode);
-            ((TextView)findViewById(R.id.results_highestPlaceholder)).setText(congratsMessage);
+            ((TextView)findViewById(R.id.results_text_placeholder_highest_score_message)).setText(congratsMessage);
         } else {
-            ((TextView)findViewById(R.id.results_highestPlaceholder)).setText("");
+            ((TextView)findViewById(R.id.results_text_placeholder_highest_score_message)).setText("");
         }
     }
 

@@ -8,7 +8,7 @@
     android:background="@drawable/background">
 
     <RelativeLayout
-        android:id="@+id/relativeLayout"
+        android:id="@+id/credits_relative_layout_heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,6 +17,7 @@
         android:translationZ="1dp">
 
         <ImageView
+            android:id="@+id/credits_image_return_icon"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:onClick="returnToSettings"
@@ -25,6 +26,7 @@
             android:src="@drawable/back_btn" />
 
         <TextView
+            android:id="@+id/credits_text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -36,7 +38,7 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/creditsText"
+        android:id="@+id/credits_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/ibm_plex_sans_medium"
@@ -46,6 +48,6 @@
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/credits_relative_layout_heading" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

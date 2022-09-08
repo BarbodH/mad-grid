@@ -19,7 +19,7 @@ public class CreditsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_credits);
 
         // retrieve TextView object & apply credit animations
-        TextView creditsText = (TextView) findViewById(R.id.creditsText);
+        TextView creditsText = (TextView) findViewById(R.id.credits_text);
         Animation creditTextAnimation = AnimationUtils.loadAnimation(this, R.anim.move_vertical);
         creditsText.startAnimation(creditTextAnimation);
     }

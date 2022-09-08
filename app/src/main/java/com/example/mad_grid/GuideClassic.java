@@ -22,11 +22,11 @@ public class GuideClassic extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_guide_classic, container, false);
 
-        VideoView videoView = (VideoView) rootView.findViewById(R.id.guide_fragment_video_classic);
+        VideoView videoView = (VideoView) rootView.findViewById(R.id.guide_fragment_classic_video);
         String path = "android.resource://" + Objects.requireNonNull(getActivity()).getPackageName() + "/" + R.raw.guide_video_classic;
         videoView.setVideoURI(Uri.parse(path));
 
-        FrameLayout frameLayout = (FrameLayout) rootView.findViewById(R.id.placeholder_classic_guide_video_thumbnail);
+        FrameLayout frameLayout = (FrameLayout) rootView.findViewById(R.id.guide_fragment_classic_frame_layout);
 
         frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +48,7 @@ public class GuideClassic extends Fragment {
     public void onPause() {
         super.onPause();
 
-        VideoView videoView = (VideoView) Objects.requireNonNull(getView()).findViewById(R.id.guide_fragment_video_classic);
+        VideoView videoView = (VideoView) Objects.requireNonNull(getView()).findViewById(R.id.guide_fragment_classic_video);
         String path = "android.resource://" + Objects.requireNonNull(getActivity()).getPackageName() + "/" + R.raw.guide_video_classic;
         videoView.setVideoURI(Uri.parse(path));
         videoView.pause();

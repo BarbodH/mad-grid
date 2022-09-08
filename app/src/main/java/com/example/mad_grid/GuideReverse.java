@@ -23,11 +23,11 @@ public class GuideReverse extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_guide_reverse, container, false);
 
-        VideoView videoView = (VideoView) rootView.findViewById(R.id.guide_fragment_video_reverse);
+        VideoView videoView = (VideoView) rootView.findViewById(R.id.guide_fragment_reverse_video);
         String path = "android.resource://" + Objects.requireNonNull(getActivity()).getPackageName() + "/" + R.raw.guide_video_reverse;
         videoView.setVideoURI(Uri.parse(path));
 
-        FrameLayout frameLayout = (FrameLayout) rootView.findViewById(R.id.placeholder_reverse_guide_video_thumbnail);
+        FrameLayout frameLayout = (FrameLayout) rootView.findViewById(R.id.guide_fragment_reverse_frame_layout);
 
         frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +49,7 @@ public class GuideReverse extends Fragment {
     public void onPause() {
         super.onPause();
 
-        VideoView videoView = (VideoView) Objects.requireNonNull(getView()).findViewById(R.id.guide_fragment_video_reverse);
+        VideoView videoView = (VideoView) Objects.requireNonNull(getView()).findViewById(R.id.guide_fragment_reverse_video);
         String path = "android.resource://" + Objects.requireNonNull(getActivity()).getPackageName() + "/" + R.raw.guide_video_reverse;
         videoView.setVideoURI(Uri.parse(path));
         videoView.pause();

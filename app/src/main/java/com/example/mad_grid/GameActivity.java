@@ -44,7 +44,7 @@ public class GameActivity extends AppCompatActivity {
         // retrieve game mode from MainActivity/ResultsActivity
         Intent intent = getIntent();
         String mode = intent.getStringExtra("mode");
-        ((TextView)findViewById(R.id.game_mode)).setText(mode);
+        ((TextView)findViewById(R.id.game_text_mode)).setText(mode);
         // load highest score
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         String stringHighestScore = sharedPreferences.getString(mode, "0");
@@ -81,7 +81,7 @@ public class GameActivity extends AppCompatActivity {
         int madGrid_dimension = (int) ((Math.min(displayMetrics.widthPixels, displayMetrics.heightPixels)) * 0.95);
 
         // set adjusted dimension size to gridLayout
-        View view = findViewById(R.id.gridLayout);
+        View view = findViewById(R.id.game_grid_layout);
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         layoutParams.width = madGrid_dimension;
         layoutParams.height = madGrid_dimension;
@@ -134,9 +134,9 @@ public class GameActivity extends AppCompatActivity {
     private void updateScoreView() {
         madGrid.incrementScore();
         String stringScore = Integer.toString(madGrid.getScore());
-        ((TextView)findViewById(R.id.game_score)).setText(stringScore);
+        ((TextView)findViewById(R.id.game_text_placeholder_score_value)).setText(stringScore);
         if (madGrid.isHighestScore()) {
-            ((TextView)findViewById(R.id.game_highest)).setText(stringScore);
+            ((TextView)findViewById(R.id.game_text_placeholder_highest_value)).setText(stringScore);
         }
     }
 
@@ -259,11 +259,11 @@ public class GameActivity extends AppCompatActivity {
      * @return box index
      */
     private int determineButtonIndex(View view) {
-        if (view.getId() == R.id.game_box1) {
+        if (view.getId() == R.id.game_button_box_1) {
             return 1;
-        } else if (view.getId() == R.id.game_box2) {
+        } else if (view.getId() == R.id.game_button_box_2) {
             return 2;
-        } else if (view.getId() == R.id.game_box3) {
+        } else if (view.getId() == R.id.game_button_box_3) {
             return 3;
         } else {
             return 4;
@@ -280,13 +280,13 @@ public class GameActivity extends AppCompatActivity {
     private int determineButtonID(int index) {
         switch (index) {
             case 1:
-                return R.id.game_box1;
+                return R.id.game_button_box_1;
             case 2:
-                return R.id.game_box2;
+                return R.id.game_button_box_2;
             case 3:
-                return R.id.game_box3;
+                return R.id.game_button_box_3;
             default:
-                return R.id.game_box4;
+                return R.id.game_button_box_4;
         }
     }
 
@@ -335,7 +335,7 @@ public class GameActivity extends AppCompatActivity {
      */
     private void updateHighestScoreViews() {
         String highestScoreString = String.valueOf(madGrid.getHighestScore());
-        ((TextView)findViewById(R.id.game_highest)).setText(highestScoreString);
+        ((TextView)findViewById(R.id.game_text_placeholder_highest_value)).setText(highestScoreString);
     }
 
     /**
