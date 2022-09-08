@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/settings_bar"
+        android:background="@color/menu_primarily"
         android:translationZ="1dp">
 
         <ImageView
@@ -32,7 +32,7 @@
             android:layout_centerInParent="true"
             android:fontFamily="@font/ibm_plex_sans_bold"
             android:text="@string/settings_credits"
-            android:textColor="#FFFFFF "
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
     </RelativeLayout>
@@ -45,7 +45,7 @@
         android:gravity="center|top"
         android:lineSpacingMultiplier="1.5"
         android:text="@string/credits"
-        android:textColor="#000000"
+        android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/credits_relative_layout_heading" />

@@ -11,7 +11,7 @@
         android:id="@+id/settings_relative_layout_heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/settings_bar">
+        android:background="@color/menu_primarily">
 
         <ImageView
             android:id="@+id/settings_image_return_icon"
@@ -29,7 +29,7 @@
             android:layout_centerInParent="true"
             android:fontFamily="@font/ibm_plex_sans_bold"
             android:text="@string/menu_settings"
-            android:textColor="#FFFFFF "
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
     </RelativeLayout>
@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ibm_plex_sans_semibold"
                     android:text="@string/settings_title_game"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -88,7 +88,7 @@
                         android:layout_toEndOf="@+id/settings_image_music_icon"
                         android:fontFamily="@font/ibm_plex_sans_medium"
                         android:text="@string/settings_music"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.SwitchCompat
@@ -125,7 +125,7 @@
                         android:layout_toEndOf="@+id/settings_image_vibration_icon"
                         android:fontFamily="@font/ibm_plex_sans_medium"
                         android:text="@string/settings_vibration"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.SwitchCompat
@@ -162,7 +162,7 @@
                         android:layout_toEndOf="@+id/settings_image_sound_icon"
                         android:fontFamily="@font/ibm_plex_sans_medium"
                         android:text="@string/settings_sound"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.SwitchCompat
@@ -193,7 +193,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ibm_plex_sans_semibold"
                     android:text="@string/settings_title_social"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -221,7 +221,7 @@
                         android:layout_toEndOf="@+id/settings_image_rate_icon"
                         android:fontFamily="@font/ibm_plex_sans_medium"
                         android:text="@string/settings_rate"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -259,7 +259,7 @@
                         android:layout_toEndOf="@+id/settings_image_github_icon"
                         android:fontFamily="@font/ibm_plex_sans_medium"
                         android:text="@string/settings_github"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -297,7 +297,7 @@
                         android:layout_toEndOf="@+id/settings_image_credits_icon"
                         android:fontFamily="@font/ibm_plex_sans_medium"
                         android:text="@string/settings_credits"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <ImageView

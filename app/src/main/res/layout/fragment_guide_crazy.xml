@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@id/guide_fragment_crazy_frame_layout"
         android:text="@string/guide_watch_demonstration"
         android:fontFamily="@font/ibm_plex_sans_medium"
-        android:textColor="#000000"
+        android:textColor="@color/black"
         android:layout_marginHorizontal="20dp" />
 
     <LinearLayout
@@ -75,7 +75,7 @@
                 android:layout_toEndOf="@+id/guide_fragment_crazy_image_button_inactive"
                 android:fontFamily="@font/ibm_plex_sans_medium"
                 android:text="@string/guide_inactive_button"
-                android:textColor="#000000"
+                android:textColor="@color/black"
                 android:textStyle="bold" />
 
         </RelativeLayout>
@@ -102,7 +102,7 @@
                 android:layout_toEndOf="@+id/guide_fragment_crazy_image_button_active"
                 android:fontFamily="@font/ibm_plex_sans_medium"
                 android:text="@string/guide_active_button"
-                android:textColor="#000000"
+                android:textColor="@color/black"
                 android:textStyle="bold" />
 
         </RelativeLayout>
@@ -136,7 +136,7 @@
             android:layout_toEndOf="@+id/guide_fragment_crazy_image_hint"
             android:fontFamily="@font/ibm_plex_sans_medium"
             android:text="@string/guide_crazy"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:textStyle="bold" />
 
     </RelativeLayout>

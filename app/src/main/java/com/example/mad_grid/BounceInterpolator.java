@@ -4,8 +4,8 @@ import android.view.animation.Interpolator;
 
 public class BounceInterpolator implements Interpolator {
     // data variables
-    private double amplitude;
-    private double frequency;
+    private final double amplitude;
+    private final double frequency;
 
     /**
      *

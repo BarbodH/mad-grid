@@ -4,7 +4,6 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
 
-// tutorial inspired by 'Coding with Sara' on YouTube; link: https://www.youtube.com/watch?v=r2Oz_bV5trU
 public class SoundPlayer {
     // data variables
     private static SoundPool soundPool; // includes all the required sound effects

@@ -1,10 +1,5 @@
 package com.example.mad_grid;
 
-import static android.content.Context.MODE_PRIVATE;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -13,9 +8,7 @@ public class MadGrid {
     private final String stringMode;
     private int score;
     private final int highestScore;
-    public static final String SHARED_PREFS = "sharedPrefs"; // stores & loads information global in app
-    private ArrayList<Integer> key; // stores the correct sequence of box indexes
-    Context context = MadGridApp.getAppContext();
+    private final ArrayList<Integer> key; // stores the correct sequence of box indexes
 
     /**
      * Constructor initializing MadGrid class instance in GameActivity
@@ -26,7 +19,7 @@ public class MadGrid {
      */
     public MadGrid(String stringMode, int highestScore) {
         this.stringMode = stringMode;
-        key = new ArrayList<Integer>();
+        key = new ArrayList<>(); // type: Integer (explicit)
         score = -1; // score is incremented before each turn, meaning that it'll evaluate to 0 on first turn
         this.highestScore = highestScore;
     }

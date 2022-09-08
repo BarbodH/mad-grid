@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -15,10 +14,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class GameActivity extends AppCompatActivity {
     // data variable(s)
@@ -54,7 +49,7 @@ public class GameActivity extends AppCompatActivity {
 
         // start background music only if music is enabled
         loadSettings();
-        mediaPlayer = MediaPlayer.create(GameActivity.this, R.raw.background_music);
+        mediaPlayer = MediaPlayer.create(GameActivity.this, R.raw.game_music);
         if (this.music) {
             mediaPlayer.setLooping(true);
             mediaPlayer.start();
@@ -150,12 +145,8 @@ public class GameActivity extends AppCompatActivity {
         this.isPlaying = false;
         int delay = 750;
         final int delayIncrement = 750;
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                deactivateButtons(); // turn off button feedback to user
-            }
-        }, 450);
+        // turn off button feedback to user
+        handler.postDelayed(this::deactivateButtons, 450);
 
         // start display of sequence
         if (madGrid.getMode().equals("Reverse")) { // iterate backwards through key for 'Reverse' mode
@@ -175,12 +166,9 @@ public class GameActivity extends AppCompatActivity {
         }
 
         // handler object delays change of value of 'isPlaying' until whole sequence is displayed
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                GameActivity.this.isPlaying = true;
-                activateButtons(); // turn on button feedback to user
-            }
+        handler.postDelayed(() -> {
+            GameActivity.this.isPlaying = true;
+            activateButtons(); // turn on button feedback to user
         }, delay);
     }
 
@@ -297,9 +285,6 @@ public class GameActivity extends AppCompatActivity {
      * mode, and whether or not they achieved new high score.
      */
     private void gameOver() {
-        // initialization
-        boolean isHighest = false;
-
         // play game over audio only if sound effects are enabled
         if (this.sound) {
             soundPlayer.playGameOverSound();

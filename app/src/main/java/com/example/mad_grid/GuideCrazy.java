@@ -1,6 +1,5 @@
 package com.example.mad_grid;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -16,6 +15,7 @@ import android.widget.VideoView;
 import java.util.Objects;
 
 public class GuideCrazy extends Fragment {
+    // data variable
     private final Handler handler = new Handler(); // used for delaying executions
 
     @Override
@@ -23,18 +23,17 @@ public class GuideCrazy extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_guide_crazy, container, false);
 
+        // initialize demonstration video
         VideoView videoView = (VideoView) rootView.findViewById(R.id.guide_fragment_crazy_video);
         String path = "android.resource://" + Objects.requireNonNull(getActivity()).getPackageName() + "/" + R.raw.guide_video_crazy;
         videoView.setVideoURI(Uri.parse(path));
 
+        // place frame layout containing the thumbnail on top of videoView
         FrameLayout frameLayout = (FrameLayout) rootView.findViewById(R.id.guide_fragment_crazy_frame_layout);
-
-        frameLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                videoView.start();
-                handler.postDelayed(() -> videoView.setZOrderOnTop(true), 250);
-            }
+        frameLayout.setOnClickListener(view -> {
+            videoView.start();
+            // video glitches in the beginning and the thumbnail covers it (250 milliseconds)
+            handler.postDelayed(() -> videoView.setZOrderOnTop(true), 250);
         });
 
         return rootView;
@@ -48,7 +47,6 @@ public class GuideCrazy extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-
         VideoView videoView = (VideoView) Objects.requireNonNull(getView()).findViewById(R.id.guide_fragment_crazy_video);
         String path = "android.resource://" + Objects.requireNonNull(getActivity()).getPackageName() + "/" + R.raw.guide_video_crazy;
         videoView.setVideoURI(Uri.parse(path));

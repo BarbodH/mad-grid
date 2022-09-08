@@ -10,7 +10,7 @@
         android:id="@+id/guide_relative_layout_heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/settings_bar"
+        android:background="@color/menu_primarily"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
             android:layout_centerInParent="true"
             android:fontFamily="@font/ibm_plex_sans_bold"
             android:text="@string/menu_guide"
-            android:textColor="#FFFFFF "
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
     </RelativeLayout>

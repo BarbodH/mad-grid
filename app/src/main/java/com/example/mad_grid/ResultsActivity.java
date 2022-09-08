@@ -50,7 +50,7 @@ public class ResultsActivity extends AppCompatActivity {
      * Event listener to redirect user to settings page
      * Precondition(s): none
      * Postcondition(s): SettingsActivity is opened
-     * @param view
+     * @param view - user interface
      */
     public void openSettings(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);

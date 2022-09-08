@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- color names -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -8,9 +10,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="cyan_settings_icon">#5CFFFF</color>
-    <color name="settings_bar">#2E2EFF</color>
-
+    <!-- general -->
     <color name="game_button_inactive">#0047AB</color>
     <color name="game_button_active">#1F51FF</color>
+    <color name="menu_primarily">#2E2EFF</color>
+    <color name="cyan_settings_icon">#5CFFFF</color>
+    <color name="results_primary">#242449</color>
+    <color name="results_button_settings">#E34234</color>
+    <color name="results_button_reset">#5D3FD3</color>
+
 </resources>
