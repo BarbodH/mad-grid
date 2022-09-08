@@ -6,7 +6,7 @@
     <!-- game modes -->
     <string name="mode_classic">Classic</string>
     <string name="mode_reverse">Reverse</string>
-    <string name="mode_crazy">Crazy</string>
+    <string name="mode_messy">Messy</string>
 
     <!-- menu items -->
     <string name="menu_start">Start Game</string>
@@ -64,7 +64,7 @@
     <string name="guide_inactive_button">Watch and memorize sequence</string>
     <string name="guide_active_button">Replicate the displayed sequence</string>
     <string name="guide_reverse">Replicate the sequence in reverse order</string>
-    <string name="guide_crazy">Sequence completely resets in each level</string>
+    <string name="guide_messy">Sequence completely resets in each level</string>
 
     <!-- image descriptions -->
     <string name="menu_back_button">back button</string>

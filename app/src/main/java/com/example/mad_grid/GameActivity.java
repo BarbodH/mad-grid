@@ -157,7 +157,7 @@ public class GameActivity extends AppCompatActivity {
                 delay += delayIncrement;
             }
         }
-        else { // iterate regularly through key for 'Classic' and 'Crazy' modes
+        else { // iterate regularly through key for 'Classic' and 'Messy' modes
             for (int k : madGrid.getKey()) {
                 // handler object prevents simultaneous grid animations
                 handler.postDelayed(() -> toBounce(k), delay);

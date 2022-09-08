@@ -24,7 +24,7 @@ public class GuideActivity extends AppCompatActivity {
         VPAdapter vpAdapter = new VPAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         vpAdapter.addFragment(new GuideClassic(), "Classic");
         vpAdapter.addFragment(new GuideReverse(), "Reverse");
-        vpAdapter.addFragment(new GuideCrazy(), "Crazy");
+        vpAdapter.addFragment(new GuideMessy(), "Messy");
         viewpager.setAdapter(vpAdapter);
     }
 

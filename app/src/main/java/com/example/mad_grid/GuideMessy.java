@@ -14,22 +14,22 @@ import android.widget.VideoView;
 
 import java.util.Objects;
 
-public class GuideCrazy extends Fragment {
+public class GuideMessy extends Fragment {
     // data variable
     private final Handler handler = new Handler(); // used for delaying executions
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_guide_crazy, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_guide_messy, container, false);
 
         // initialize demonstration video
-        VideoView videoView = (VideoView) rootView.findViewById(R.id.guide_fragment_crazy_video);
-        String path = "android.resource://" + Objects.requireNonNull(getActivity()).getPackageName() + "/" + R.raw.guide_video_crazy;
+        VideoView videoView = (VideoView) rootView.findViewById(R.id.guide_fragment_messy_video);
+        String path = "android.resource://" + Objects.requireNonNull(getActivity()).getPackageName() + "/" + R.raw.guide_video_messy;
         videoView.setVideoURI(Uri.parse(path));
 
         // place frame layout containing the thumbnail on top of videoView
-        FrameLayout frameLayout = (FrameLayout) rootView.findViewById(R.id.guide_fragment_crazy_frame_layout);
+        FrameLayout frameLayout = (FrameLayout) rootView.findViewById(R.id.guide_fragment_messy_frame_layout);
         frameLayout.setOnClickListener(view -> {
             videoView.start();
             // video glitches in the beginning and the thumbnail covers it (250 milliseconds)
@@ -47,8 +47,8 @@ public class GuideCrazy extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        VideoView videoView = (VideoView) Objects.requireNonNull(getView()).findViewById(R.id.guide_fragment_crazy_video);
-        String path = "android.resource://" + Objects.requireNonNull(getActivity()).getPackageName() + "/" + R.raw.guide_video_crazy;
+        VideoView videoView = (VideoView) Objects.requireNonNull(getView()).findViewById(R.id.guide_fragment_messy_video);
+        String path = "android.resource://" + Objects.requireNonNull(getActivity()).getPackageName() + "/" + R.raw.guide_video_messy;
         videoView.setVideoURI(Uri.parse(path));
         videoView.pause();
         videoView.setZOrderOnTop(false);
