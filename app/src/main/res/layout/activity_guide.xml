@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GuideActivity">
+    tools:context=".activities.GuideActivity">
 
     <RelativeLayout
         android:id="@+id/guide_relative_layout_heading"

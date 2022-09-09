@@ -1,4 +1,4 @@
-package com.example.mad_grid;
+package com.barbodh.madgrid.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -8,6 +8,10 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+
+import com.barbodh.madgrid.R;
+import com.barbodh.madgrid.activities.CreditsActivity;
+import com.barbodh.madgrid.activities.MainActivity;
 
 public class SettingsActivity extends AppCompatActivity {
     // data variables

@@ -1,4 +1,4 @@
-package com.example.mad_grid;
+package com.barbodh.madgrid.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -8,6 +8,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.barbodh.madgrid.activities.fragments.GuideClassic;
+import com.barbodh.madgrid.activities.fragments.GuideMessy;
+import com.barbodh.madgrid.activities.fragments.GuideReverse;
+import com.barbodh.madgrid.R;
+import com.barbodh.madgrid.tools.VPAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class GuideActivity extends AppCompatActivity {

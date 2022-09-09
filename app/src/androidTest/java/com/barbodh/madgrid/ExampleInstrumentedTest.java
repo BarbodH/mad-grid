@@ -1,4 +1,4 @@
-package com.example.mad_grid;
+package com.barbodh.madgrid;
 
 import android.content.Context;
 

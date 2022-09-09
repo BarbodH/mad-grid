@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/background"
-    tools:context=".GuideClassic">
+    tools:context=".activities.fragments.GuideClassic">
 
     <FrameLayout
         android:id="@+id/guide_fragment_classic_frame_layout"

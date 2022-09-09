@@ -1,4 +1,4 @@
-package com.example.mad_grid;
+package com.barbodh.madgrid.tools;
 
 import android.view.animation.Interpolator;
 
@@ -12,7 +12,7 @@ public class BounceInterpolator implements Interpolator {
      * @param amplitude - amplitude of bounce animation
      * @param frequency - frequency of bounce animation
      */
-    BounceInterpolator(double amplitude, double frequency) {
+    public BounceInterpolator(double amplitude, double frequency) {
         this.amplitude = amplitude;
         this.frequency = frequency;
     }

@@ -1,4 +1,4 @@
-package com.example.mad_grid;
+package com.barbodh.madgrid.tools;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

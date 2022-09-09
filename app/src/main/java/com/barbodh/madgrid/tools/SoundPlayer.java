@@ -1,8 +1,10 @@
-package com.example.mad_grid;
+package com.barbodh.madgrid.tools;
 
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
+
+import com.barbodh.madgrid.R;
 
 public class SoundPlayer {
     // data variables

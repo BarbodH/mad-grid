@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/background"
-    tools:context=".GuideReverse">
+    tools:context=".activities.fragments.GuideReverse">
 
     <FrameLayout
         android:id="@+id/guide_fragment_reverse_frame_layout"

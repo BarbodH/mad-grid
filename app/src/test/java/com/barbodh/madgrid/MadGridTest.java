@@ -1,10 +1,8 @@
-package com.example.mad_grid;
+package com.barbodh.madgrid;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 import static org.assertj.core.api.Assertions.*;
-import java.util.ArrayList;
 
 public class MadGridTest {
     @Test

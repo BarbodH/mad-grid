@@ -1,4 +1,4 @@
-package com.example.mad_grid;
+package com.barbodh.madgrid.activities.fragments;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.VideoView;
+
+import com.barbodh.madgrid.R;
 
 import java.util.Objects;
 

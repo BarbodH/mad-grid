@@ -1,4 +1,4 @@
-package com.example.mad_grid;
+package com.barbodh.madgrid.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +14,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.barbodh.madgrid.tools.BounceInterpolator;
+import com.barbodh.madgrid.MadGrid;
+import com.barbodh.madgrid.R;
+import com.barbodh.madgrid.tools.SoundPlayer;
 
 public class GameActivity extends AppCompatActivity {
     // data variable(s)

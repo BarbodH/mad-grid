@@ -1,4 +1,4 @@
-package com.example.mad_grid;
+package com.barbodh.madgrid;
 
 import java.util.ArrayList;
 import java.util.Random;
