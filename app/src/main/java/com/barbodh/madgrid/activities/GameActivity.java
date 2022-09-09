@@ -184,10 +184,14 @@ public class GameActivity extends AppCompatActivity {
      */
     private void activateButtons() {
         for (int index = 1; index <= 4; index++) {
+            // activate grid buttons
             int id = determineButtonID(index);
             View view = findViewById(id);
             view.setBackgroundResource(R.drawable.grid_button_background);
         }
+        // activate reset button
+        View view = findViewById(R.id.game_button_reset);
+        view.setBackgroundResource(R.drawable.game_control_button_active);
     }
 
     /**
@@ -197,10 +201,14 @@ public class GameActivity extends AppCompatActivity {
      */
     private void deactivateButtons() {
         for (int index = 1; index <= 4; index++) {
+            // deactivate grid buttons
             int id = determineButtonID(index);
             View view = findViewById(id);
             view.setBackgroundResource(R.drawable.grid_button_background_inactive);
         }
+        // deactivate reset button
+        View view = findViewById(R.id.game_button_reset);
+        view.setBackgroundResource(R.drawable.game_control_button_inactive);
     }
 
     /**
