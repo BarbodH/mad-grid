@@ -86,7 +86,7 @@ public class SettingsActivity extends AppCompatActivity {
      */
     private String convertProgressToSpeed(int progress) {
         float floatProgress = ((float) progress + 2) / 2;
-        return String.format(Locale.getDefault(), "%.1f", floatProgress);
+        return String.format(Locale.getDefault(), "%.1fx", floatProgress);
     }
 
     /**

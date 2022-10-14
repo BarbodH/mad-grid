@@ -34,13 +34,22 @@
     <string name="credits">
         <b>Developer</b>
         \nBarbod Habibi
+        \nYork University - Lassonde School of Engineering
+        \nDept. Electrical Engineering &amp; Computer Science
 
         \n\n<b>Icon Images</b>
-        \nMusic icon by Jemis Mali, from <i>IconScout</i>
-        \nVibration icon by Unicons from <i>IconScout</i>
-        \nSound icon by Amru ID, from <i>IconScout</i>
-        \nRate icon by Google Inc., from <i>IconScout</i>
-        \nGitHub icon by Pixel Icons, from <i>IconScout</i>
+        \nApp icon by <i>Icons8</i>
+        \nMusic icon by Jemis Mali on <i>IconScout</i>
+        \nAudio icon by Amru ID on <i>IconScout</i>
+        \nSpeed icon by Neelpari Minimo on <i>IconScout</i>
+        \nThumbs Up icon by Google Inc. on <i>IconScout</i>
+        \nGitHub icon by Pixel Icons on <i>IconScout</i>
+        \nExclamation icon by Unicons on <i>IconScout</i>
+
+        \n\n<b>Background Images</b>
+        \nPrimary background by coolvector on <i>Freepik</i>
+        \nSecondary background by coolvector on <i>Freepik</i>
+        \nGame background by coolvector on <i>Freepik</i>
     </string>
 
     <!-- game items -->
@@ -65,7 +74,7 @@
     <string name="placeholder_highest_score_message">highest_score_message_placeholder</string>
 
     <!-- guide items -->
-    <string name="guide_watch_demonstration">Tap to watch demonstration</string>
+    <string name="guide_watch_demonstration">Tap on the grid to see a demonstration</string>
     <string name="guide_inactive_button">Watch and memorize sequence</string>
     <string name="guide_active_button">Replicate the displayed sequence</string>
     <string name="guide_reverse">Replicate the sequence in reverse order</string>

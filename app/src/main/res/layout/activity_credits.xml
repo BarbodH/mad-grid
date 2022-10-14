@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.CreditsActivity"
-    android:background="@drawable/background">
+    android:background="@drawable/background_image_secondary">
 
     <RelativeLayout
         android:id="@+id/credits_relative_layout_heading"
@@ -35,6 +35,7 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
+
     </RelativeLayout>
 
     <TextView
@@ -46,7 +47,7 @@
         android:lineSpacingMultiplier="1.5"
         android:text="@string/credits"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/credits_relative_layout_heading" />
 

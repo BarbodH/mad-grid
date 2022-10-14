@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background"
+    android:background="@drawable/background_image_primary"
     tools:context=".activities.fragments.GuideReverse">
 
     <FrameLayout
@@ -40,6 +40,7 @@
         android:text="@string/guide_watch_demonstration"
         android:fontFamily="@font/ibm_plex_sans_medium"
         android:textColor="@color/black"
+        android:textStyle="bold"
         android:layout_marginHorizontal="20dp" />
 
     <LinearLayout
