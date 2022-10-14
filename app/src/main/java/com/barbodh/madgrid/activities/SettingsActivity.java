@@ -8,17 +8,20 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.barbodh.madgrid.R;
-import com.barbodh.madgrid.activities.CreditsActivity;
-import com.barbodh.madgrid.activities.MainActivity;
+
+import java.util.Locale;
 
 public class SettingsActivity extends AppCompatActivity {
     // data variables
     public static final String SHARED_PREFS = "sharedPrefs";
     private boolean music;
-    private boolean vibration;
     private boolean sound;
+    private int speed;
+    private TextView speedometerValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,35 +29,70 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         loadSettings();
         updateSettingsView();
+
+        // set up 'Display Sequence Settings' seekbar & displayed value
+        SeekBar seekbar = (SeekBar) findViewById(R.id.settings_seekbar_speedometer);
+        speedometerValue = (TextView) findViewById(R.id.settings_text_speedometer_value);
+        seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                speedometerValue.setText(convertProgressToSpeed(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
     }
 
     /**
      * Loads previously saved settings from Shared Preferences
      * Precondition(s): none
-     * Postcondition(s): settings boolean data variables are initialized with a default value of 'true'
+     * Postcondition(s): settings data variables are initialized with default values:
+     *                   true for 'music' & 'sound' booleans
+     *                   1 for 'speed' integer
      */
     private void loadSettings() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         this.music = sharedPreferences.getBoolean("Music", true);
-        this.vibration = sharedPreferences.getBoolean("Vibration", true);
         this.sound = sharedPreferences.getBoolean("Sound", true);
+        this.speed = sharedPreferences.getInt("Speed", 1); // 0 gets mapped to 1.0x
     }
 
     /**
-     * Determine the state of switches based on previously saved settings in Shared Preferences
-     * Precondition(s): 'music', 'vibration', and 'sound' boolean data variables are already loaded & initialized
-     * Postcondition(s): Switches are checked/unchecked according to loaded boolean settings in Shared Preferences
+     * Determines the state of switches based on previously saved settings in Shared Preferences
+     * Precondition(s): settings data variables are already loaded & initialized
+     * Postcondition(s): switches are checked/unchecked and seekbar is set up according to loaded settings in Shared Preferences
      */
     private void updateSettingsView() {
         ((SwitchCompat) findViewById(R.id.settings_switch_music)).setChecked(this.music);
-        ((SwitchCompat) findViewById(R.id.settings_switch_vibration)).setChecked(this.vibration);
         ((SwitchCompat) findViewById(R.id.settings_switch_sound)).setChecked(this.sound);
+        ((SeekBar) findViewById(R.id.settings_seekbar_speedometer)).setProgress(this.speed);
+        ((TextView) findViewById(R.id.settings_text_speedometer_value)).setText(convertProgressToSpeed(this.speed));
+    }
+
+    /**
+     * Helper method to convert seekbar progress to speed
+     * Precondition(s): 'progress' is an integer in interval [0, 3]
+     * Postcondition(s): value is returned (1 decimal place) using the following seekbar progress to speed map:
+     *                   0 -> 1.0
+     *                   1 -> 1.5
+     *                   2 -> 2.0
+     *                   3 -> 2.5
+     * @param progress - seekbar progress value
+     * @return speed value (1 decimal place)
+     */
+    private String convertProgressToSpeed(int progress) {
+        float floatProgress = ((float) progress + 2) / 2;
+        return String.format(Locale.getDefault(), "%.1f", floatProgress);
     }
 
     /**
      * Saves settings and returns to homepage
      * Precondition(s): none
-     * Postcondition(s): settings booleans are saved to Shared Preferences and MainActivity is started
+     * Postcondition(s): settings values are saved to Shared Preferences and MainActivity is started
      * @param view - user interface
      */
     public void returnHome(View view) {
@@ -62,11 +100,11 @@ public class SettingsActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         boolean musicOn = ((SwitchCompat) findViewById(R.id.settings_switch_music)).isChecked();
-        boolean VibrationOn = ((SwitchCompat) findViewById(R.id.settings_switch_vibration)).isChecked();
         boolean soundOn = ((SwitchCompat) findViewById(R.id.settings_switch_sound)).isChecked();
+        int speedValue = ((SeekBar) findViewById(R.id.settings_seekbar_speedometer)).getProgress();
         editor.putBoolean("Music", musicOn);
-        editor.putBoolean("Vibration", VibrationOn);
         editor.putBoolean("Sound", soundOn);
+        editor.putInt("Speed", speedValue);
         editor.apply();
 
         // return to homepage (start MainActivity)

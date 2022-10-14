@@ -32,6 +32,7 @@ public class GameActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private boolean music;
     private boolean sound;
+    private int speed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,10 +149,35 @@ public class GameActivity extends AppCompatActivity {
     private void displaySequence() {
         // initialization
         this.isPlaying = false;
-        int delay = 750;
-        final int delayIncrement = 750;
+        int delay, delayIncrement, delayButtonDeactivation;
+        switch (this.speed) { // delay = delay_1.0x / speed
+            case 0: // speed: 1.0x
+                delay = 750;
+                delayIncrement = 750;
+                delayButtonDeactivation = 450;
+                break;
+            case 1: // speed: 1.5x
+                delay = 500;
+                delayIncrement = 500;
+                delayButtonDeactivation = 300;
+                break;
+            case 2: // speed: 2.0x
+                delay = 375;
+                delayIncrement = 375;
+                delayButtonDeactivation = 225;
+                break;
+            case 3: // speed: 2.5x
+                delay = 300;
+                delayIncrement = 300;
+                delayButtonDeactivation = 180;
+                break;
+            default:
+                throw new IllegalArgumentException("'speed' must be in interval [0, 3]");
+
+        }
+
         // turn off button feedback to user
-        handler.postDelayed(this::deactivateButtons, 450);
+        handler.postDelayed(this::deactivateButtons, delayButtonDeactivation);
 
         // start display of sequence
         if (madGrid.getMode().equals("Reverse")) { // iterate backwards through key for 'Reverse' mode
@@ -213,14 +239,30 @@ public class GameActivity extends AppCompatActivity {
 
     /**
      * Helper method to handle individual box animations
-     * Precondition(s): 'buttonIndex' is within [1, 4] range
+     * Precondition(s): 'buttonIndex' is in interval [1, 4] and 'speed' is in interval [0, 3]
      * Postcondition(s): target button has bounced
      * @param buttonIndex - index of target button
      */
     private void toBounce(int buttonIndex) {
         int buttonID = determineButtonID(buttonIndex);
         Button button = (Button) findViewById(buttonID);
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        Animation animation;
+        switch (this.speed) {
+            case 0: // speed: 1.0x
+                animation = AnimationUtils.loadAnimation(this, R.anim.bounce_1_0);
+                break;
+            case 1: // speed: 1.5x
+                animation = AnimationUtils.loadAnimation(this, R.anim.bounce_1_5);
+                break;
+            case 2: // speed: 2.0x
+                animation = AnimationUtils.loadAnimation(this, R.anim.bounce_2_0);
+                break;
+            case 3: // speed: 2.5x
+                animation = AnimationUtils.loadAnimation(this, R.anim.bounce_2_5);
+                break;
+            default:
+                throw new IllegalArgumentException("'speed' must be in interval [0, 3]");
+        }
         BounceInterpolator bounceInterpolator = new BounceInterpolator(0.2, 20);
         animation.setInterpolator(bounceInterpolator);
         button.startAnimation(animation);
@@ -286,8 +328,10 @@ public class GameActivity extends AppCompatActivity {
                 return R.id.game_button_box_2;
             case 3:
                 return R.id.game_button_box_3;
-            default:
+            case 4:
                 return R.id.game_button_box_4;
+            default:
+                throw new IllegalArgumentException("button index must be in interval [1, 4]");
         }
     }
 
@@ -343,9 +387,10 @@ public class GameActivity extends AppCompatActivity {
      */
     private void loadSettings() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        // variables are loaded with default value of 'false'
+        // second parameter corresponds to default values
         this.music = sharedPreferences.getBoolean("Music", false);
         this.sound = sharedPreferences.getBoolean("Sound", false);
+        this.speed = sharedPreferences.getInt("Speed", 1);
     }
 
     /**

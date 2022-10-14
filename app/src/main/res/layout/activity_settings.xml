@@ -32,6 +32,7 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
+
     </RelativeLayout>
 
     <ScrollView
@@ -99,43 +100,7 @@
                         android:layout_centerVertical="true"
                         android:switchMinWidth="50dp"
                         android:theme="@style/settingsSwitch"/>
-                </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/settings_relative_layout_vibration"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp" >
-
-                    <ImageView
-                        android:id="@+id/settings_image_vibration_icon"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/settings_background_game_icon"
-                        android:contentDescription="@string/settings_vibration_icon"
-                        android:padding="8dp"
-                        android:src="@drawable/settings_vibration_icon" />
-
-                    <TextView
-                        android:id="@+id/settings_text_vibration_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginStart="20dp"
-                        android:layout_toEndOf="@+id/settings_image_vibration_icon"
-                        android:fontFamily="@font/ibm_plex_sans_medium"
-                        android:text="@string/settings_vibration"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/settings_switch_vibration"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:switchMinWidth="50dp"
-                        android:theme="@style/settingsSwitch"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -173,7 +138,56 @@
                         android:layout_centerVertical="true"
                         android:switchMinWidth="50dp"
                         android:theme="@style/settingsSwitch"/>
+
                 </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/settings_relative_layout_speedometer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp" >
+
+                    <ImageView
+                        android:id="@+id/settings_image_speedometer_icon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/settings_background_game_icon"
+                        android:contentDescription="@string/settings_sound_icon"
+                        android:padding="8dp"
+                        android:src="@drawable/settings_speedometer_icon" />
+
+                    <TextView
+                        android:id="@+id/settings_text_speedometer_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_toEndOf="@+id/settings_image_speedometer_icon"
+                        android:fontFamily="@font/ibm_plex_sans_medium"
+                        android:text="@string/settings_speed"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/settings_text_speedometer_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/ibm_plex_sans_medium"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <SeekBar
+                    android:id="@+id/settings_seekbar_speedometer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="3"
+                    android:theme="@style/Widget.AppCompat.SeekBar.Discrete"
+                    android:paddingTop="20dp"/>
+
             </LinearLayout>
 
             <!-- Social Settings -->
@@ -233,6 +247,7 @@
                         android:onClick="openGooglePlay"
                         android:src="@drawable/settings_arrow_icon"
                         android:contentDescription="@string/settings_open_page_icon" />
+
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -271,6 +286,7 @@
                         android:contentDescription="@string/settings_open_page_icon"
                         android:onClick="openGitHub"
                         android:src="@drawable/settings_arrow_icon" />
+
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -309,6 +325,7 @@
                         android:onClick="openCredits"
                         android:src="@drawable/settings_arrow_icon"
                         android:contentDescription="@string/settings_open_page_icon" />
+
                 </RelativeLayout>
 
             </LinearLayout>

@@ -26,4 +26,4 @@ Additionally, there is a guide page providing text descriptions and a video demo
 ## Permissions & Privacy
 
 This app does not require any special permissions and no personal user data is collected.
-The app uses output devices only for audio (background music, sound effects) and vibration.
+The app uses output devices only for audio (background music & sound effects).

@@ -17,8 +17,13 @@
 
     <!-- settings items -->
     <string name="settings_music">Music</string>
-    <string name="settings_vibration">Vibration</string>
     <string name="settings_sound">Sound</string>
+    <string name="settings_speed">Sequence Display Speed</string>
+    <string-array name="settings_speeds">
+        <item>Slow</item>
+        <item>Medium</item>
+        <item>Fast</item>
+    </string-array>
     <string name="settings_rate">Rate on Google Play</string>
     <string name="settings_github">View on GitHub</string>
     <string name="settings_credits">Credits</string>
