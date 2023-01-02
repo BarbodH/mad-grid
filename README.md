@@ -1,8 +1,8 @@
 # Mad Grid
 
-Publishing on Google Play soon.
+[<img src="/readme/feature_graphic.png" align="center" hspace="2" vspace="2">](/readme/feature_graphic.png)
 
-## About
+[<img src="/readme/download-google-play.png" align="center" height="100" hspace="2" vspace="2">](https://play.google.com/store/apps/details?id=com.barbodh.madgrid)
 
 Mad Grid is a visual sequence memory game originally inspired by [Human Benchmark](https://humanbenchmark.com/).
 The game consists of a 2×2 grid, which displays a randomly generated sequence to be perfectly replicated by the user.
@@ -17,18 +17,23 @@ Mad Grid consists of three game modes:
 
 Additional features include:
 - Guide page providing text descriptions and a video demonstration for each mode.
-- Adjustable sequence display speed (1.0x, 1.5x, 2.0x, 2.5x).
+- Adjustable sequence display speed (1.0×, 1.5×, 2.0×, 2.5×).
 
 ## Screenshots
 
-[<img src="/readme/screenshot_game.png" align="left" height="400" hspace="10" vspace="10">](/readme/screenshot_game.png)
+[<img src="/readme/screenshot_game.png" align="left" height="400" hspace="2" vspace="2">](/readme/screenshot_game.png)
 
-[<img src="/readme/screenshot_guide.png" align="center" height="400" hspace="10" vspace="10">](/readme/screenshot_guide.png)
+[<img src="/readme/screenshot_game_over.png" align="center" height="400" hspace="2" vspace="2">](/readme/screenshot_game_over.png)
+
+[<img src="/readme/screenshot_guide.png" align="left" height="400" hspace="2" vspace="2">](/readme/screenshot_guide.png)
+
+[<img src="/readme/screenshot_settings.png" align="center" height="400" hspace="2" vspace="2">](/readme/screenshot_settings.png)
 
 ## Permissions & Privacy
 
-This app does not require any special permissions and no personal user data is collected.
-The app uses output devices only for audio (background music & sound effects).
+- No user data is collected or shared with third parties
+- Committed to follow the Play Families Policy
+- [View the privacy policy](https://docs.google.com/document/d/1-qVeFzSzqA19hRMiAFFgTnQijST0gRvmsE4xV035dKk/edit)
 
 ## Attributions
 
@@ -41,7 +46,5 @@ Icon Images:
 - <a href="https://iconscout.com/icons/github" target="_blank">Github Logo Icon</a> by <a href="https://iconscout.com/contributors/pixel-icons" target="_blank">Pixel Icons</a>
 - <a href="https://iconscout.com/icons/exclamation-mark" target="_blank">Exclamation-mark Icon</a> by <a href="https://iconscout.com/contributors/unicons" target="_blank">Unicons Font</a>
 
-Background images:
+Background image:
 - <a href="https://www.freepik.com/free-vector/mobile-wallpaper-with-fluid-shapes_4954397.htm#page=2&position=10&from_view=author">Image by coolvector</a> on Freepik
-- <a href="https://www.freepik.com/free-vector/mobile-wallpaper-with-fluid-shapes_4954390.htm#&position=4&from_view=author">Image by coolvector</a> on Freepik
-- <a href="https://www.freepik.com/free-vector/gradient-phone-background-with-circular-shapes_4917165.htm#page=2&position=18&from_view=author">Image by coolvector</a> on Freepik

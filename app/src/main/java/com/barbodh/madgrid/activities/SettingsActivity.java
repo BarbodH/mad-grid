@@ -131,7 +131,7 @@ public class SettingsActivity extends AppCompatActivity {
      */
     public void openGooglePlay(View view) {
         // NOTE: link should be replaced once Mad Grid is published on Google Play
-        openURL("https://play.google.com/store/games");
+        openURL("https://play.google.com/store/apps/details?id=com.barbodh.madgrid");
     }
 
     /**
