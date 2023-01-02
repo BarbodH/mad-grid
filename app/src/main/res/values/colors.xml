@@ -18,8 +18,10 @@
     <color name="results_primary">#242449</color>
     <color name="results_button_settings">#E34234</color>
     <color name="results_button_reset">#5D3FD3</color>
-    <color name="game_button_control">#B6C1FF</color>
+    <color name="game_button_control_active">#B6C1FF</color>
     <color name="game_button_control_inactive">#808080</color>
-    <color name="game_grid_background">#B8A598</color>
+    <color name="game_button_control_border">#242449</color>
+    <color name="game_grid_background">#B6C1FF</color>
+    <color name="game_grid_background_border">#242449</color>
 
 </resources>

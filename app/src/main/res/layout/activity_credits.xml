@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.CreditsActivity"
-    android:background="@drawable/background_image_secondary">
+    android:background="@drawable/background_image">
 
     <RelativeLayout
         android:id="@+id/credits_relative_layout_heading"
