@@ -1,56 +1,54 @@
 package com.barbodh.madgrid;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class MadGrid {
     // data variables
-    private final String stringMode;
-    private int score;
+    private final String mode;
     private final int highestScore;
     private final ArrayList<Integer> key; // stores the correct sequence of box indexes
+    // key length is equivalent to current score
 
     /**
      * Constructor initializing MadGrid class instance in GameActivity
-     * Precondition(s): 'stringMode' is either equal to 'Classic', 'Reverse', or 'Crazy'
+     * Precondition(s): - <code>mode</code> is either equal to 'Classic', 'Reverse', or 'Crazy'
+     *                  - <code>highestScore</code> is a non-negative integer
      * Postcondition(s): MadGrid object is initialized with a key and given mode
-     * @param stringMode - game mode (string version)
-     * @param highestScore - highest score of current game mode
+     * @param mode - game mode (string version)
+     * @param highestScore - highest score of the current game mode
      */
-    public MadGrid(String stringMode, int highestScore) {
-        this.stringMode = stringMode;
+    public MadGrid(String mode, int highestScore) {
+        // precondition checking
+        if (invalidMode(mode)) throw new IllegalArgumentException(String.format(
+                "Invalid Game Mode!\nValid inputs include: 'Classic', 'Reverse', 'Messy'\nProvided: %s", mode
+        ));
+        if (highestScore < 0) throw new IllegalArgumentException(String.format(
+                "Invalid Highest Score!\nHighest score must be a non-negative integer\nProvided: %d", highestScore
+        ));
+
+        this.mode = mode;
         key = new ArrayList<>(); // type: Integer (explicit)
-        score = -1; // score is incremented before each turn, meaning that it'll evaluate to 0 on first turn
         this.highestScore = highestScore;
     }
 
     /**
-     * Multi-parameter constructor intended for testing
-     * Precondition(s): 'stringMode' is either equal to 'Classic', 'Reverse', or 'Crazy'
-     *                  'score' and 'highestScore' are non-negative integers
-     *                  'length' is a positive integer
-     * Postcondition(s): MadGrid object is initialized with given parameters
-     * @param stringMode - game mode (string version)
-     * @param score - score of current game
-     * @param highestScore - highest score of current game mode
-     * @param keyLength - indicate the length of 'key' ArrayList
+     * Helper method for validating an input game mode
+     * @param mode - game mode
+     * @return boolean indicating whether the given mode is invalid
      */
-    public MadGrid(String stringMode, int score, int highestScore, int keyLength) {
-        this.stringMode = stringMode;
-        this.score = score;
-        this.highestScore = highestScore;
-
-        // generate a key of given length
-        Random rand = new Random();
-        this.key = new ArrayList<>();
-        for (int index = 0; index < keyLength; index++) {
-            this.key.add(rand.nextInt(4) + 1);
-        }
+    private boolean invalidMode(String mode) {
+        List<String> validModes = Arrays.asList("Classic", "Reverse", "Messy");
+        return !validModes.contains(mode);
     }
+
+    //////////////////// Modifier Methods ////////////////////
 
     /**
      * Adds new integers to the key depending on game mode
-     * Precondition(s): 'stringMode' is already initialized as 'Classic', 'Reverse', or 'Crazy'
+     * Precondition(s): <code>mode</code> is already initialized as 'Classic', 'Reverse', or 'Crazy'
      * Postcondition(s): integer within [1, 4] is added to the key according to game mode
      */
     public void incrementKey() {
@@ -58,11 +56,11 @@ public class MadGrid {
         Random rand = new Random();
 
         // 'Classic' game mode: increment by 1
-        if (this.stringMode.equals("Classic")) {
+        if (this.mode.equals("Classic")) {
             this.key.add(rand.nextInt(4) + 1);
         }
         // 'Reverse' game mode: increment by 1; reverse key
-        else if (this.stringMode.equals("Reverse")) {
+        else if (this.mode.equals("Reverse")) {
             this.key.add(0, rand.nextInt(4) + 1);
         }
         // 'Crazy' game mode: increment by 1; reset entire key each time
@@ -76,81 +74,53 @@ public class MadGrid {
     }
 
     /**
-     * Determines if current score is larger than highest score
+     * Modifier method for clearing <code>key</code> ArrayList
      * Precondition(s): none
-     * Postcondition(s): returns true if 'score' is larger than 'highestScore' and false otherwise
-     * @return boolean indicating whether highest score is surpassed
-     */
-    public boolean isHighestScore() {
-        return this.score > this.highestScore;
-    }
-
-    /**
-     * Modifier method for clearing 'key' ArrayList
-     * Precondition(s): none
-     * Postcondition(s): 'key' is cleared (all items removed)
+     * Postcondition(s): <code>key</code> is cleared (all items removed)
      */
     public void clearKey() {
         this.key.clear();
     }
 
-    /**
-     * Increments score after a successful attempt
-     * Precondition(s): none
-     * Postcondition(s): 'score' integer is incremented by 1
-     */
-    public void incrementScore() {
-        this.score++;
-    }
+    //////////////////// Accessor Methods ////////////////////
 
     /**
-     * Modifier method for resetting 'score'
+     * Accessor method for <code>mode</code>
      * Precondition(s): none
-     * Postcondition(s): value of 'score' is set to -1
-     */
-    public void resetScore() {
-        this.score = -1; // score is incremented before each turn, meaning that it'll evaluate to 0 on first turn;
-    }
-
-    /**
-     * Accessor method for 'stringMode'
-     * Precondition(s): none
-     * Postcondition(s): string 'stringMode' is returned
-     * @return getMode - game mode (string version)
+     * Postcondition(s): string value of <code>mode</code> is returned
+     * @return <code>mode</code> - game mode (string version)
      */
     public String getMode() {
-        return this.stringMode;
+        return this.mode;
     }
 
     /**
-     * Accessor method for 'key'
+     * Accessor method for <code>key</code>
      * Precondition(s): none
-     * Postcondition(s): ArrayList 'key' of type Integer is returned
-     * @return key - correct sequence of boxes
+     * Postcondition(s): ArrayList <code>key</code> of type Integer is returned
+     * @return <code>key</code> - correct sequence of boxes
      */
     public ArrayList<Integer> getKey() {
         return this.key;
     }
 
     /**
-     * Accessor method for 'score'
+     * Accessor method for <code>highestScore</code>
      * Precondition(s): none
-     * Postcondition(s): integer 'score' is returned
-     * @return score - current game score
-     */
-    public int getScore() {
-        return this.score;
-    }
-
-    /**
-     * Accessor method for 'highestScore'
-     * Precondition(s): none
-     * Postcondition(s): integer 'highestScore' is returned
-     * @return highestScore - highest score of game mode
+     * Postcondition(s): integer value of <code>highestScore</code> is returned
+     * @return <code>highestScore</code> - highest score of the current game mode
      */
     public int getHighestScore() {
         return this.highestScore;
     }
 
-
+    /**
+     * Accessor method determining if current score (key length) is larger than highest score
+     * Precondition(s): none
+     * Postcondition(s): returns true if score (i.e., <code>key</code> length) is larger than <code>highestScore</code> and false otherwise
+     * @return boolean indicating whether highest score is surpassed
+     */
+    public boolean isHighestScore() {
+        return this.key.size() > this.highestScore;
+    }
 }

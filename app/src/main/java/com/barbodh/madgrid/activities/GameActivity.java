@@ -108,7 +108,6 @@ public class GameActivity extends AppCompatActivity {
      */
     public void resetGame(View view) {
         if(isPlaying) {
-            madGrid.resetScore();
             madGrid.clearKey();
             initializeNewTurn();
         }
@@ -133,8 +132,7 @@ public class GameActivity extends AppCompatActivity {
      * Postcondition(s): 'score' is set to key length and its display is updated
      */
     private void updateScoreView() {
-        madGrid.incrementScore();
-        String stringScore = Integer.toString(madGrid.getScore());
+        String stringScore = Integer.toString(madGrid.getKey().size());
         ((TextView)findViewById(R.id.game_text_placeholder_score_value)).setText(stringScore);
         if (madGrid.isHighestScore()) {
             ((TextView)findViewById(R.id.game_text_placeholder_highest_value)).setText(stringScore);
@@ -352,7 +350,7 @@ public class GameActivity extends AppCompatActivity {
 
         // send user to ResultsActivity and pass on necessary information
         Intent intent = new Intent(this, ResultsActivity.class);
-        String scoreString = Integer.toString(madGrid.getScore());
+        String scoreString = Integer.toString(madGrid.getKey().size());
         intent.putExtra("score", scoreString);
         intent.putExtra("isHighest", madGrid.isHighestScore());
         intent.putExtra("mode", madGrid.getMode());
@@ -402,7 +400,7 @@ public class GameActivity extends AppCompatActivity {
         if (madGrid.isHighestScore()) {
             SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            String newHighestString = Integer.toString(madGrid.getScore());
+            String newHighestString = Integer.toString(madGrid.getKey().size());
             editor.putString(madGrid.getMode(), newHighestString); // key: mode, value: mode's new high score
             editor.apply();
         }
