@@ -273,7 +273,7 @@ public class GameActivity extends AppCompatActivity {
      * @param view - button clicked
      */
     public void handleBoxClick(View view) {
-        // when user is not playing, i.e., 'isPlaying is false, this method has no functionality
+        // when user is not playing, i.e., 'isPlaying' is false, this method has no functionality
         if (this.isPlaying) {
             if (this.sound) { // plays audio only if sound effects are enabled
                 soundPlayer.playClickSound();
@@ -287,6 +287,7 @@ public class GameActivity extends AppCompatActivity {
                     initializeNewTurn();
                 }
             } else {
+                madGrid.getKey().remove(0);
                 gameOver();
             }
         }
@@ -340,6 +341,10 @@ public class GameActivity extends AppCompatActivity {
      * mode, and whether or not they achieved new high score.
      */
     private void gameOver() {
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+        }
+
         // play game over audio only if sound effects are enabled
         if (this.sound) {
             soundPlayer.playGameOverSound();
@@ -355,17 +360,6 @@ public class GameActivity extends AppCompatActivity {
         intent.putExtra("isHighest", madGrid.isHighestScore());
         intent.putExtra("mode", madGrid.getMode());
         startActivity(intent);
-    }
-
-    /**
-     * Pauses media player (for background music)
-     * Precondition(s): none
-     * Postcondition(s): media player (for background music) is paused
-     */
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mediaPlayer.pause();
     }
 
     /**
