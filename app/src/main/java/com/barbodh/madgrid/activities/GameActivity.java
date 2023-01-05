@@ -341,10 +341,6 @@ public class GameActivity extends AppCompatActivity {
      * mode, and whether or not they achieved new high score.
      */
     private void gameOver() {
-        if (mediaPlayer.isPlaying()) {
-            mediaPlayer.pause();
-        }
-
         // play game over audio only if sound effects are enabled
         if (this.sound) {
             soundPlayer.playGameOverSound();
@@ -360,6 +356,17 @@ public class GameActivity extends AppCompatActivity {
         intent.putExtra("isHighest", madGrid.isHighestScore());
         intent.putExtra("mode", madGrid.getMode());
         startActivity(intent);
+    }
+
+    /**
+     * Pauses media player (for background music)
+     * Precondition(s): none
+     * Postcondition(s): media player (for background music) is paused
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mediaPlayer.isPlaying()) mediaPlayer.pause();
     }
 
     /**
