@@ -112,6 +112,12 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void onBackPressed() {
+        View view = findViewById(android.R.id.content).getRootView();
+        returnHome(view);
+    }
+
     /**
      * Opens project repository on browser
      * Precondition(s): none
