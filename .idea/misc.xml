@@ -13,6 +13,8 @@
         <entry key="app/src/main/res/drawable/grid_button_background.xml" value="0.1965" />
         <entry key="app/src/main/res/drawable/grid_button_background_inactive.xml" value="0.287" />
         <entry key="app/src/main/res/drawable/guide_background_dark_blue.xml" value="0.279" />
+        <entry key="app/src/main/res/drawable/guide_button_tutorial_background.xml" value="0.2785" />
+        <entry key="app/src/main/res/drawable/guide_button_tutorial_background_inactive.xml" value="0.2785" />
         <entry key="app/src/main/res/drawable/guide_grid_background_active.xml" value="0.279" />
         <entry key="app/src/main/res/drawable/guide_grid_background_inactive.xml" value="0.279" />
         <entry key="app/src/main/res/drawable/guide_progressbar.xml" value="0.279" />
@@ -36,6 +38,7 @@
         <entry key="app/src/main/res/layout/fragment_guide_crazy.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_guide_messy.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_guide_reverse.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/guide_button_tutorial_background.xml" value="0.40260416666666665" />
       </map>
     </option>
   </component>

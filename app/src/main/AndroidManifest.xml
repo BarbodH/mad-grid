@@ -13,7 +13,8 @@
         android:theme="@style/Theme.MadGrid">
         <activity
             android:name="com.barbodh.madgrid.activities.GuideActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name="com.barbodh.madgrid.activities.CreditsActivity"
             android:exported="false" />
