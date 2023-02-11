@@ -7,52 +7,94 @@
     android:background="@drawable/background_image"
     tools:context=".activities.fragments.GuideMessy">
 
-    <FrameLayout
-        android:id="@+id/guide_fragment_messy_frame_layout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
+    <GridLayout
+        android:id="@+id/guide_grid_layout"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:layout_margin="10sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/grid_background"
+        android:columnCount="2"
+        android:rowCount="2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <VideoView
-            android:id="@+id/guide_fragment_messy_video"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="15dp">
+        <Button
+            android:id="@+id/guide_button_box_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:layout_marginStart="8sp"
+            android:layout_marginTop="8sp"
+            android:layout_marginEnd="4sp"
+            android:layout_marginBottom="4sp"
+            android:background="@drawable/grid_button_background_inactive"
+            android:fontFamily="@font/ibm_plex_sans_medium"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
 
-        </VideoView>
+        <Button
+            android:id="@+id/guide_button_box_2"
+            android:background="@drawable/grid_button_background_inactive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:layout_marginTop="8sp"
+            android:layout_marginBottom="4sp"
+            android:layout_marginStart="4sp"
+            android:layout_marginEnd="8sp"
+            android:fontFamily="@font/ibm_plex_sans_medium"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
 
-        <FrameLayout
-            android:id="@+id/guide_fragment_messy_image_thumbnail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="15dp"
-            android:background="@drawable/guide_video_thumbnail" />
+        <Button
+            android:id="@+id/guide_button_box_3"
+            android:background="@drawable/grid_button_background_inactive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:layout_marginTop="4sp"
+            android:layout_marginBottom="8sp"
+            android:layout_marginStart="8sp"
+            android:layout_marginEnd="4sp"
+            android:fontFamily="@font/ibm_plex_sans_medium"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
 
-    </FrameLayout>
+        <Button
+            android:id="@+id/guide_button_box_4"
+            android:background="@drawable/grid_button_background_inactive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:layout_marginTop="4sp"
+            android:layout_marginBottom="8sp"
+            android:layout_marginStart="4sp"
+            android:layout_marginEnd="8sp"
+            android:fontFamily="@font/ibm_plex_sans_medium"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/guide_fragment_messy_text_video_caption"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/guide_fragment_messy_frame_layout"
-        android:text="@string/guide_watch_demonstration"
-        android:fontFamily="@font/ibm_plex_sans_medium"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_marginHorizontal="20dp" />
+    </GridLayout>
 
     <LinearLayout
         android:id="@+id/guide_fragment_messy_linear_layout_description_container_1"
-        android:background="@drawable/settings_background_game"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/guide_fragment_messy_text_video_caption"
         android:layout_margin="15dp"
-        android:orientation="vertical" >
+        android:background="@drawable/settings_background_game"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/guide_grid_layout">
 
         <RelativeLayout
             android:id="@+id/guide_fragment_messy_relative_layout_button_inactive"
@@ -141,6 +183,21 @@
             android:textStyle="bold" />
 
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/guide_button_tutorial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/guide_button_tutorial_background"
+        android:fontFamily="@font/ibm_plex_sans_medium"
+        android:padding="10dp"
+        android:text="@string/guide_button_tutorial"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guide_fragment_messy_relative_layout_hint" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
