@@ -209,6 +209,10 @@ public class MadGrid {
         return this.buttons;
     }
 
+    public int getLevel() {
+        return this.key.size();
+    }
+
     //////////////////// Utility Methods ////////////////////
 
     /**

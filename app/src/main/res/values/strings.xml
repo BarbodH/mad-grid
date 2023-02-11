@@ -75,6 +75,7 @@
 
     <!-- guide items -->
     <string name="guide_watch_demonstration">Tap on the grid to see a demonstration</string>
+    <string name="guide_button_tutorial">Start Tutorial</string>
     <string name="guide_inactive_button">Watch and memorize sequence</string>
     <string name="guide_active_button">Replicate the displayed sequence</string>
     <string name="guide_reverse">Replicate the sequence in reverse order</string>
