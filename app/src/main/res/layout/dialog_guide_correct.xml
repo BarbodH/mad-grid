@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center" >
+
+    <ImageView
+        android:id="@+id/guide_dialog_checkmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/guide_dialog_correct_image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp" />
+    
+    <TextView
+        android:id="@+id/guide_dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/guide_dialog_background"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/guide_dialog_message_correct"
+        android:fontFamily="@font/ibm_plex_sans_medium"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_below="@id/guide_dialog_checkmark"
+        android:layout_marginTop="10dp" />
+
+</RelativeLayout>

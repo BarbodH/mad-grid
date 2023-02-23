@@ -16,7 +16,7 @@ Mad Grid consists of three game modes:
 - Messy: similar to Classic mode, but an entirely new sequence is generated following the successful completion of each level.
 
 Additional features include:
-- Guide page providing text descriptions and a video demonstration for each mode.
+- Guide page providing interactive tutorials and text descriptions
 - Adjustable sequence display speed (1.0×, 1.5×, 2.0×, 2.5×).
 
 ## Screenshots

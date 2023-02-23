@@ -80,6 +80,8 @@
     <string name="guide_active_button">Replicate the displayed sequence</string>
     <string name="guide_reverse">Replicate the sequence in reverse order</string>
     <string name="guide_messy">Sequence completely resets in each level</string>
+    <string name="guide_dialog_message_correct">Tutorial Completed!</string>
+    <string name="guide_dialog_message_incorrect">Wrong Input, Try Again…</string>
 
     <!-- image descriptions -->
     <string name="menu_back_button">back button</string>

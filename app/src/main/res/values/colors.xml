@@ -14,6 +14,9 @@
     <color name="game_button_inactive">#0047AB</color>
     <color name="game_button_active">#1F51FF</color>
     <color name="menu_primarily">#2E2EFF</color>
+    <color name="menu_background">#F0F0F0</color>
+    <color name="menu_tab_selected">#2E2EFF</color>
+    <color name="menu_tab_default">#71797E</color>
     <color name="cyan_settings_icon">#5CFFFF</color>
     <color name="results_primary">#242449</color>
     <color name="results_button_settings">#E34234</color>

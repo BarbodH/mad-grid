@@ -84,6 +84,16 @@ public class MadGrid {
     }
 
     /**
+     * Modifier method for setting the playing status
+     * Precondition(s): none
+     * Postcondition(s): <code>playingStatus</code> data variable is set to the given argument
+     * @param playingStatus - boolean indicating playing status
+     */
+    public void setPlayingStatus(boolean playingStatus) {
+        this.playingStatus = playingStatus;
+    }
+
+    /**
      * Modifier method for updating turn index while the user is playing
      * Precondition(s): none
      * Postcondition(s): <code>turnIndex</code> is incremented by 1
