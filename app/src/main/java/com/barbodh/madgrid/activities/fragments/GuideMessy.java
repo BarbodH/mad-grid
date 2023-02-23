@@ -1,6 +1,8 @@
 package com.barbodh.madgrid.activities.fragments;
 
+import android.app.Dialog;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,13 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.barbodh.madgrid.MadGrid;
 import com.barbodh.madgrid.R;
 
 import java.util.Locale;
-import java.util.Objects;
 
 public class GuideMessy extends Fragment {
     // data variables
@@ -35,18 +35,16 @@ public class GuideMessy extends Fragment {
 
         // initialize buttons and set appropriate event listeners
         Button[] buttons = {
-                (Button) rootView.findViewById(R.id.guide_button_box_1),
-                (Button) rootView.findViewById(R.id.guide_button_box_2),
-                (Button) rootView.findViewById(R.id.guide_button_box_3),
-                (Button) rootView.findViewById(R.id.guide_button_box_4)
+                rootView.findViewById(R.id.guide_button_box_1),
+                rootView.findViewById(R.id.guide_button_box_2),
+                rootView.findViewById(R.id.guide_button_box_3),
+                rootView.findViewById(R.id.guide_button_box_4)
         };
         for (Button button : buttons) {
-            button.setOnClickListener(view -> {
-                handleBoxClick(view, rootView);
-            });
+            button.setOnClickListener(view -> handleBoxClick(view, rootView));
         }
 
-        Button buttonTutorial = (Button) rootView.findViewById(R.id.guide_button_tutorial);
+        Button buttonTutorial = rootView.findViewById(R.id.guide_button_tutorial);
         buttonTutorial.setOnClickListener(view -> initializeTutorial(rootView));
 
         // instantiate Mad Grid class instance
@@ -69,14 +67,12 @@ public class GuideMessy extends Fragment {
         switchDescriptionColors(rootView, delay, 0);
 
         // set up the tutorial button to
-        Button buttonTutorial = (Button) rootView.findViewById(R.id.guide_button_tutorial);
+        Button buttonTutorial = rootView.findViewById(R.id.guide_button_tutorial);
         buttonTutorial.setBackgroundResource(R.drawable.guide_button_tutorial_background_inactive);
         buttonTutorial.setText(String.format(Locale.ENGLISH, "Level: %d/5", madGrid.getLevel()));
 
         // mark the first solution
-        handler.postDelayed(() -> {
-            markSolution(rootView);
-        }, delay);
+        handler.postDelayed(() -> markSolution(rootView), delay);
     }
 
     /**
@@ -88,7 +84,7 @@ public class GuideMessy extends Fragment {
      *                      + level is not finished
      *                      + level is finished; tutorial is not finished
      *                      + level is finished; tutorial is finished
-     *                      - correct solution is marked on the boxes in order to guide the user
+     *                   - correct solution is marked on the boxes in order to guide the user
      * @param view - user interface
      * @param rootView - root interface
      */
@@ -98,7 +94,7 @@ public class GuideMessy extends Fragment {
 
         // when user is not playing, this method has no functionality
         if (madGrid.getPlayingStatus()) {
-            // when user does not input correct solution, this method has no functionality
+            // correct response is received by the user
             if (view.getId() == madGrid.getKey().get(madGrid.getTurnIndex()).getId()) {
                 clearSolution(rootView);
                 // correct solution; level is not finished yet
@@ -116,30 +112,73 @@ public class GuideMessy extends Fragment {
                         int[] delays = madGrid.displaySequence(getActivity());
                         switchDescriptionColors(rootView, delays[0], delays[1]);
 
-                        Button buttonTutorial = (Button) rootView.findViewById(R.id.guide_button_tutorial);
+                        Button buttonTutorial = rootView.findViewById(R.id.guide_button_tutorial);
                         buttonTutorial.setText(String.format(Locale.ENGLISH, "Level: %d/5", madGrid.getLevel()));
 
-                        handler.postDelayed(() -> { markSolution(rootView); }, delays[0]);
+                        handler.postDelayed(() -> markSolution(rootView), delays[0]);
                     }
                     // level is finished; tutorial is finished as well
                     else {
-                        for (Button button : madGrid.getButtons()) {
-                            button.setBackgroundResource(R.drawable.grid_button_background_inactive);
-                        }
-
-                        TextView watchDescription = rootView.findViewById(R.id.guide_fragment_messy_text_button_inactive_description);
-                        watchDescription.setTextColor(getResources().getColor(R.color.black));
-
-                        String message = "You have finished the tutorial!";
-                        (Toast.makeText(getActivity(), message, Toast.LENGTH_LONG)).show();
-
-                        Button buttonTutorial = (Button) rootView.findViewById(R.id.guide_button_tutorial);
-                        buttonTutorial.setBackgroundResource(R.drawable.guide_button_tutorial_background);
-                        buttonTutorial.setText(getResources().getString(R.string.guide_button_tutorial));
+                        displayDialogTutorialCompleted();
+                        endTutorial(rootView);
                     }
                 }
             }
+            // incorrect response is received by the user
+            else {
+                displayDialogTutorialFailed();
+                endTutorial(rootView);
+            }
         }
+    }
+
+    /**
+     * Helper method for finishing an ongoing tutorial
+     * Precondition(s): none
+     * Postcondition(s): - tutorial session is ended and user interface reverts back to normal
+     *                   - MadGrid class instance properties are intact and are reset by <code>initializeTutorial</code> method
+     * @param rootView - root interface
+     */
+    private void endTutorial(View rootView) {
+        for (Button button : madGrid.getButtons()) {
+            button.setBackgroundResource(R.drawable.grid_button_background_inactive);
+        }
+
+        clearSolution(rootView);
+        TextView watchDescription = rootView.findViewById(R.id.guide_fragment_messy_text_button_inactive_description);
+        watchDescription.setTextColor(getResources().getColor(R.color.black));
+
+        Button buttonTutorial = rootView.findViewById(R.id.guide_button_tutorial);
+        buttonTutorial.setBackgroundResource(R.drawable.guide_button_tutorial_background);
+        buttonTutorial.setText(getResources().getString(R.string.guide_button_tutorial));
+
+        madGrid.setPlayingStatus(false);
+    }
+
+    /**
+     * Helper method for displaying a dialog upon completion of a tutorial session
+     * Precondition(s): none
+     * Postcondition(s): completion dialog is displayed for 2.5 seconds
+     */
+    private void displayDialogTutorialCompleted() {
+        Dialog dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.dialog_guide_correct);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+        handler.postDelayed(dialog::dismiss, 2500);
+    }
+
+    /**
+     * Helper method for displaying a dialog upon failure of a tutorial session
+     * Precondition(s): none
+     * Postcondition(s): failure dialog is displayed for 2.5 seconds
+     */
+    private void displayDialogTutorialFailed() {
+        Dialog dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.dialog_guide_incorrect);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+        handler.postDelayed(dialog::dismiss, 2500);
     }
 
     /**
@@ -175,8 +214,8 @@ public class GuideMessy extends Fragment {
      */
     private void switchDescriptionColors(View rootView, int delay, int delayInitial) {
         // initialization
-        TextView watchDescription = (TextView) rootView.findViewById(R.id.guide_fragment_messy_text_button_inactive_description);
-        TextView replicateDescription = (TextView) rootView.findViewById(R.id.guide_fragment_messy_text_button_active_description);
+        TextView watchDescription = rootView.findViewById(R.id.guide_fragment_messy_text_button_inactive_description);
+        TextView replicateDescription = rootView.findViewById(R.id.guide_fragment_messy_text_button_active_description);
 
         // initial colors ('watch' must be displayed while sequence is being displayed)
         handler.postDelayed(() -> {
