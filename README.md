@@ -25,7 +25,7 @@ Additional features include:
 
 [<img src="/readme/screenshot_game_over.png" align="center" height="400" hspace="2" vspace="2">](/readme/screenshot_game_over.png)
 
-[<img src="/readme/screenshot_guide.png" align="left" height="400" hspace="2" vspace="2">](/readme/screenshot_guide.png)
+[<img src="/readme/screenshot_guide_interactive.png" align="left" height="400" hspace="2" vspace="2">](/readme/screenshot_guide_interactive.png)
 
 [<img src="/readme/screenshot_settings.png" align="center" height="400" hspace="2" vspace="2">](/readme/screenshot_settings.png)
 
