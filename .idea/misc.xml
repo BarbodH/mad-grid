@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1965" />
         <entry key="app/src/main/res/drawable/back_btn.xml" value="0.211" />
+        <entry key="app/src/main/res/drawable/dialog_guide_incorrect.xml" value="0.26" />
         <entry key="app/src/main/res/drawable/game_button_background_inactive.xml" value="0.287" />
         <entry key="app/src/main/res/drawable/game_control_button.xml" value="0.287" />
         <entry key="app/src/main/res/drawable/game_control_button_active.xml" value="0.285" />
@@ -15,6 +16,12 @@
         <entry key="app/src/main/res/drawable/guide_background_dark_blue.xml" value="0.279" />
         <entry key="app/src/main/res/drawable/guide_button_tutorial_background.xml" value="0.2785" />
         <entry key="app/src/main/res/drawable/guide_button_tutorial_background_inactive.xml" value="0.2785" />
+        <entry key="app/src/main/res/drawable/guide_dialog_background.xml" value="0.2785" />
+        <entry key="app/src/main/res/drawable/guide_dialog_checkmark_image.xml" value="0.26" />
+        <entry key="app/src/main/res/drawable/guide_dialog_correct_image.xml" value="0.26" />
+        <entry key="app/src/main/res/drawable/guide_dialog_incorrect.xml" value="0.26" />
+        <entry key="app/src/main/res/drawable/guide_dialog_incorrect_image.xml" value="0.26" />
+        <entry key="app/src/main/res/drawable/guide_dialog_xmark_image.xml" value="0.26" />
         <entry key="app/src/main/res/drawable/guide_grid_background_active.xml" value="0.279" />
         <entry key="app/src/main/res/drawable/guide_grid_background_inactive.xml" value="0.279" />
         <entry key="app/src/main/res/drawable/guide_progressbar.xml" value="0.279" />
@@ -34,6 +41,8 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_results.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/dialog_guide.xml" value="0.40260416666666665" />
+        <entry key="app/src/main/res/layout/dialog_guide_incorrect.xml" value="0.40260416666666665" />
         <entry key="app/src/main/res/layout/fragment_guide_classic.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_guide_crazy.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_guide_messy.xml" value="0.3098958333333333" />
