@@ -157,10 +157,10 @@ public class GameActivity extends AppCompatActivity {
     public void handleBoxClick(View view) {
         // when user is not playing, this method has no functionality
         if (madGrid.getPlayingStatus()) {
-            if (this.sound) { // plays audio only if sound effects are enabled
-                soundPlayer.playClickSound();
-            }
-            if (view.getId() == madGrid.getKey().get(madGrid.getTurnIndex()).getId()) { ////////// FIX LATER! CLEAN UP
+            if (view.getId() == madGrid.getKey().get(madGrid.getTurnIndex()).getId()) {
+                // play audio only if sound effects are enabled
+                if (this.sound) this.soundPlayer.playClickSound();
+
                 if (madGrid.getTurnIndex() < madGrid.getKey().size() - 1) {
                     madGrid.incrementTurnIndex();
                 } else {
@@ -183,7 +183,7 @@ public class GameActivity extends AppCompatActivity {
     private void gameOver() {
         // play game over audio only if sound effects are enabled
         if (this.sound) {
-            soundPlayer.playGameOverSound();
+            this.soundPlayer.playGameOverSound();
         }
 
         // save new highest score in SharedPreferences (if higher than previous highest score)

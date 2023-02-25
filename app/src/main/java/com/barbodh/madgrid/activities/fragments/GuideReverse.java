@@ -1,6 +1,8 @@
 package com.barbodh.madgrid.activities.fragments;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 
 import com.barbodh.madgrid.MadGrid;
 import com.barbodh.madgrid.R;
+import com.barbodh.madgrid.tools.SoundPlayer;
 
 import java.util.Locale;
 
@@ -24,11 +27,19 @@ public class GuideReverse extends Fragment {
     // data variables
     private final Handler handler = new Handler(); // used for delaying executions
     private MadGrid madGrid;
+    private boolean sound;
+    private SoundPlayer soundPlayer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_guide_reverse, container, false);
+
+        // load settings, only for sound effects
+        SharedPreferences sharedPreferences = this.requireActivity().getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE);
+        this.sound = sharedPreferences.getBoolean("Sound", false); // default value: false
+
+        soundPlayer = new SoundPlayer(getActivity());
 
         // adjust grid dimensions dynamically according to device dimensions
         adjustGridDimensions(rootView);
@@ -97,8 +108,10 @@ public class GuideReverse extends Fragment {
             // correct response is received by the user
             if (view.getId() == madGrid.getKey().get(madGrid.getTurnIndex()).getId()) {
                 clearSolution(rootView);
+
                 // correct solution; level is not finished yet
                 if (madGrid.getTurnIndex() < madGrid.getLevel() - 1) {
+                    if (this.sound) this.soundPlayer.playClickSound();
                     madGrid.incrementTurnIndex();
                     markSolution(rootView);
                 }
@@ -106,6 +119,7 @@ public class GuideReverse extends Fragment {
                 else {
                     // level is finished; tutorial is not finished yet
                     if (madGrid.getLevel() < TUTORIAL_LENGTH) {
+                        if (this.sound) this.soundPlayer.playClickSound();
                         madGrid.resetTurnIndex();
                         madGrid.incrementKey();
 
@@ -119,6 +133,7 @@ public class GuideReverse extends Fragment {
                     }
                     // level is finished; tutorial is finished as well
                     else {
+                        if (this.sound) this.soundPlayer.playSuccessSound();
                         displayDialogTutorialCompleted();
                         endTutorial(rootView);
                     }
@@ -126,6 +141,7 @@ public class GuideReverse extends Fragment {
             }
             // incorrect response is received by the user
             else {
+                if (this.sound) soundPlayer.playGameOverSound();
                 displayDialogTutorialFailed();
                 endTutorial(rootView);
             }

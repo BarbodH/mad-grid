@@ -11,6 +11,7 @@ public class SoundPlayer {
     private static SoundPool soundPool; // includes all the required sound effects
     private static int clickSound;
     private static int gameOverSound;
+    private static int successSound;
 
     /**
      * Constructor method
@@ -22,6 +23,7 @@ public class SoundPlayer {
         soundPool = new SoundPool(2, AudioManager.STREAM_MUSIC, 0);
         clickSound = soundPool.load(context, R.raw.click, 1);
         gameOverSound = soundPool.load(context, R.raw.game_over, 1);
+        successSound = soundPool.load(context, R.raw.success, 1);
     }
 
     /**
@@ -40,5 +42,14 @@ public class SoundPlayer {
      */
     public void playGameOverSound() {
         soundPool.play(gameOverSound, 1.0f, 1.0f, 1, 0, 1.0f);
+    }
+
+    /**
+     * Plays 'success.mp3' audio file
+     * Precondition(s): none
+     * Postcondition(s): 'success.mp3' audio file is played with the specified attributes
+     */
+    public void playSuccessSound() {
+       soundPool.play(successSound, 1.0f, 1.0f, 1, 0, 1.0f);
     }
 }
