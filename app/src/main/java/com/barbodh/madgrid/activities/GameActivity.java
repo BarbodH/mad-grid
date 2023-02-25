@@ -58,10 +58,6 @@ public class GameActivity extends AppCompatActivity {
         // start background music only if music is enabled
         loadSettings();
         mediaPlayer = MediaPlayer.create(GameActivity.this, R.raw.game_music);
-        if (this.music) {
-            mediaPlayer.setLooping(true);
-            mediaPlayer.start();
-        }
 
         // adjust grid dimensions dynamically according to device dimensions
         adjustGridDimensions();
@@ -207,6 +203,20 @@ public class GameActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         if (mediaPlayer.isPlaying()) mediaPlayer.pause();
+    }
+
+    /**
+     * Starts media player (for background music) when activity is closed or stopped (app overview button is clicked)
+     * Precondition(s): none
+     * Postcondition(s): media player (first background music is started)
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (this.music) {
+            mediaPlayer.setLooping(true);
+            mediaPlayer.start();
+        }
     }
 
     /**
