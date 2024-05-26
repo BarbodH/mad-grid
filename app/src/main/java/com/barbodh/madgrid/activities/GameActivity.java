@@ -76,7 +76,7 @@ public class GameActivity extends AppCompatActivity {
     /**
      * Aborts the current game and navigates to {@code MainActivity}.
      *
-     * @param view The triggered UI element; 'Home' button
+     * @param view the triggered UI element; "Home" button
      */
     public void returnHome(View view) {
         var intent = new Intent(this, MainActivity.class);
@@ -86,7 +86,7 @@ public class GameActivity extends AppCompatActivity {
     /**
      * Aborts the current game and starts a new one.
      *
-     * @param view The triggered UI element; 'Reset' button
+     * @param view the triggered UI element; "Reset" button
      */
     public void resetGame(View view) {
         if (madGrid.getPlayingStatus()) {
@@ -98,7 +98,7 @@ public class GameActivity extends AppCompatActivity {
     /**
      * When user is playing, determines correctness of their response and updates game status.
      *
-     * @param view Triggered UI element; button clicked during the game
+     * @param view the triggered UI element; button clicked during the game
      */
     public void handleBoxClick(View view) {
         if (madGrid.getPlayingStatus()) {
@@ -151,7 +151,7 @@ public class GameActivity extends AppCompatActivity {
         var delay = madGrid.displaySequence(this);
 
         // Deactivate reset button and activate after sequence display is finished
-        // Duration of sequence display is indicated by 'delay'
+        // Duration of sequence display is indicated by the delay value
         var resetButtonView = findViewById(R.id.game_button_reset);
         handler.postDelayed(() -> resetButtonView.setBackgroundResource(R.drawable.game_control_button_inactive), delay[1]);
         handler.postDelayed(() -> resetButtonView.setBackgroundResource(R.drawable.game_control_button_active), delay[0]);
@@ -238,7 +238,7 @@ public class GameActivity extends AppCompatActivity {
             var sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
             var editor = sharedPreferences.edit();
             var newHighestString = Integer.toString(madGrid.getKey().size());
-            // Key: mode, value: mode's new high score
+            // Key: mode, value: new high score for the current game mode
             editor.putString(madGrid.getMode(), newHighestString);
             editor.apply();
         }

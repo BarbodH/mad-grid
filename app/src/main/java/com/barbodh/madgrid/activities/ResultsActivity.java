@@ -46,7 +46,7 @@ public class ResultsActivity extends AppCompatActivity {
     /**
      * Navigates to {@code SettingsActivity}.
      *
-     * @param view Triggered UI element; 'Settings' button
+     * @param view the triggered UI element; "Settings" button
      */
     public void openSettings(View view) {
         var intent = new Intent(this, SettingsActivity.class);
@@ -56,7 +56,7 @@ public class ResultsActivity extends AppCompatActivity {
     /**
      * Navigates to {@code GameActivity} with the same game mode.
      *
-     * @param view Triggered UI element; 'Restart' button
+     * @param view the triggered UI element; "Restart" button
      */
     public void openGame(View view) {
         var intent = new Intent(this, GameActivity.class);
@@ -67,7 +67,7 @@ public class ResultsActivity extends AppCompatActivity {
     /**
      * Navigates {@code MainActivity}.
      *
-     * @param view Triggered UI element; 'Home' button
+     * @param view the triggered UI element; "Home" button
      */
     public void openHome(View view) {
         var intent = new Intent(this, MainActivity.class);

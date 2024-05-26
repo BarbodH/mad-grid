@@ -30,7 +30,7 @@ public class CreditsActivity extends AppCompatActivity {
     /**
      * Navigates to {@code SettingsActivity}
      *
-     * @param view Triggered UI element; back button
+     * @param view the triggered UI element; back button
      */
     public void returnToSettings(View view) {
         var intent = new Intent(this, SettingsActivity.class);
