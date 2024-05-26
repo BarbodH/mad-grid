@@ -1,78 +1,68 @@
 package com.barbodh.madgrid.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.barbodh.madgrid.R;
 
 public class MainActivity extends AppCompatActivity {
-    // data variables
+
+    ////////// Field(s) //////////
+
     private final String[] modeStrings = {"Classic", "Reverse", "Messy"};
-    private int mode; // stores index [0, 2] for 'modeString' array
+    private int mode; // Stores index within range [0, 2] for "modeString" array
+
+    ////////// Initializer //////////
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.mode = 0; // default game mode 0: 'Classic'
+        mode = 0; // Default game mode 0: "Classic"
         updateModeDisplay();
     }
 
+    ////////// Event Handler(s) //////////
+
     /**
-     * Opens the game page and passes on mode
-     * Precondition(s): none
-     * Postcondition(s): GameActivity is opened and 'mode' is passed in 'intent'
-     * @param view - user interface
+     * Navigates to {@code GameActivity} and provides game mode.
+     *
+     * @param view the triggered UI element; "Start Game" button
      */
     public void openGame(View view) {
-        Intent intent = new Intent(this, GameActivity.class);
+        var intent = new Intent(this, GameActivity.class);
         intent.putExtra("mode", modeStrings[this.mode]);
         startActivity(intent);
     }
 
     /**
-     * Opens guide page
-     * Precondition(s): none
-     * Postcondition(s): GuideActivity is started
-     * @param view - user interface
+     * Navigates to {@code GuideActivity}.
+     *
+     * @param view the triggered UI element; "Guide" button
      */
     public void openGuide(View view) {
-        Intent intent = new Intent(this, GuideActivity.class);
+        var intent = new Intent(this, GuideActivity.class);
         startActivity(intent);
     }
 
     /**
-     * Opens settings page
-     * Precondition(s): none
-     * Postcondition(s): SettingsActivity is started
-     * @param view - user interface
+     * Navigates to {@code SettingsActivity}.
+     *
+     * @param view the triggered UI element; "Settings" button
      */
     public void openSettings(View view) {
-        Intent intent = new Intent(this, SettingsActivity.class);
+        var intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 
     /**
-     * Helper method - updates game mode displayed on homepage as follows:
-     *  0: Classic
-     *  1: Reverse
-     *  2: Messy
-     * Precondition(s): 'mode' is an integer between 0 and 2
-     * Postcondition(s): game mode display is updated
-     */
-    private void updateModeDisplay() {
-        ((TextView)findViewById(R.id.homepage_text_mode)).setText(modeStrings[this.mode]);
-    }
-
-    /**
-     * Increases game difficulty when right chevron icon is clicked
-     * Precondition(s): 'mode' is an integer between 0 and 2
-     * Postcondition(s): 'mode' (difficulty) is incremented
-     * @param view - user interface
+     * Increments game mode index.
+     *
+     * @param view the triggered UI element; right chevron icon
      */
     public void increaseDifficulty(View view) {
         if (this.mode != 2) {
@@ -82,15 +72,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Decreases game difficulty when left chevron icon is clicked
-     * Precondition(s): 'mode' is an integer between 0 and 2
-     * Postcondition(s): 'mode' (difficulty) is decremented
-     * @param view - user interface
+     * Decreases game mode index.
+     *
+     * @param view the triggered UI element; left chevron icon
      */
     public void decreaseDifficulty(View view) {
         if (this.mode != 0) {
             this.mode--;
         }
         updateModeDisplay();
+    }
+
+    ////////// Utility //////////
+
+    /**
+     * Updates game mode index displayed on homepage as follows:
+     * 0 -> Classic,
+     * 1 -> Reverse,
+     * 2 -> Messy
+     */
+    private void updateModeDisplay() {
+        ((TextView) findViewById(R.id.homepage_text_mode)).setText(modeStrings[this.mode]);
     }
 }
