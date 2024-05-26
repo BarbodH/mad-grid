@@ -1,55 +1,65 @@
 package com.barbodh.madgrid.tools;
 
 import android.content.Context;
-import android.media.AudioManager;
+import android.media.AudioAttributes;
 import android.media.SoundPool;
 
 import com.barbodh.madgrid.R;
 
+/**
+ * A sound player for playing audio resources in the application.
+ */
 public class SoundPlayer {
-    // data variables
-    private static SoundPool soundPool; // includes all the required sound effects
+
+    ////////// Field(s) //////////
+
+    private static SoundPool soundPool;
     private static int clickSound;
     private static int gameOverSound;
     private static int successSound;
 
+    ////////// Constructor(s) //////////
+
     /**
-     * Constructor method
-     * Precondition(s): none
-     * Postcondition(s): instantiates a SoundPlayer object
-     * @param context - activity
+     * Constructs a {@code SoundPlayer} with specified {@code context}.
+     *
+     * @param context the application context used for loading audio resources.
      */
     public SoundPlayer(Context context) {
-        soundPool = new SoundPool(2, AudioManager.STREAM_MUSIC, 0);
+        var builder = new SoundPool.Builder();
+        builder.setMaxStreams(2); // Maximum simultaneous streams
+        var attributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+        builder.setAudioAttributes(attributes);
+        soundPool = builder.build();
+
         clickSound = soundPool.load(context, R.raw.click, 1);
         gameOverSound = soundPool.load(context, R.raw.game_over, 1);
         successSound = soundPool.load(context, R.raw.success, 1);
     }
 
+    ////////// Utility //////////
+
     /**
-     * Plays 'click.wav' audio file
-     * Precondition(s): none
-     * Postcondition(s): 'click.wav' audio file is played with the specified attributes
+     * Plays the "click.wav" audio file.
      */
     public void playClickSound() {
         soundPool.play(clickSound, 1.0f, 1.0f, 1, 0, 1.0f);
     }
 
     /**
-     * Plays 'game_over.wav' audio file
-     * Precondition(s): none
-     * Postcondition(s): 'game_over.wav' audio file is played with the specified attributes
+     * Plays "game_over.wav" audio file.
      */
     public void playGameOverSound() {
         soundPool.play(gameOverSound, 1.0f, 1.0f, 1, 0, 1.0f);
     }
 
     /**
-     * Plays 'success.mp3' audio file
-     * Precondition(s): none
-     * Postcondition(s): 'success.mp3' audio file is played with the specified attributes
+     * Plays "success.mp3" audio file.
      */
     public void playSuccessSound() {
-       soundPool.play(successSound, 1.0f, 1.0f, 1, 0, 1.0f);
+        soundPool.play(successSound, 1.0f, 1.0f, 1, 0, 1.0f);
     }
 }
