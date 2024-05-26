@@ -1,84 +1,86 @@
 package com.barbodh.madgrid.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.barbodh.madgrid.R;
 
 public class ResultsActivity extends AppCompatActivity {
-    // data variables
+
+    ////////// Field(s) //////////
+
     private String stringMode;
     public static final String SHARED_PREFS = "sharedPrefs";
+
+    ////////// Initializer //////////
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
-        Intent intent = getIntent();
+        var intent = getIntent();
 
-        // retrieve necessary information from GameActivity
-        String scoreString = intent.getStringExtra("score");
-        boolean isHighest = intent.getBooleanExtra("isHighest", false);
+        // Retrieve necessary information from "GameActivity"
+        var scoreString = intent.getStringExtra("score");
+        var isHighest = intent.getBooleanExtra("isHighest", false);
         this.stringMode = intent.getStringExtra("mode");
 
-        // update results view for user results_scoreValue
-        ((TextView)findViewById(R.id.results_text_placeholder_score_value)).setText(scoreString);
-        ((TextView)findViewById(R.id.results_text_placeholder_highest_value)).setText(loadHighestScore());
-        // display congratulations message if new high score is achieved
+        // Update results view for user's "results_scoreValue"
+        ((TextView) findViewById(R.id.results_text_placeholder_score_value)).setText(scoreString);
+        ((TextView) findViewById(R.id.results_text_placeholder_highest_value)).setText(loadHighestScore());
+        // Display congratulations message if new high score is achieved
         if (isHighest) {
-            String congratsMessage = String.format("New High Score for %s mode.", this.stringMode);
-            ((TextView)findViewById(R.id.results_text_placeholder_highest_score_message)).setText(congratsMessage);
+            var congratsMessage = String.format("New High Score for %s mode.", this.stringMode);
+            ((TextView) findViewById(R.id.results_text_placeholder_highest_score_message)).setText(congratsMessage);
         } else {
-            ((TextView)findViewById(R.id.results_text_placeholder_highest_score_message)).setText("");
+            ((TextView) findViewById(R.id.results_text_placeholder_highest_score_message)).setText("");
         }
     }
 
-    /**
-     * Helper method to load current game mode's highest score from SharedPreferences
-     * Precondition(s): none
-     * Postcondition(s): string representing highest score of current game mode is returned
-     */
-    public String loadHighestScore() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        return sharedPreferences.getString(this.stringMode, "0");
-    }
+    ////////// Event Handler(s) //////////
 
     /**
-     * Event listener to redirect user to settings page
-     * Precondition(s): none
-     * Postcondition(s): SettingsActivity is opened
-     * @param view - user interface
+     * Navigates to {@code SettingsActivity}.
+     *
+     * @param view Triggered UI element; 'Settings' button
      */
     public void openSettings(View view) {
-        Intent intent = new Intent(this, SettingsActivity.class);
+        var intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 
     /**
-     * Event listener to redirects user to GameActivity of same mode
-     * Precondition(s): none
-     * Postcondition(s): GameActivity is opened; current game mode is passed on through intent object
-     * @param view - user interface
+     * Navigates to {@code GameActivity} with the same game mode.
+     *
+     * @param view Triggered UI element; 'Restart' button
      */
     public void openGame(View view) {
-        Intent intent = new Intent(this, GameActivity.class);
+        var intent = new Intent(this, GameActivity.class);
         intent.putExtra("mode", stringMode);
         startActivity(intent);
     }
 
     /**
-     * Event listener to redirects user to MainActivity
-     * Precondition(s): none
-     * Postcondition(s): MainActivity is opened
-     * @param view - user interface
+     * Navigates {@code MainActivity}.
+     *
+     * @param view Triggered UI element; 'Home' button
      */
     public void openHome(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
+        var intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    ////////// Utility //////////
+
+    /**
+     * Loads the highest score of the current game mode from {@code SharedPreferences}.
+     */
+    public String loadHighestScore() {
+        var sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        return sharedPreferences.getString(this.stringMode, "0");
     }
 }
