@@ -2,7 +2,6 @@ package com.barbodh.madgrid;
 
 import android.content.Context;
 import android.os.Handler;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
@@ -10,76 +9,84 @@ import com.barbodh.madgrid.tools.BounceInterpolator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 public class MadGrid {
-    // data variables
-    private boolean playingStatus; // indicates whether the user is playing their turn
+
+    ////////// Field(s) //////////
+
+    private boolean playingStatus;
     private int turnIndex;
     private int speed;
     private final int highestScore;
     private final String mode;
-    private final ArrayList<Button> key; // stores the correct sequence of buttons
-    // key length is equivalent to current score
-    private final Button[] buttons; // stores reference to button objects used by GameActivity
-    private final Handler handler = new Handler(); // used for delaying executions
+    private final ArrayList<Button> key; // Key length is equivalent to current score
+    private final Button[] buttons;
+    private final Handler handler = new Handler(); // Used for delaying executions
 
-    //////////////////// Constructor(s) ////////////////////
+    ////////// Constructor(s) //////////
 
     /**
-     * Constructor initializing MadGrid class instance in GameActivity
-     * Precondition(s): - <code>mode</code> is either equal to 'Classic', 'Reverse', or 'Messy'
-     *                  - <code>highestScore</code> is a non-negative integer
-     *                  - <code>buttons</code> is a Button array of length 4
-     * Postcondition(s): MadGrid object is initialized with according to the given mode, highest score, and buttons
-     * @param mode - game mode (string version)
-     * @param highestScore - highest score of the current game mode
-     * @param buttons - array of button objects displayed on the user interface
+     * Constructs an instance of the {@code MadGrid} class.
+     *
+     * @param mode         the game mode, must be one of "Classic", "Reverse", or "Messy"
+     * @param highestScore the highest score for the given game mode, must be non-negative
+     * @param buttons      reference to buttons on the screen, must contain exactly 4 buttons
+     * @throws IllegalArgumentException if mode is invalid, highestScore is negative, or buttons
+     *                                  array length is not 4
      */
     public MadGrid(String mode, int highestScore, Button[] buttons) {
-        // precondition checking
-        if (invalidMode(mode)) throw new IllegalArgumentException(String.format(
-                "Invalid Game Mode!\nValid inputs include: 'Classic', 'Reverse', 'Messy'.\nProvided: %s", mode
-        ));
-        if (highestScore < 0) throw new IllegalArgumentException(String.format(
-                "Invalid Highest Score!\nHighest score must be a non-negative integer.\nProvided: %d", highestScore
-        ));
-        if (buttons.length != 4) throw new IllegalArgumentException(String.format(
-                "Invalid Array of Buttons!\nOnly 4 buttons are expected by MadGrid instance.\nProvided: %d", buttons.length
-        ));
+        // Precondition checking
+        if (invalidMode(mode)) {
+            throw new IllegalArgumentException(String.format(
+                    "Invalid Game Mode!\nValid inputs include: 'Classic', 'Reverse', 'Messy'.\nProvided: %s", mode
+            ));
+        }
+        if (highestScore < 0) {
+            throw new IllegalArgumentException(String.format(
+                    "Invalid Highest Score!\nHighest score must be a non-negative integer.\nProvided: %d", highestScore
+            ));
+        }
+        if (buttons.length != 4) {
+            throw new IllegalArgumentException(String.format(
+                    "Invalid Array of Buttons!\nOnly 4 buttons are expected by MadGrid instance.\nProvided: %d", buttons.length
+            ));
+        }
 
         this.playingStatus = false;
         this.turnIndex = 0;
-        this.speed = 0; // arbitrary value; must be updated by GameActivity according to settings
+        this.speed = 0; // Arbitrary value; must be updated by "GameActivity" according to settings
         this.highestScore = highestScore;
         this.mode = mode;
-        this.key = new ArrayList<>(); // type: Integer (explicit)
+        this.key = new ArrayList<>();
         this.buttons = buttons;
     }
 
     /**
-     * Helper method for validating an input game mode
-     * @param mode - game mode
-     * @return boolean indicating whether the given mode is invalid
+     * Validates the input game mode.
+     *
+     * @param mode the game mode to validate
+     * @return {@code true} if the given mode is invalid, {@code false} otherwise
      */
     private boolean invalidMode(String mode) {
-        List<String> validModes = Arrays.asList("Classic", "Reverse", "Messy");
+        var validModes = Arrays.asList("Classic", "Reverse", "Messy");
         return !validModes.contains(mode);
     }
 
-    //////////////////// Modifier Methods ////////////////////
+    ////////// Modifier(s) //////////
 
     /**
-     * Modifier method for setting the sequence display speed
-     * Precondition(s): <code>speed</code> is within range [0, 3]
-     * Postcondition(s): <code>speed</code> data variable is set to the given argument
-     * @param speed - integer indicating sequence display speed
+     * Sets the sequence display speed.
+     *
+     * @param speed the speed to set, must be an integer within the range [0, 3]
+     * @throws IllegalArgumentException if the speed is outside the range [0, 3]
      */
     public void setSpeed(int speed) {
-        if (speed > 3 || speed < 0) throw new IllegalArgumentException(String.format(
-                "Invalid Speed!\nSpeed must be an integer within [0, 3] range.\nProvided: %d", speed
-        ));
+        if (speed > 3 || speed < 0) {
+            throw new IllegalArgumentException(String.format(
+                    "Invalid Speed!\nSpeed must be an integer within [0, 3] range.\nProvided: %d", speed
+            ));
+        }
         this.speed = speed;
     }
 
@@ -87,6 +94,7 @@ public class MadGrid {
      * Modifier method for setting the playing status
      * Precondition(s): none
      * Postcondition(s): <code>playingStatus</code> data variable is set to the given argument
+     *
      * @param playingStatus - boolean indicating playing status
      */
     public void setPlayingStatus(boolean playingStatus) {
@@ -94,157 +102,147 @@ public class MadGrid {
     }
 
     /**
-     * Modifier method for updating turn index while the user is playing
-     * Precondition(s): none
-     * Postcondition(s): <code>turnIndex</code> is incremented by 1
+     * Increments turn index while the user is playing.
      */
     public void incrementTurnIndex() {
-        this.turnIndex++;
+        turnIndex++;
     }
 
     /**
-     * Modifier method for updating turn index upon the start of a new level
-     * Precondition(s): none
-     * Postcondition(s): <code>turnIndex</code> is set to 0
+     * Resets turn index upon the start of a new level.
      */
     public void resetTurnIndex() {
-        this.turnIndex = 0;
+        turnIndex = 0;
     }
 
     /**
-     * Adds new integers to the key depending on game mode
-     * Precondition(s): <code>mode</code> is already initialized as 'Classic', 'Reverse', or 'Messy'
-     * Postcondition(s): integer within [1, 4] is added to the key according to game mode
+     * Adds a new integer to the key depending on game mode.
      */
     public void incrementKey() {
-        // initialization
-        Random rand = new Random();
+        var rand = new Random();
 
-        // 'Classic' game mode: increment by 1
-        if (this.mode.equals("Classic")) {
-            this.key.add(this.buttons[rand.nextInt(4)]);
+        // "Classic" game mode: increment by 1
+        if (mode.equals("Classic")) {
+            key.add(buttons[rand.nextInt(4)]);
         }
-        // 'Reverse' game mode: increment by 1; reverse key
-        else if (this.mode.equals("Reverse")) {
-            this.key.add(0, this.buttons[rand.nextInt(this.buttons.length)]);
+        // "Reverse" game mode: increment by 1; reverse key
+        else if (mode.equals("Reverse")) {
+            key.add(0, buttons[rand.nextInt(buttons.length)]);
         }
-        // 'Messy' game mode: increment by 1; reset entire key each time
+        // "Messy" game mode: increment by 1; reset entire key each time
         else {
-            int newKeyLength = this.key.size() + 1;
-            this.key.clear();
-            for (int index = 0; index < newKeyLength; index++) {
-                this.key.add(this.buttons[rand.nextInt(this.buttons.length)]);
+            var newKeyLength = key.size() + 1;
+            key.clear();
+            for (var index = 0; index < newKeyLength; index++) {
+                key.add(buttons[rand.nextInt(buttons.length)]);
             }
         }
     }
 
     /**
-     * Modifier method for clearing <code>key</code> ArrayList
-     * Precondition(s): none
-     * Postcondition(s): <code>key</code> is cleared (all items removed)
+     * Empties the key.
      */
     public void clearKey() {
-        this.key.clear();
+        key.clear();
     }
 
-    //////////////////// Accessor Methods ////////////////////
+    ////////// Accessor(s) //////////
 
     /**
      * Accessor method for the current playing status
      * Precondition(s): none
      * Postcondition(s): <code>playingStatus</code> data variable is returned
-     * @return <code>playingStatus</code> - boolean value indicating whether the user is playing their turn
+     *
+     * @return <code>playingStatus</code> - boolean value indicating whether the user is playing
+     * their turn
      */
     public boolean getPlayingStatus() {
-        return this.playingStatus;
+        return playingStatus;
     }
 
     /**
      * Accessor method for the turn index
      * Precondition(s): none
      * Postcondition(s): <code>turnIndex</code> data variable is returned
-     * @return <code>turnIndex</code> - integer indicating the current turn index while the user is playing
+     *
+     * @return <code>turnIndex</code> - integer indicating the current turn index while the user is
+     * playing
      */
     public int getTurnIndex() {
-        return this.turnIndex;
+        return turnIndex;
     }
 
     /**
      * Accessor method for <code>mode</code>
      * Precondition(s): none
      * Postcondition(s): string value of <code>mode</code> is returned
+     *
      * @return <code>mode</code> - game mode (string version)
      */
     public String getMode() {
-        return this.mode;
+        return mode;
     }
 
     /**
      * Accessor method for <code>key</code>
      * Precondition(s): none
      * Postcondition(s): ArrayList <code>key</code> of type Integer is returned
+     *
      * @return <code>key</code> - correct sequence of boxes
      */
     public ArrayList<Button> getKey() {
-        return this.key;
+        return key;
     }
 
     /**
      * Accessor method for <code>highestScore</code>
      * Precondition(s): none
      * Postcondition(s): integer value of <code>highestScore</code> is returned
+     *
      * @return <code>highestScore</code> - highest score of the current game mode
      */
     public int getHighestScore() {
-        return this.highestScore;
+        return highestScore;
     }
 
     /**
-     * Accessor method determining if current score (key length) is larger than highest score
-     * Precondition(s): none
-     * Postcondition(s): returns true if score (i.e., <code>key</code> length) is larger than <code>highestScore</code> and false otherwise
-     * @return boolean indicating whether highest score is surpassed
+     * Determines if the current score (length of {@code key}) is larger than the highest score.
+     *
+     * @return {@code true} if the current score is larger than the highest score, {@code false}
+     * otherwise
      */
     public boolean isHighestScore() {
-        return this.key.size() > this.highestScore;
+        return key.size() > highestScore;
     }
 
     /**
      * Accessor method for the grid buttons
      * Precondition(s): none
      * Postcondition(s): <code>buttons</code> data variable is returned
+     *
      * @return array of buttons
      */
     public Button[] getButtons() {
-        return this.buttons;
+        return buttons;
     }
 
     public int getLevel() {
-        return this.key.size();
+        return key.size();
     }
 
-    //////////////////// Utility Methods ////////////////////
+    ////////// Utility //////////
 
     /**
-     * Displays newly incremented sequence to user before their turn
-     * Precondition(s): - <code>context</code> points to the activity (GameActivity/GuideActivity) calling the method
-     *                  - <code>speed</code> data variable is within range [0, 3]
-     *                  - helper methods are implemented and functional
-     *                      + activateButtons
-     *                      + deactivateButtons
-     *                      + bounceButton
-     * Postcondition(s): <code>key</code> elements are displayed using sequential button animations and delay values are returned
-     * @return integer array containing the following delay values respectively:
-     *          - <code>delay</code> indicating the total delay of the display sequence process
-     *          - <code>delayButtonDeactivation</code> indicating the initial delay of button deactivation (useful for reset button)
-     * delay - integer indicating duration of sequence display process
+     * Displays the newly incremented sequence to the user before their turn.
+     *
+     * @param context the context in which to display the sequence
+     * @return an integer array containing delay values: [total delay, button deactivation delay]
+     * @throws IllegalArgumentException if the speed value is out of range [0, 3]
      */
     public int[] displaySequence(Context context) {
-        // initialization
-        this.playingStatus = false;
+        playingStatus = false;
         int delay, delayIncrement, delayButtonDeactivation;
-        int[] returnData = new int[2];
-        switch (this.speed) { // delay = delay_1.0x / speed
+        switch (speed) { // delay = delay_1.0x / speed
             case 0: // speed: 1.0x
                 delay = 750;
                 delayIncrement = 750;
@@ -267,86 +265,77 @@ public class MadGrid {
                 break;
             default:
                 throw new IllegalArgumentException(String.format(
-                        "Invalid Speed!\nSpeed data variable must be within range [0, 3].\nCurrent value: %d", this.speed
+                        "Invalid Speed!\nSpeed data variable must be within range [0, 3].\nCurrent value: %d", speed
                 ));
         }
 
-        // turn off button feedback to user
+        // Turn off button feedback to user
         handler.postDelayed(this::deactivateButtons, delayButtonDeactivation);
 
-        // start display of sequence
-        // handler object prevents simultaneous grid animations
-        if (this.mode.equals("Reverse")) { // iterate backwards through key for 'Reverse' mode
-            for (int index = this.key.size() - 1; index >= 0; index--) {
-                Button button = this.key.get(index);
+        // Start display of sequence
+        // Handler object prevents simultaneous grid animations
+        if (mode.equals("Reverse")) { // Iterate backwards through key for "Reverse" mode
+            for (var index = key.size() - 1; index >= 0; index--) {
+                var button = key.get(index);
                 handler.postDelayed(() -> bounceButton(context, button), delay);
                 delay += delayIncrement;
             }
-        }
-        else { // iterate regularly through key for 'Classic' and 'Messy' modes
-            for (Button button : this.key) {
+        } else { // Iterate regularly through key for "Classic" and "Messy" modes
+            for (Button button : key) {
                 handler.postDelayed(() -> bounceButton(context, button), delay);
                 delay += delayIncrement;
             }
         }
 
-        // handler object delays change of value of 'playingStatus' until whole sequence is displayed
+        // Handler object delays change of value of "playingStatus" until whole sequence is displayed
         handler.postDelayed(() -> {
-            this.playingStatus = true;
-            activateButtons(); // turn on button feedback to user
+            playingStatus = true;
+            activateButtons(); // Turn on button feedback to user
         }, delay);
 
-        return (new int[] {delay, delayButtonDeactivation});
+        return (new int[]{delay, delayButtonDeactivation});
     }
 
     /**
-     * Helper method to activate button feedback to user when game is ongoing (<code>playingStatus</code> = true)
-     * Precondition(s): none
-     * Postcondition(s): buttons' background becomes lighter with ripple effect
+     * Activates button feedback to user when game is ongoing, i.e., {@code playingStatus} is
+     * {@code true}.
      */
     private void activateButtons() {
-        for (Button button : buttons)
+        for (var button : buttons)
             button.setBackgroundResource(R.drawable.grid_button_background);
     }
 
     /**
-     * Helper method to deactivate button feedback to user during sequence display (<code>playingStatus</code> = false)
-     * Precondition(s): none
-     * Postcondition(s): buttons' background becomes darker without ripple effect
+     * Deactivates button feedback to user when during sequence display, i.e., {code playingStatus}
+     * is {@code false}.
      */
     private void deactivateButtons() {
-        for (Button button : buttons)
+        for (var button : buttons)
             button.setBackgroundResource(R.drawable.grid_button_background_inactive);
     }
 
     /**
-     * Helper method to handle individual button animations
-     * Precondition(s): <code>button</code> is a valid reference to a grid button on the user interface
-     * Postcondition(s): target button bounces at a rate specified by <code>speed</code> data variable
-     * @param context - activity (GameActivity/GuideActivity) calling the method
-     * @param button - button object on the user interface to bounce
+     * Handles individual button animations.
+     *
+     * @param context the context in which to perform the animation
+     * @param button  the button to animate
+     * @throws IllegalArgumentException if the speed value is out of range [0, 3]
      */
     private void bounceButton(Context context, Button button) {
-        Animation animation;
-        switch (this.speed) {
-            case 0: // speed: 1.0x
-                animation = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.bounce_1_0);
-                break;
-            case 1: // speed: 1.5x
-                animation = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.bounce_1_5);
-                break;
-            case 2: // speed: 2.0x
-                animation = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.bounce_2_0);
-                break;
-            case 3: // speed: 2.5x
-                animation = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.bounce_2_5);
-                break;
-            default:
-                throw new IllegalArgumentException(String.format(
-                        "Invalid Speed!\nSpeed data variable must be within range [0, 3].\nCurrent value: %d", this.speed
-                ));
-        }
-        BounceInterpolator bounceInterpolator = new BounceInterpolator(0.2, 20);
+        var animation = switch (speed) {
+            case 0 -> // speed: 1.0x
+                    AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.bounce_1_0);
+            case 1 -> // speed: 1.5x
+                    AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.bounce_1_5);
+            case 2 -> // speed: 2.0x
+                    AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.bounce_2_0);
+            case 3 -> // speed: 2.5x
+                    AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.bounce_2_5);
+            default -> throw new IllegalArgumentException(String.format(
+                    "Invalid Speed!\nSpeed data variable must be within range [0, 3].\nCurrent value: %d", speed
+            ));
+        };
+        var bounceInterpolator = new BounceInterpolator(0.2, 20);
         animation.setInterpolator(bounceInterpolator);
         button.startAnimation(animation);
     }
