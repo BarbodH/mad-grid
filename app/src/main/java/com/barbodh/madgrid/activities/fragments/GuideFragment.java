@@ -122,7 +122,7 @@ public abstract class GuideFragment extends Fragment {
         var TUTORIAL_LENGTH = 5;
 
         // When user is not playing, this method has no functionality
-        if (madGrid.getPlayingStatus()) {
+        if (madGrid.isPlaying()) {
             // Correct response is received by the user
             if (view.getId() == madGrid.getKey().get(madGrid.getTurnIndex()).getId()) {
                 clearSolution(rootView);
@@ -192,7 +192,7 @@ public abstract class GuideFragment extends Fragment {
         buttonTutorial.setBackgroundResource(R.drawable.guide_button_tutorial_background);
         buttonTutorial.setText(getResources().getString(R.string.guide_button_tutorial));
 
-        madGrid.setPlayingStatus(false);
+        madGrid.setPlaying(false);
     }
 
     /**

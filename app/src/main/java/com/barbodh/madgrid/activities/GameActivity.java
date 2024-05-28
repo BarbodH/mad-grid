@@ -89,7 +89,7 @@ public class GameActivity extends AppCompatActivity {
      * @param view the triggered UI element; "Reset" button
      */
     public void resetGame(View view) {
-        if (madGrid.getPlayingStatus()) {
+        if (madGrid.isPlaying()) {
             madGrid.clearKey();
             initializeNewTurn();
         }
@@ -101,7 +101,7 @@ public class GameActivity extends AppCompatActivity {
      * @param view the triggered UI element; button clicked during the game
      */
     public void handleBoxClick(View view) {
-        if (madGrid.getPlayingStatus()) {
+        if (madGrid.isPlaying()) {
             if (view.getId() == madGrid.getKey().get(madGrid.getTurnIndex()).getId()) {
                 if (this.sound) {
                     this.soundPlayer.playClickSound();

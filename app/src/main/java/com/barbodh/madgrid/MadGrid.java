@@ -11,11 +11,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
 public class MadGrid {
 
     ////////// Field(s) //////////
 
-    private boolean playingStatus;
+    @Setter
+    private boolean playing;
     private int turnIndex;
     private int speed;
     private final int highestScore;
@@ -53,7 +58,7 @@ public class MadGrid {
             ));
         }
 
-        this.playingStatus = false;
+        this.playing = false;
         this.turnIndex = 0;
         this.speed = 0; // Arbitrary value; must be updated by "GameActivity" according to settings
         this.highestScore = highestScore;
@@ -91,17 +96,6 @@ public class MadGrid {
     }
 
     /**
-     * Modifier method for setting the playing status
-     * Precondition(s): none
-     * Postcondition(s): <code>playingStatus</code> data variable is set to the given argument
-     *
-     * @param playingStatus - boolean indicating playing status
-     */
-    public void setPlayingStatus(boolean playingStatus) {
-        this.playingStatus = playingStatus;
-    }
-
-    /**
      * Increments turn index while the user is playing.
      */
     public void incrementTurnIndex() {
@@ -116,7 +110,7 @@ public class MadGrid {
     }
 
     /**
-     * Adds a new integer to the key depending on game mode.
+     * Adds a new integer to the key depending on the game mode.
      */
     public void incrementKey() {
         var rand = new Random();
@@ -140,70 +134,13 @@ public class MadGrid {
     }
 
     /**
-     * Empties the key.
+     * Clears the key.
      */
     public void clearKey() {
         key.clear();
     }
 
     ////////// Accessor(s) //////////
-
-    /**
-     * Accessor method for the current playing status
-     * Precondition(s): none
-     * Postcondition(s): <code>playingStatus</code> data variable is returned
-     *
-     * @return <code>playingStatus</code> - boolean value indicating whether the user is playing
-     * their turn
-     */
-    public boolean getPlayingStatus() {
-        return playingStatus;
-    }
-
-    /**
-     * Accessor method for the turn index
-     * Precondition(s): none
-     * Postcondition(s): <code>turnIndex</code> data variable is returned
-     *
-     * @return <code>turnIndex</code> - integer indicating the current turn index while the user is
-     * playing
-     */
-    public int getTurnIndex() {
-        return turnIndex;
-    }
-
-    /**
-     * Accessor method for <code>mode</code>
-     * Precondition(s): none
-     * Postcondition(s): string value of <code>mode</code> is returned
-     *
-     * @return <code>mode</code> - game mode (string version)
-     */
-    public String getMode() {
-        return mode;
-    }
-
-    /**
-     * Accessor method for <code>key</code>
-     * Precondition(s): none
-     * Postcondition(s): ArrayList <code>key</code> of type Integer is returned
-     *
-     * @return <code>key</code> - correct sequence of boxes
-     */
-    public ArrayList<Button> getKey() {
-        return key;
-    }
-
-    /**
-     * Accessor method for <code>highestScore</code>
-     * Precondition(s): none
-     * Postcondition(s): integer value of <code>highestScore</code> is returned
-     *
-     * @return <code>highestScore</code> - highest score of the current game mode
-     */
-    public int getHighestScore() {
-        return highestScore;
-    }
 
     /**
      * Determines if the current score (length of {@code key}) is larger than the highest score.
@@ -213,17 +150,6 @@ public class MadGrid {
      */
     public boolean isHighestScore() {
         return key.size() > highestScore;
-    }
-
-    /**
-     * Accessor method for the grid buttons
-     * Precondition(s): none
-     * Postcondition(s): <code>buttons</code> data variable is returned
-     *
-     * @return array of buttons
-     */
-    public Button[] getButtons() {
-        return buttons;
     }
 
     public int getLevel() {
@@ -240,7 +166,7 @@ public class MadGrid {
      * @throws IllegalArgumentException if the speed value is out of range [0, 3]
      */
     public int[] displaySequence(Context context) {
-        playingStatus = false;
+        playing = false;
         int delay, delayIncrement, delayButtonDeactivation;
         switch (speed) { // delay = delay_1.0x / speed
             case 0: // speed: 1.0x
@@ -289,7 +215,7 @@ public class MadGrid {
 
         // Handler object delays change of value of "playingStatus" until whole sequence is displayed
         handler.postDelayed(() -> {
-            playingStatus = true;
+            playing = true;
             activateButtons(); // Turn on button feedback to user
         }, delay);
 
