@@ -55,10 +55,6 @@
     <string name="game_box2Text">2</string>
     <string name="game_box3Text">3</string>
     <string name="game_box4Text">4</string>
-    <string name="box1_image">(ᵔᴥᵔ)</string>
-    <string name="box2_image">｡◕‿‿◕｡</string>
-    <string name="box3_image">(｡◕‿◕｡)</string>
-    <string name="box4_image">ʕ•ᴥ•ʔ</string>
 
     <!-- results items -->
     <string name="results_title">Game Over!</string>
