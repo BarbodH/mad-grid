@@ -17,7 +17,6 @@ Mad Grid consists of three game modes:
 
 Additional features include:
 - Guide page providing interactive tutorials and text descriptions
-- Adjustable sequence display speed (1.0×, 1.5×, 2.0×, 2.5×).
 
 ## Screenshots
 
@@ -41,7 +40,6 @@ Icon Images:
 - <a target="_blank" href="https://icons8.com/icon/16GEnHnaaLPk/grid-2">Grid 2</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> Grid 2 icon by Icons8
 - <a href="https://iconscout.com/icons/music-tune" target="_blank">Music Tune Icon</a> by <a href="https://iconscout.com/contributors/jemismali">Jemis Mali</a> on <a href="https://iconscout.com">IconScout</a>
 - <a href="https://iconscout.com/icons/audio" target="_blank">Audio Icon</a> by <a href="https://iconscout.com/contributors/AmruID">Amru ID</a> on <a href="https://iconscout.com">IconScout</a>
-- <a href="https://iconscout.com/icons/speed-optimization" target="_blank">Speed Optimization Icon</a> by <a href="https://iconscout.com/contributors/minimo">Neelpari Minimo</a> on <a href="https://iconscout.com">IconScout</a>
 - <a href="https://iconscout.com/icons/thumb-up" target="_blank">Thumb up Icon</a> by <a href="https://iconscout.com/contributors/google-inc">Google Inc.</a> on <a href="https://iconscout.com">IconScout</a>
 - <a href="https://iconscout.com/icons/github" target="_blank">Github Logo Icon</a> by <a href="https://iconscout.com/contributors/pixel-icons" target="_blank">Pixel Icons</a>
 - <a href="https://iconscout.com/icons/exclamation-mark" target="_blank">Exclamation-mark Icon</a> by <a href="https://iconscout.com/contributors/unicons" target="_blank">Unicons Font</a>

@@ -205,7 +205,7 @@ public class MadGrid {
      * @param button  the button to animate
      */
     private void bounceButton(Context context, Button button) {
-        var animation = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.bounce_1_0);
+        var animation = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.button_bounce);
         var bounceInterpolator = new BounceInterpolator(0.2, 20);
         animation.setInterpolator(bounceInterpolator);
         button.startAnimation(animation);
