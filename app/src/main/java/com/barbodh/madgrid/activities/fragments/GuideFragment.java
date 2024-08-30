@@ -72,7 +72,12 @@ public abstract class GuideFragment extends Fragment {
                 rootView.findViewById(R.id.guide_button_box_1),
                 rootView.findViewById(R.id.guide_button_box_2),
                 rootView.findViewById(R.id.guide_button_box_3),
-                rootView.findViewById(R.id.guide_button_box_4)
+                rootView.findViewById(R.id.guide_button_box_4),
+                rootView.findViewById(R.id.guide_button_box_5),
+                rootView.findViewById(R.id.guide_button_box_6),
+                rootView.findViewById(R.id.guide_button_box_7),
+                rootView.findViewById(R.id.guide_button_box_8),
+                rootView.findViewById(R.id.guide_button_box_9)
         };
         for (Button button : buttons) {
             button.setOnClickListener(view -> handleBoxClick(view, rootView));

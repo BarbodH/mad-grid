@@ -36,9 +36,9 @@ public class MadGrid {
      *
      * @param mode         the game mode, must be one of "Classic", "Reverse", or "Messy"
      * @param highestScore the highest score for the given game mode, must be non-negative
-     * @param buttons      reference to buttons on the screen, must contain exactly 4 buttons
+     * @param buttons      reference to buttons on the screen, must contain exactly 9 buttons
      * @throws IllegalArgumentException if mode is invalid, highestScore is negative, or buttons
-     *                                  array length is not 4
+     *                                  array length is not 9
      */
     public MadGrid(String mode, int highestScore, Button[] buttons) {
         // Precondition checking
@@ -52,9 +52,9 @@ public class MadGrid {
                     "Invalid Highest Score!\nHighest score must be a non-negative integer.\nProvided: %d", highestScore
             ));
         }
-        if (buttons.length != 4) {
+        if (buttons.length != 9) {
             throw new IllegalArgumentException(String.format(
-                    "Invalid Array of Buttons!\nOnly 4 buttons are expected by MadGrid instance.\nProvided: %d", buttons.length
+                    "Invalid Array of Buttons!\nOnly 9 buttons are expected by MadGrid instance.\nProvided: %d", buttons.length
             ));
         }
 
@@ -117,7 +117,7 @@ public class MadGrid {
 
         // "Classic" game mode: increment by 1
         if (mode.equals("Classic")) {
-            key.add(buttons[rand.nextInt(4)]);
+            key.add(buttons[rand.nextInt(9)]);
         }
         // "Reverse" game mode: increment by 1; reverse key
         else if (mode.equals("Reverse")) {

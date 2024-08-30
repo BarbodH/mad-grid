@@ -31,8 +31,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/grid_background"
-        android:columnCount="2"
-        android:rowCount="2"
+        android:columnCount="3"
+        android:rowCount="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,9 +50,7 @@
             android:layout_marginBottom="4sp"
             android:layout_marginStart="8sp"
             android:layout_marginEnd="4sp"
-            android:onClick="handleBoxClick"
-            android:text="@string/box1_image"
-            android:textSize="34sp" />
+            android:onClick="handleBoxClick" />
 
         <Button
             android:id="@+id/game_button_box_2"
@@ -65,10 +63,8 @@
             android:layout_marginTop="8sp"
             android:layout_marginBottom="4sp"
             android:layout_marginStart="4sp"
-            android:layout_marginEnd="8sp"
-            android:onClick="handleBoxClick"
-            android:text="@string/box2_image"
-            android:textSize="24sp" />
+            android:layout_marginEnd="4sp"
+            android:onClick="handleBoxClick" />
 
         <Button
             android:id="@+id/game_button_box_3"
@@ -78,13 +74,11 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_gravity="fill"
-            android:layout_marginTop="4sp"
-            android:layout_marginBottom="8sp"
-            android:layout_marginStart="8sp"
-            android:layout_marginEnd="4sp"
-            android:onClick="handleBoxClick"
-            android:text="@string/box3_image"
-            android:textSize="24sp" />
+            android:layout_marginTop="8sp"
+            android:layout_marginBottom="4sp"
+            android:layout_marginStart="4sp"
+            android:layout_marginEnd="8sp"
+            android:onClick="handleBoxClick" />
 
         <Button
             android:id="@+id/game_button_box_4"
@@ -95,12 +89,75 @@
             android:layout_columnWeight="1"
             android:layout_gravity="fill"
             android:layout_marginTop="4sp"
+            android:layout_marginBottom="4sp"
+            android:layout_marginStart="8sp"
+            android:layout_marginEnd="4sp"
+            android:onClick="handleBoxClick" />
+        <Button
+            android:id="@+id/game_button_box_5"
+            android:background="@drawable/grid_button_background_inactive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:layout_marginTop="4sp"
+            android:layout_marginBottom="4sp"
+            android:layout_marginStart="4sp"
+            android:layout_marginEnd="4sp"
+            android:onClick="handleBoxClick" />
+        <Button
+            android:id="@+id/game_button_box_6"
+            android:background="@drawable/grid_button_background_inactive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:layout_marginTop="4sp"
+            android:layout_marginBottom="4sp"
+            android:layout_marginStart="4sp"
+            android:layout_marginEnd="8sp"
+            android:onClick="handleBoxClick" />
+        <Button
+            android:id="@+id/game_button_box_7"
+            android:background="@drawable/grid_button_background_inactive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:layout_marginTop="4sp"
+            android:layout_marginBottom="8sp"
+            android:layout_marginStart="8sp"
+            android:layout_marginEnd="4sp"
+            android:onClick="handleBoxClick" />
+        <Button
+            android:id="@+id/game_button_box_8"
+            android:background="@drawable/grid_button_background_inactive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:layout_marginTop="4sp"
+            android:layout_marginBottom="8sp"
+            android:layout_marginStart="4sp"
+            android:layout_marginEnd="4sp"
+            android:onClick="handleBoxClick" />
+        <Button
+            android:id="@+id/game_button_box_9"
+            android:background="@drawable/grid_button_background_inactive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:layout_marginTop="4sp"
             android:layout_marginBottom="8sp"
             android:layout_marginStart="4sp"
             android:layout_marginEnd="8sp"
-            android:onClick="handleBoxClick"
-            android:text="@string/box4_image"
-            android:textSize="34sp" />
+            android:onClick="handleBoxClick" />
     </GridLayout>
 
     <Button

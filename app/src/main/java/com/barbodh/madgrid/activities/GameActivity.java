@@ -56,7 +56,12 @@ public class GameActivity extends AppCompatActivity {
                 findViewById(R.id.game_button_box_1),
                 findViewById(R.id.game_button_box_2),
                 findViewById(R.id.game_button_box_3),
-                findViewById(R.id.game_button_box_4)
+                findViewById(R.id.game_button_box_4),
+                findViewById(R.id.game_button_box_5),
+                findViewById(R.id.game_button_box_6),
+                findViewById(R.id.game_button_box_7),
+                findViewById(R.id.game_button_box_8),
+                findViewById(R.id.game_button_box_9)
         };
         madGrid = new MadGrid(mode, highestScore, buttons);
 
