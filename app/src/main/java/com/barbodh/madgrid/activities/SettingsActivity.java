@@ -4,15 +4,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.SeekBar;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.barbodh.madgrid.R;
-
-import java.util.Locale;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -21,8 +17,6 @@ public class SettingsActivity extends AppCompatActivity {
     public static final String SHARED_PREFS = "sharedPrefs";
     private boolean music;
     private boolean sound;
-    private int speed;
-    private TextView speedometerValue;
 
     ////////// Initializer //////////
 
@@ -32,24 +26,6 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         loadSettings();
         updateSettingsView();
-
-        // Set up "Display Sequence Settings" seekbar and displayed value
-        var seekbar = (SeekBar) findViewById(R.id.settings_seekbar_speedometer);
-        speedometerValue = findViewById(R.id.settings_text_speedometer_value);
-        seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                speedometerValue.setText(convertProgressToSpeed(progress));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
     }
 
     ////////// Event Handler(s) //////////
@@ -64,10 +40,8 @@ public class SettingsActivity extends AppCompatActivity {
         var editor = sharedPreferences.edit();
         var musicOn = ((SwitchCompat) findViewById(R.id.settings_switch_music)).isChecked();
         var soundOn = ((SwitchCompat) findViewById(R.id.settings_switch_sound)).isChecked();
-        var speedValue = ((SeekBar) findViewById(R.id.settings_seekbar_speedometer)).getProgress();
         editor.putBoolean("Music", musicOn);
         editor.putBoolean("Sound", soundOn);
-        editor.putInt("Speed", speedValue);
         editor.apply();
 
         Intent intent = new Intent(this, MainActivity.class);
@@ -122,7 +96,6 @@ public class SettingsActivity extends AppCompatActivity {
         var sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         this.music = sharedPreferences.getBoolean("Music", true);
         this.sound = sharedPreferences.getBoolean("Sound", true);
-        this.speed = sharedPreferences.getInt("Speed", 1); // 0 gets mapped to 1.0x
     }
 
     /**
@@ -132,23 +105,6 @@ public class SettingsActivity extends AppCompatActivity {
     private void updateSettingsView() {
         ((SwitchCompat) findViewById(R.id.settings_switch_music)).setChecked(this.music);
         ((SwitchCompat) findViewById(R.id.settings_switch_sound)).setChecked(this.sound);
-        ((SeekBar) findViewById(R.id.settings_seekbar_speedometer)).setProgress(this.speed);
-        ((TextView) findViewById(R.id.settings_text_speedometer_value)).setText(convertProgressToSpeed(this.speed));
-    }
-
-    /**
-     * Converts seekbar progress value to speed multiplier.
-     *
-     * @param progress seekbar progress integer value within range [0, 3]
-     * @return the speed value with one decimal place precision
-     */
-    private String convertProgressToSpeed(int progress) {
-        if (progress < 0 || progress > 3) {
-            throw new IllegalArgumentException("Seekbar progress value must be an integer in interval [0, 3].");
-        }
-
-        var floatProgress = ((float) progress + 2) / 2;
-        return String.format(Locale.getDefault(), "%.1fx", floatProgress);
     }
 
     /**

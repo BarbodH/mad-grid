@@ -22,7 +22,6 @@ public class MadGrid {
     @Setter
     private boolean playing;
     private int turnIndex;
-    private int speed;
     private final int highestScore;
     private final String mode;
     private final ArrayList<Button> key; // Key length is equivalent to current score
@@ -60,7 +59,6 @@ public class MadGrid {
 
         this.playing = false;
         this.turnIndex = 0;
-        this.speed = 0; // Arbitrary value; must be updated by "GameActivity" according to settings
         this.highestScore = highestScore;
         this.mode = mode;
         this.key = new ArrayList<>();
@@ -79,21 +77,6 @@ public class MadGrid {
     }
 
     ////////// Modifier(s) //////////
-
-    /**
-     * Sets the sequence display speed.
-     *
-     * @param speed the speed to set, must be an integer within the range [0, 3]
-     * @throws IllegalArgumentException if the speed is outside the range [0, 3]
-     */
-    public void setSpeed(int speed) {
-        if (speed > 3 || speed < 0) {
-            throw new IllegalArgumentException(String.format(
-                    "Invalid Speed!\nSpeed must be an integer within [0, 3] range.\nProvided: %d", speed
-            ));
-        }
-        this.speed = speed;
-    }
 
     /**
      * Increments turn index while the user is playing.
@@ -163,37 +146,12 @@ public class MadGrid {
      *
      * @param context the context in which to display the sequence
      * @return an integer array containing delay values: [total delay, button deactivation delay]
-     * @throws IllegalArgumentException if the speed value is out of range [0, 3]
      */
     public int[] displaySequence(Context context) {
         playing = false;
-        int delay, delayIncrement, delayButtonDeactivation;
-        switch (speed) { // delay = delay_1.0x / speed
-            case 0: // speed: 1.0x
-                delay = 750;
-                delayIncrement = 750;
-                delayButtonDeactivation = 450;
-                break;
-            case 1: // speed: 1.5x
-                delay = 500;
-                delayIncrement = 500;
-                delayButtonDeactivation = 300;
-                break;
-            case 2: // speed: 2.0x
-                delay = 375;
-                delayIncrement = 375;
-                delayButtonDeactivation = 225;
-                break;
-            case 3: // speed: 2.5x
-                delay = 300;
-                delayIncrement = 300;
-                delayButtonDeactivation = 180;
-                break;
-            default:
-                throw new IllegalArgumentException(String.format(
-                        "Invalid Speed!\nSpeed data variable must be within range [0, 3].\nCurrent value: %d", speed
-                ));
-        }
+        var delay = 750;
+        var delayIncrement = 750;
+        var delayButtonDeactivation = 450;
 
         // Turn off button feedback to user
         handler.postDelayed(this::deactivateButtons, delayButtonDeactivation);
@@ -245,22 +203,9 @@ public class MadGrid {
      *
      * @param context the context in which to perform the animation
      * @param button  the button to animate
-     * @throws IllegalArgumentException if the speed value is out of range [0, 3]
      */
     private void bounceButton(Context context, Button button) {
-        var animation = switch (speed) {
-            case 0 -> // speed: 1.0x
-                    AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.bounce_1_0);
-            case 1 -> // speed: 1.5x
-                    AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.bounce_1_5);
-            case 2 -> // speed: 2.0x
-                    AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.bounce_2_0);
-            case 3 -> // speed: 2.5x
-                    AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.bounce_2_5);
-            default -> throw new IllegalArgumentException(String.format(
-                    "Invalid Speed!\nSpeed data variable must be within range [0, 3].\nCurrent value: %d", speed
-            ));
-        };
+        var animation = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.button_bounce);
         var bounceInterpolator = new BounceInterpolator(0.2, 20);
         animation.setInterpolator(bounceInterpolator);
         button.startAnimation(animation);

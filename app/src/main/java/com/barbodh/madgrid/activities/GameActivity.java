@@ -231,8 +231,6 @@ public class GameActivity extends AppCompatActivity {
         // Second parameter corresponds to default values
         this.music = sharedPreferences.getBoolean("Music", false);
         this.sound = sharedPreferences.getBoolean("Sound", false);
-        var speed = sharedPreferences.getInt("Speed", 1);
-        madGrid.setSpeed(speed);
     }
 
     /**

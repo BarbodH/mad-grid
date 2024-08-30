@@ -141,53 +141,6 @@
 
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/settings_relative_layout_speedometer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp" >
-
-                    <ImageView
-                        android:id="@+id/settings_image_speedometer_icon"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/settings_background_game_icon"
-                        android:contentDescription="@string/settings_sound_icon"
-                        android:padding="8dp"
-                        android:src="@drawable/settings_speedometer_icon" />
-
-                    <TextView
-                        android:id="@+id/settings_text_speedometer_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginStart="20dp"
-                        android:layout_toEndOf="@+id/settings_image_speedometer_icon"
-                        android:fontFamily="@font/ibm_plex_sans_medium"
-                        android:text="@string/settings_speed"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/settings_text_speedometer_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:fontFamily="@font/ibm_plex_sans_medium"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-
-                </RelativeLayout>
-
-                <SeekBar
-                    android:id="@+id/settings_seekbar_speedometer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:max="3"
-                    android:theme="@style/Widget.AppCompat.SeekBar.Discrete"
-                    android:paddingTop="20dp"/>
-
             </LinearLayout>
 
             <!-- Social Settings -->
