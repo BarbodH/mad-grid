@@ -39,6 +39,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openMultiplayer(View view) {
+        var intent = new Intent(this, LobbyActivity.class);
+        startActivity(intent);
+    }
+
     /**
      * Navigates to {@code GuideActivity}.
      *

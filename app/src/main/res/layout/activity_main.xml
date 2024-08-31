@@ -66,6 +66,21 @@
         app:layout_constraintVertical_bias="0.42000002" />
 
     <Button
+        android:id="@+id/homepage_button_multiplayer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="64dp"
+        android:backgroundTint="@color/menu_primarily"
+        android:fontFamily="@font/ibm_plex_sans_semibold"
+        android:onClick="openMultiplayer"
+        android:text="@string/menu_multiplayer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homepage_button_start" />
+
+    <Button
         android:id="@+id/homepage_button_guide"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -78,7 +93,7 @@
         android:text="@string/menu_guide"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homepage_button_start" />
+        app:layout_constraintTop_toBottomOf="@+id/homepage_button_multiplayer" />
 
     <Button
         android:id="@+id/homepage_button_settings"
