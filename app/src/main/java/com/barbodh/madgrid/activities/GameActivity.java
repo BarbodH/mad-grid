@@ -13,8 +13,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.barbodh.madgrid.MadGrid;
+import com.barbodh.madgrid.MadGridApplication;
 import com.barbodh.madgrid.R;
+import com.barbodh.madgrid.model.GameUpdate;
+import com.barbodh.madgrid.model.MultiplayerGame;
 import com.barbodh.madgrid.tools.SoundPlayer;
+import com.google.gson.Gson;
+
+import ua.naiksoftware.stomp.StompClient;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -30,6 +36,12 @@ public class GameActivity extends AppCompatActivity {
     private boolean music;
     private boolean sound;
     private final Handler handler = new Handler();
+
+    private final Gson gson = new Gson();
+    private StompClient stompClient;
+    private int type;
+    private MultiplayerGame multiplayerGame;
+    private String playerId;
 
     ////////// Initializer //////////
 
@@ -71,6 +83,16 @@ public class GameActivity extends AppCompatActivity {
 
         // Adjust grid dimensions dynamically according to device dimensions
         adjustGridDimensions();
+
+        // Handle multiplayer game initialization
+        type = intent.getIntExtra("type", 0);
+        if (type == 1) {
+            stompClient = MadGridApplication.getInstance().getStompClient();
+            multiplayerGame = intent.getParcelableExtra("multiplayer_game");
+            playerId = intent.getStringExtra("player_id");
+        } else if (type != 0) {
+            throw new RuntimeException("Invalid game type.");
+        }
 
         // Start game
         initializeNewTurn();
@@ -117,10 +139,21 @@ public class GameActivity extends AppCompatActivity {
                 } else {
                     madGrid.resetTurnIndex();
                     initializeNewTurn();
+
+                    if (type == 1) {
+                        var gameUpdate = new GameUpdate(multiplayerGame.getId(), playerId, true);
+                        stompClient.send("/game/update", gson.toJson(gameUpdate)).subscribe();
+                    }
                 }
             } else {
+                if (type == 1) {
+                    var gameUpdate = new GameUpdate(multiplayerGame.getId(), playerId, false);
+                    stompClient.send("/game/update", gson.toJson(gameUpdate)).subscribe();
+                }
+
                 madGrid.getKey().remove(0);
                 gameOver();
+
             }
         }
     }

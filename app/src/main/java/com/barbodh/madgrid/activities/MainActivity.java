@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     public void openGame(View view) {
         var intent = new Intent(this, GameActivity.class);
         intent.putExtra("mode", modeStrings[this.mode]);
+        intent.putExtra("type", 0);
         startActivity(intent);
     }
 
