@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import com.barbodh.madgrid.model.MultiplayerGame;
 import com.barbodh.madgrid.tools.SoundPlayer;
 import com.google.gson.Gson;
 
+import io.reactivex.disposables.Disposable;
 import ua.naiksoftware.stomp.StompClient;
 
 public class GameActivity extends AppCompatActivity {
@@ -42,6 +44,7 @@ public class GameActivity extends AppCompatActivity {
     private int type;
     private MultiplayerGame multiplayerGame;
     private String playerId;
+    private Disposable disposableTopic;
 
     ////////// Initializer //////////
 
@@ -93,6 +96,33 @@ public class GameActivity extends AppCompatActivity {
         } else if (type != 0) {
             throw new RuntimeException("Invalid game type.");
         }
+
+        ((TextView) findViewById(R.id.game_text_placeholder_opponent_value)).setText("0");
+
+        disposableTopic = stompClient.topic("/player/" + playerId + "/game/notify").subscribe(topicMessage -> {
+            var multiplayerGame = gson.fromJson(topicMessage.getPayload(), MultiplayerGame.class);
+            var player1 = multiplayerGame.getPlayer1();
+            var player2 = multiplayerGame.getPlayer2();
+            if (!player1.getId().equals(playerId) && !player2.getId().equals(playerId)) {
+                throw new RuntimeException("Player ID does not match the ID of players for the provided game.");
+            }
+            var player = player1.getId().equals(playerId) ? player1 : player2;
+            var opponent = player1.getId().equals(playerId) ? player2 : player1;
+
+            if (multiplayerGame.isActive()) {
+                runOnUiThread(() -> ((TextView) findViewById(R.id.game_text_placeholder_opponent_value)).setText(String.valueOf(opponent.getScore())));
+            } else {
+                if (player1.getScore() == player2.getScore()) {
+                    throw new RuntimeException("Players cannot have ended with the same score.");
+                }
+                var winner = player1.getScore() > player2.getScore() ? player1 : player2;
+                if (player == winner) {
+                    Log.d("GameActivity", "User " + playerId + " has won the game.");
+                } else {
+                    Log.d("GameActivity", "User " + playerId + " has lost the game.");
+                }
+            }
+        });
 
         // Start game
         initializeNewTurn();

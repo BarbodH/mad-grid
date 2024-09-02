@@ -54,6 +54,7 @@
     <string name="results_title">Game Over!</string>
     <string name="results_score">Score:</string>
     <string name="results_highest">Highest:</string>
+    <string name="results_opponent">Opponent:</string>
 
     <!-- placeholders -->
     <string name="placeholder">placeholder</string>
