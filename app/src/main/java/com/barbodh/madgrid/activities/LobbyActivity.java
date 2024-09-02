@@ -6,27 +6,19 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.barbodh.madgrid.MadGridApplication;
 import com.barbodh.madgrid.R;
 import com.barbodh.madgrid.model.IncomingPlayer;
 import com.barbodh.madgrid.model.LobbyNotification;
 import com.barbodh.madgrid.util.StringUtil;
 import com.google.gson.Gson;
 
-import java.util.Objects;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import ua.naiksoftware.stomp.Stomp;
-import ua.naiksoftware.stomp.StompClient;
-import ua.naiksoftware.stomp.dto.LifecycleEvent;
 
 public class LobbyActivity extends AppCompatActivity {
 
     ////////// Field(s) //////////
 
-    private StompClient stompClient;
-    private Disposable disposableLifecycle;
     private Disposable disposableTopic;
 
     // TODO: This is a temporary solution; delete later.
@@ -44,29 +36,23 @@ public class LobbyActivity extends AppCompatActivity {
         var incomingPlayer = new IncomingPlayer(StringUtil.generateRandomString(10), mode);
         Log.d("LobbyActivity", "Generated ID: " + incomingPlayer.getId());
 
-        stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://<SERVER_IP>:8080/ws");
+        var stompClient = MadGridApplication.getInstance().getStompClient();
 
         // Send player to the server lobby for matchmaking
-        disposableLifecycle = stompClient.lifecycle().subscribe(lifecycleEvent -> {
-            if (Objects.requireNonNull(lifecycleEvent.getType()) == LifecycleEvent.Type.OPENED) {
-                stompClient.send("/game/seek-opponent", gson.toJson(incomingPlayer)).subscribe();
-            }
-        });
+        stompClient.send("/game/seek-opponent", gson.toJson(incomingPlayer)).subscribe();
 
         // Wait for player to get matched by the server and receive game information
-        disposableTopic = stompClient.topic("/player/" + incomingPlayer.getId() + "/lobby/notify")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(topicMessage -> {
-                    var lobbyNotification = gson.fromJson(topicMessage.getPayload(), LobbyNotification.class);
-                    if (lobbyNotification.isMatched()) {
-                        var intent = new Intent(this, GameActivity.class);
-                        intent.putExtra("mode", modeStrings[mode]);
-                        startActivity(intent);
-                    }
-                });
-
-        stompClient.connect();
+        disposableTopic = stompClient.topic("/player/" + incomingPlayer.getId() + "/lobby/notify").subscribe(topicMessage -> {
+            var lobbyNotification = gson.fromJson(topicMessage.getPayload(), LobbyNotification.class);
+            if (lobbyNotification.isMatched()) {
+                var intent = new Intent(this, GameActivity.class);
+                intent.putExtra("mode", modeStrings[mode]);
+                intent.putExtra("type", 1);
+                intent.putExtra("player_id", incomingPlayer.getId());
+                intent.putExtra("multiplayer_game", lobbyNotification.getMultiplayerGame());
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -77,7 +63,6 @@ public class LobbyActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        disposableLifecycle.dispose();
         disposableTopic.dispose();
     }
 }
