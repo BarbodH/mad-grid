@@ -25,7 +25,7 @@ public class ResultsActivity extends AppCompatActivity {
         var intent = getIntent();
 
         // Retrieve necessary information from "GameActivity"
-        var scoreString = intent.getStringExtra("score");
+        var scoreString = String.valueOf(intent.getIntExtra("score", 0));
         var isHighest = intent.getBooleanExtra("isHighest", false);
         this.stringMode = intent.getStringExtra("mode");
 
@@ -38,6 +38,18 @@ public class ResultsActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.results_text_placeholder_highest_score_message)).setText(congratsMessage);
         } else {
             ((TextView) findViewById(R.id.results_text_placeholder_highest_score_message)).setText("");
+        }
+
+        // For multiplayer, display a message indicating the result and show opponent score
+        var type = intent.getIntExtra("type", 0);
+        if (type == 1) {
+            var result = intent.getIntExtra("result", 0);
+            var opponentScore = intent.getIntExtra("opponent_score", 0);
+
+            ((TextView) findViewById(R.id.results_text_title)).setText(result == 0 ? "You lost!" : "You won!");
+            (findViewById(R.id.results_text_opponent)).setVisibility(View.VISIBLE);
+            (findViewById(R.id.results_text_placeholder_opponent_value)).setVisibility(View.VISIBLE);
+            ((TextView) findViewById(R.id.results_text_placeholder_opponent_value)).setText(String.valueOf(opponentScore));
         }
     }
 

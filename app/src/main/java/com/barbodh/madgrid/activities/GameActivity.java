@@ -93,36 +93,42 @@ public class GameActivity extends AppCompatActivity {
             stompClient = MadGridApplication.getInstance().getStompClient();
             multiplayerGame = intent.getParcelableExtra("multiplayer_game");
             playerId = intent.getStringExtra("player_id");
+
+            // Make opponent text and score visible
+            var opponentValuePlaceholder = (TextView) findViewById(R.id.game_text_placeholder_opponent_value);
+            opponentValuePlaceholder.setText("0");
+            opponentValuePlaceholder.setVisibility(View.VISIBLE);
+            findViewById(R.id.game_text_opponent).setVisibility(View.VISIBLE);
+
+            // Subscribe to topic for receiving and handling game updates
+            disposableTopic = stompClient.topic("/player/" + playerId + "/game/notify").subscribe(topicMessage -> {
+                var multiplayerGame = gson.fromJson(topicMessage.getPayload(), MultiplayerGame.class);
+                var player1 = multiplayerGame.getPlayer1();
+                var player2 = multiplayerGame.getPlayer2();
+                if (!player1.getId().equals(playerId) && !player2.getId().equals(playerId)) {
+                    throw new RuntimeException("Player ID does not match the ID of players for the provided game.");
+                }
+                var player = player1.getId().equals(playerId) ? player1 : player2;
+                var opponent = player1.getId().equals(playerId) ? player2 : player1;
+
+                if (multiplayerGame.isActive()) {
+                    runOnUiThread(() -> ((TextView) findViewById(R.id.game_text_placeholder_opponent_value)).setText(String.valueOf(opponent.getScore())));
+                } else {
+                    if (player1.getScore() == player2.getScore()) {
+                        throw new RuntimeException("Players cannot have ended with the same score.");
+                    }
+                    var winner = player1.getScore() > player2.getScore() ? player1 : player2;
+                    if (player == winner) {
+                        Log.d("GameActivity", "User " + playerId + " has won the game.");
+                    } else {
+                        Log.d("GameActivity", "User " + playerId + " has lost the game.");
+                    }
+                    gameOver(player == winner ? 1 : 0, player.getScore(), opponent.getScore());
+                }
+            });
         } else if (type != 0) {
             throw new RuntimeException("Invalid game type.");
         }
-
-        ((TextView) findViewById(R.id.game_text_placeholder_opponent_value)).setText("0");
-
-        disposableTopic = stompClient.topic("/player/" + playerId + "/game/notify").subscribe(topicMessage -> {
-            var multiplayerGame = gson.fromJson(topicMessage.getPayload(), MultiplayerGame.class);
-            var player1 = multiplayerGame.getPlayer1();
-            var player2 = multiplayerGame.getPlayer2();
-            if (!player1.getId().equals(playerId) && !player2.getId().equals(playerId)) {
-                throw new RuntimeException("Player ID does not match the ID of players for the provided game.");
-            }
-            var player = player1.getId().equals(playerId) ? player1 : player2;
-            var opponent = player1.getId().equals(playerId) ? player2 : player1;
-
-            if (multiplayerGame.isActive()) {
-                runOnUiThread(() -> ((TextView) findViewById(R.id.game_text_placeholder_opponent_value)).setText(String.valueOf(opponent.getScore())));
-            } else {
-                if (player1.getScore() == player2.getScore()) {
-                    throw new RuntimeException("Players cannot have ended with the same score.");
-                }
-                var winner = player1.getScore() > player2.getScore() ? player1 : player2;
-                if (player == winner) {
-                    Log.d("GameActivity", "User " + playerId + " has won the game.");
-                } else {
-                    Log.d("GameActivity", "User " + playerId + " has lost the game.");
-                }
-            }
-        });
 
         // Start game
         initializeNewTurn();
@@ -176,14 +182,16 @@ public class GameActivity extends AppCompatActivity {
                     }
                 }
             } else {
+                madGrid.getKey().remove(0);
+
                 if (type == 1) {
+                    madGrid.deactivateButtons();
                     var gameUpdate = new GameUpdate(multiplayerGame.getId(), playerId, false);
                     stompClient.send("/game/update", gson.toJson(gameUpdate)).subscribe();
+                    // Game update topic is responsible for invoking `gameOver` in multiplayer game
+                } else {
+                    gameOver();
                 }
-
-                madGrid.getKey().remove(0);
-                gameOver();
-
             }
         }
     }
@@ -240,6 +248,10 @@ public class GameActivity extends AppCompatActivity {
      * Finishes game and redirects user to {@code ResultsActivity}, along with necessary information.
      */
     private void gameOver() {
+        gameOver(0, -1, -1);
+    }
+
+    private void gameOver(int result, int playerScore, int opponentScore) {
         if (this.sound) {
             this.soundPlayer.playGameOverSound();
         }
@@ -249,10 +261,19 @@ public class GameActivity extends AppCompatActivity {
 
         // Send user to ResultsActivity and pass on the necessary information
         var intent = new Intent(this, ResultsActivity.class);
-        var scoreString = Integer.toString(madGrid.getKey().size());
-        intent.putExtra("score", scoreString);
+
+        intent.putExtra("score", madGrid.getKey().size());
         intent.putExtra("isHighest", madGrid.isHighestScore());
         intent.putExtra("mode", madGrid.getMode());
+        intent.putExtra("type", type);
+
+        if (type == 1) {
+            intent.putExtra("result", result);
+            // Override score because if user's last response was correct, provided score will be 1 higher than actual
+            intent.putExtra("score", playerScore);
+            intent.putExtra("opponent_score", opponentScore);
+        }
+
         startActivity(intent);
     }
 
@@ -275,6 +296,18 @@ public class GameActivity extends AppCompatActivity {
         if (this.music) {
             mediaPlayer.setLooping(true);
             mediaPlayer.start();
+        }
+    }
+
+    /**
+     * Called when the activity is no longer visible to the user. Disposes of the `disposableTopic`
+     * to release resources and prevent memory leaks.
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (disposableTopic != null && !disposableTopic.isDisposed()) {
+            disposableTopic.dispose();
         }
     }
 

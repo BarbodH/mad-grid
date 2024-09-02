@@ -56,13 +56,14 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     /**
-     * Pauses the activity and disposes of active WebSocket subscriptions. This method is called
-     * when the activity is no longer in the foreground, ensuring that all WebSocket connections and
-     * subscriptions are properly disposed of to prevent memory leaks and unnecessary resource usage.
+     * Called when the activity is no longer visible to the user. Disposes of the `disposableTopic`
+     * to release resources and prevent memory leaks.
      */
     @Override
-    protected void onPause() {
-        super.onPause();
-        disposableTopic.dispose();
+    protected void onStop() {
+        super.onStop();
+        if (disposableTopic != null && !disposableTopic.isDisposed()) {
+            disposableTopic.dispose();
+        }
     }
 }
