@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void openMultiplayer(View view) {
         var intent = new Intent(this, LobbyActivity.class);
+        intent.putExtra("mode", this.mode);
         startActivity(intent);
     }
 
