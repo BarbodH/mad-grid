@@ -46,7 +46,9 @@ public class ResultsActivity extends AppCompatActivity {
             var result = intent.getIntExtra("result", 0);
             var opponentScore = intent.getIntExtra("opponent_score", 0);
 
-            ((TextView) findViewById(R.id.results_text_title)).setText(result == 0 ? "You lost!" : "You won!");
+            ((TextView) findViewById(R.id.results_text_title)).setText(
+                    result == 2 ? "You Won" : result == 1 ? "Draw" : "You Lost"
+            );
             (findViewById(R.id.results_text_opponent)).setVisibility(View.VISIBLE);
             (findViewById(R.id.results_text_placeholder_opponent_value)).setVisibility(View.VISIBLE);
             ((TextView) findViewById(R.id.results_text_placeholder_opponent_value)).setText(String.valueOf(opponentScore));

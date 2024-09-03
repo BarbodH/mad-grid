@@ -3,9 +3,7 @@ package com.barbodh.madgrid.activities;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -37,7 +35,6 @@ public class GameActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private boolean music;
     private boolean sound;
-    private final Handler handler = new Handler();
 
     private final Gson gson = new Gson();
     private StompClient stompClient;
@@ -115,15 +112,11 @@ public class GameActivity extends AppCompatActivity {
                     runOnUiThread(() -> ((TextView) findViewById(R.id.game_text_placeholder_opponent_value)).setText(String.valueOf(opponent.getScore())));
                 } else {
                     if (player1.getScore() == player2.getScore()) {
-                        throw new RuntimeException("Players cannot have ended with the same score.");
-                    }
-                    var winner = player1.getScore() > player2.getScore() ? player1 : player2;
-                    if (player == winner) {
-                        Log.d("GameActivity", "User " + playerId + " has won the game.");
+                        gameOver(1, player.getScore(), opponent.getScore());
                     } else {
-                        Log.d("GameActivity", "User " + playerId + " has lost the game.");
+                        var winner = player1.getScore() > player2.getScore() ? player1 : player2;
+                        gameOver(player == winner ? 2 : 0, player.getScore(), opponent.getScore());
                     }
-                    gameOver(player == winner ? 1 : 0, player.getScore(), opponent.getScore());
                 }
             });
         } else if (type != 0) {
@@ -144,18 +137,6 @@ public class GameActivity extends AppCompatActivity {
     public void returnHome(View view) {
         var intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-    }
-
-    /**
-     * Aborts the current game and starts a new one.
-     *
-     * @param view the triggered UI element; "Reset" button
-     */
-    public void resetGame(View view) {
-        if (madGrid.isPlaying()) {
-            madGrid.clearKey();
-            initializeNewTurn();
-        }
     }
 
     /**
@@ -224,13 +205,7 @@ public class GameActivity extends AppCompatActivity {
         updateScoreView();
 
         madGrid.incrementKey();
-        var delay = madGrid.displaySequence(this);
-
-        // Deactivate reset button and activate after sequence display is finished
-        // Duration of sequence display is indicated by the delay value
-        var resetButtonView = findViewById(R.id.game_button_reset);
-        handler.postDelayed(() -> resetButtonView.setBackgroundResource(R.drawable.game_control_button_inactive), delay[1]);
-        handler.postDelayed(() -> resetButtonView.setBackgroundResource(R.drawable.game_control_button_active), delay[0]);
+        madGrid.displaySequence(this);
     }
 
     /**
@@ -245,12 +220,19 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     * Finishes game and redirects user to {@code ResultsActivity}, along with necessary information.
+     * Overloaded {@code gameOver} method to finish the game on single-player mode.
      */
     private void gameOver() {
         gameOver(0, -1, -1);
     }
 
+    /**
+     * Finishes game and redirects user to {@code ResultsActivity}, along with necessary information.
+     *
+     * @param result        0 -> loss, 1 -> draw, 2 -> win
+     * @param playerScore   final score of this player
+     * @param opponentScore final score of the opponent player
+     */
     private void gameOver(int result, int playerScore, int opponentScore) {
         if (this.sound) {
             this.soundPlayer.playGameOverSound();
@@ -306,6 +288,10 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        if (type == 1) {
+            var gameUpdate = new GameUpdate(multiplayerGame.getId(), playerId, false);
+            stompClient.send("/game/update", gson.toJson(gameUpdate)).subscribe();
+        }
         if (disposableTopic != null && !disposableTopic.isDisposed()) {
             disposableTopic.dispose();
         }
