@@ -16,8 +16,13 @@ import com.barbodh.madgrid.MadGridApplication;
 import com.barbodh.madgrid.R;
 import com.barbodh.madgrid.model.GameUpdate;
 import com.barbodh.madgrid.model.MultiplayerGame;
+import com.barbodh.madgrid.model.PlayerHeartbeat;
 import com.barbodh.madgrid.tools.SoundPlayer;
 import com.google.gson.Gson;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.disposables.Disposable;
 import ua.naiksoftware.stomp.StompClient;
@@ -42,6 +47,7 @@ public class GameActivity extends AppCompatActivity {
     private MultiplayerGame multiplayerGame;
     private String playerId;
     private Disposable disposableTopic;
+    private ScheduledExecutorService scheduler;
 
     ////////// Initializer //////////
 
@@ -122,6 +128,13 @@ public class GameActivity extends AppCompatActivity {
         } else if (type != 0) {
             throw new RuntimeException("Invalid game type.");
         }
+
+        // Initialize scheduler for sending heartbeats to the server, indicating that the player is active
+        scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.scheduleWithFixedDelay(
+                () -> stompClient.send("/game/heartbeat", gson.toJson(new PlayerHeartbeat(multiplayerGame.getId(), playerId))).subscribe(),
+                0, 10, TimeUnit.SECONDS
+        );
 
         // Start game
         initializeNewTurn();
@@ -288,10 +301,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if (type == 1) {
-            var gameUpdate = new GameUpdate(multiplayerGame.getId(), playerId, false);
-            stompClient.send("/game/update", gson.toJson(gameUpdate)).subscribe();
-        }
+        scheduler.shutdownNow();
         if (disposableTopic != null && !disposableTopic.isDisposed()) {
             disposableTopic.dispose();
         }
