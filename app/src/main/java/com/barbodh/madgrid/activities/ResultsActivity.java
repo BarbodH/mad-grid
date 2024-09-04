@@ -63,8 +63,7 @@ public class ResultsActivity extends AppCompatActivity {
      * @param view the triggered UI element; "Settings" button
      */
     public void openSettings(View view) {
-        var intent = new Intent(this, SettingsActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, SettingsActivity.class));
     }
 
     /**
@@ -73,8 +72,11 @@ public class ResultsActivity extends AppCompatActivity {
      * @param view the triggered UI element; "Restart" button
      */
     public void openGame(View view) {
-        var intent = new Intent(this, GameActivity.class);
+        var type = getIntent().getIntExtra("type", 1);
+        var intent = new Intent(this, type == 1 ? LobbyActivity.class : GameActivity.class);
+
         intent.putExtra("mode", stringMode);
+        intent.putExtra("type", type);
         startActivity(intent);
     }
 
@@ -84,8 +86,7 @@ public class ResultsActivity extends AppCompatActivity {
      * @param view the triggered UI element; "Home" button
      */
     public void openHome(View view) {
-        var intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     ////////// Utility //////////
