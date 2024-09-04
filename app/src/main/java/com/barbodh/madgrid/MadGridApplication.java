@@ -16,10 +16,9 @@ public class MadGridApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        initializeStompClient();
     }
 
-    private void initializeStompClient() {
+    public void initializeStompClient() {
         stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://<SERVER_IP>:8080/ws");
         stompClient.connect();
     }

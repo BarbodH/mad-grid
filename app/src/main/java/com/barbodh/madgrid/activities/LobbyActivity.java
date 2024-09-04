@@ -40,6 +40,9 @@ public class LobbyActivity extends AppCompatActivity {
         incomingPlayer = new IncomingPlayer(StringUtil.generateRandomString(10), mode);
         Log.d("LobbyActivity", "Generated ID: " + incomingPlayer.getId());
 
+        // STOMP handshake
+        // TODO: This is a temporary solution; future solutions should monitor connectivity and re-use previous handshakes, if feasible.
+        MadGridApplication.getInstance().initializeStompClient();
         stompClient = MadGridApplication.getInstance().getStompClient();
 
         // Send player to the server lobby for matchmaking
