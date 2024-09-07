@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/results_constraint_layout_container"
-        android:layout_width="wrap_content"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:background="@drawable/results_menu_background"
         app:layout_constraintBottom_toBottomOf="parent"
