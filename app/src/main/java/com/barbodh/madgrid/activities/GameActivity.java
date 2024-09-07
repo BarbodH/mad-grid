@@ -3,7 +3,6 @@ package com.barbodh.madgrid.activities;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,20 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.barbodh.madgrid.MadGrid;
+import com.barbodh.madgrid.MadGridApplication;
 import com.barbodh.madgrid.R;
+import com.barbodh.madgrid.model.GameUpdate;
+import com.barbodh.madgrid.model.MultiplayerGame;
+import com.barbodh.madgrid.model.PlayerHeartbeat;
 import com.barbodh.madgrid.tools.SoundPlayer;
+import com.google.gson.Gson;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.disposables.Disposable;
+import ua.naiksoftware.stomp.StompClient;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -29,7 +40,14 @@ public class GameActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private boolean music;
     private boolean sound;
-    private final Handler handler = new Handler();
+
+    private final Gson gson = new Gson();
+    private StompClient stompClient;
+    private int type;
+    private MultiplayerGame multiplayerGame;
+    private String playerId;
+    private Disposable disposableTopic;
+    private ScheduledExecutorService scheduler;
 
     ////////// Initializer //////////
 
@@ -72,6 +90,52 @@ public class GameActivity extends AppCompatActivity {
         // Adjust grid dimensions dynamically according to device dimensions
         adjustGridDimensions();
 
+        // Handle multiplayer game initialization
+        type = intent.getIntExtra("type", 0);
+        if (type == 1) {
+            stompClient = MadGridApplication.getInstance().getStompClient();
+            multiplayerGame = intent.getParcelableExtra("multiplayer_game");
+            playerId = intent.getStringExtra("player_id");
+
+            // Make opponent text and score visible
+            var opponentValuePlaceholder = (TextView) findViewById(R.id.game_text_placeholder_opponent_value);
+            opponentValuePlaceholder.setText("0");
+            opponentValuePlaceholder.setVisibility(View.VISIBLE);
+            findViewById(R.id.game_text_opponent).setVisibility(View.VISIBLE);
+
+            // Subscribe to topic for receiving and handling game updates
+            disposableTopic = stompClient.topic("/player/" + playerId + "/game/notify").subscribe(topicMessage -> {
+                var multiplayerGame = gson.fromJson(topicMessage.getPayload(), MultiplayerGame.class);
+                var player1 = multiplayerGame.getPlayer1();
+                var player2 = multiplayerGame.getPlayer2();
+                if (!player1.getId().equals(playerId) && !player2.getId().equals(playerId)) {
+                    throw new RuntimeException("Player ID does not match the ID of players for the provided game.");
+                }
+                var player = player1.getId().equals(playerId) ? player1 : player2;
+                var opponent = player1.getId().equals(playerId) ? player2 : player1;
+
+                if (multiplayerGame.isActive()) {
+                    runOnUiThread(() -> ((TextView) findViewById(R.id.game_text_placeholder_opponent_value)).setText(String.valueOf(opponent.getScore())));
+                } else {
+                    if (player1.getScore() == player2.getScore()) {
+                        gameOver(1, player.getScore(), opponent.getScore());
+                    } else {
+                        var winner = player1.getScore() > player2.getScore() ? player1 : player2;
+                        gameOver(player == winner ? 2 : 0, player.getScore(), opponent.getScore());
+                    }
+                }
+            });
+        } else if (type != 0) {
+            throw new RuntimeException("Invalid game type.");
+        }
+
+        // Initialize scheduler for sending heartbeats to the server, indicating that the player is active
+        scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.scheduleWithFixedDelay(
+                () -> stompClient.send("/game/heartbeat", gson.toJson(new PlayerHeartbeat(multiplayerGame.getId(), playerId))).subscribe(),
+                0, 10, TimeUnit.SECONDS
+        );
+
         // Start game
         initializeNewTurn();
     }
@@ -86,18 +150,6 @@ public class GameActivity extends AppCompatActivity {
     public void returnHome(View view) {
         var intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-    }
-
-    /**
-     * Aborts the current game and starts a new one.
-     *
-     * @param view the triggered UI element; "Reset" button
-     */
-    public void resetGame(View view) {
-        if (madGrid.isPlaying()) {
-            madGrid.clearKey();
-            initializeNewTurn();
-        }
     }
 
     /**
@@ -117,10 +169,23 @@ public class GameActivity extends AppCompatActivity {
                 } else {
                     madGrid.resetTurnIndex();
                     initializeNewTurn();
+
+                    if (type == 1) {
+                        var gameUpdate = new GameUpdate(multiplayerGame.getId(), playerId, true);
+                        stompClient.send("/game/update", gson.toJson(gameUpdate)).subscribe();
+                    }
                 }
             } else {
                 madGrid.getKey().remove(0);
-                gameOver();
+
+                if (type == 1) {
+                    madGrid.deactivateButtons();
+                    var gameUpdate = new GameUpdate(multiplayerGame.getId(), playerId, false);
+                    stompClient.send("/game/update", gson.toJson(gameUpdate)).subscribe();
+                    // Game update topic is responsible for invoking `gameOver` in multiplayer game
+                } else {
+                    gameOver();
+                }
             }
         }
     }
@@ -153,13 +218,7 @@ public class GameActivity extends AppCompatActivity {
         updateScoreView();
 
         madGrid.incrementKey();
-        var delay = madGrid.displaySequence(this);
-
-        // Deactivate reset button and activate after sequence display is finished
-        // Duration of sequence display is indicated by the delay value
-        var resetButtonView = findViewById(R.id.game_button_reset);
-        handler.postDelayed(() -> resetButtonView.setBackgroundResource(R.drawable.game_control_button_inactive), delay[1]);
-        handler.postDelayed(() -> resetButtonView.setBackgroundResource(R.drawable.game_control_button_active), delay[0]);
+        madGrid.displaySequence(this);
     }
 
     /**
@@ -174,9 +233,20 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     * Finishes game and redirects user to {@code ResultsActivity}, along with necessary information.
+     * Overloaded {@code gameOver} method to finish the game on single-player mode.
      */
     private void gameOver() {
+        gameOver(0, -1, -1);
+    }
+
+    /**
+     * Finishes game and redirects user to {@code ResultsActivity}, along with necessary information.
+     *
+     * @param result        0 -> loss, 1 -> draw, 2 -> win
+     * @param playerScore   final score of this player
+     * @param opponentScore final score of the opponent player
+     */
+    private void gameOver(int result, int playerScore, int opponentScore) {
         if (this.sound) {
             this.soundPlayer.playGameOverSound();
         }
@@ -186,10 +256,19 @@ public class GameActivity extends AppCompatActivity {
 
         // Send user to ResultsActivity and pass on the necessary information
         var intent = new Intent(this, ResultsActivity.class);
-        var scoreString = Integer.toString(madGrid.getKey().size());
-        intent.putExtra("score", scoreString);
+
+        intent.putExtra("score", madGrid.getKey().size());
         intent.putExtra("isHighest", madGrid.isHighestScore());
         intent.putExtra("mode", madGrid.getMode());
+        intent.putExtra("type", type);
+
+        if (type == 1) {
+            intent.putExtra("result", result);
+            // Override score because if user's last response was correct, provided score will be 1 higher than actual
+            intent.putExtra("score", playerScore);
+            intent.putExtra("opponent_score", opponentScore);
+        }
+
         startActivity(intent);
     }
 
@@ -212,6 +291,19 @@ public class GameActivity extends AppCompatActivity {
         if (this.music) {
             mediaPlayer.setLooping(true);
             mediaPlayer.start();
+        }
+    }
+
+    /**
+     * Called when the activity is no longer visible to the user. Disposes of the `disposableTopic`
+     * to release resources and prevent memory leaks.
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+        scheduler.shutdownNow();
+        if (disposableTopic != null && !disposableTopic.isDisposed()) {
+            disposableTopic.dispose();
         }
     }
 

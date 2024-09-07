@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/results_constraint_layout_container"
-        android:layout_width="wrap_content"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:background="@drawable/results_menu_background"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -94,20 +94,18 @@
             app:layout_constraintEnd_toStartOf="@+id/results_button_home"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/results_text_highest" />
+            app:layout_constraintTop_toBottomOf="@+id/results_text_opponent" />
 
         <TextView
             android:id="@+id/results_text_highest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/ibm_plex_sans_medium"
             android:text="@string/results_highest"
             android:textColor="@color/black"
             android:textSize="24sp"
-            app:layout_constraintEnd_toStartOf="@+id/results_text_placeholder_highest_value"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/results_text_opponent"
             app:layout_constraintTop_toBottomOf="@+id/results_text_score" />
 
         <TextView
@@ -119,10 +117,36 @@
             android:textColor="@color/results_primary"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@+id/results_text_highest"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/results_text_highest"
+            app:layout_constraintEnd_toEndOf="@+id/results_text_placeholder_opponent_value"
             app:layout_constraintTop_toTopOf="@+id/results_text_highest" />
+
+        <!-- -->
+        <TextView
+            android:id="@+id/results_text_opponent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/ibm_plex_sans_medium"
+            android:text="@string/results_opponent"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/results_text_placeholder_opponent_value"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/results_text_highest" />
+
+        <TextView
+            android:id="@+id/results_text_placeholder_opponent_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ibm_plex_sans_medium"
+            android:text="@string/placeholder_score"
+            android:textColor="@color/results_primary"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/results_text_opponent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/results_text_opponent"
+            app:layout_constraintTop_toTopOf="@+id/results_text_opponent" />
+        <!-- -->
 
         <TextView
             android:id="@+id/results_text_score"

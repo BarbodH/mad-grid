@@ -161,20 +161,6 @@
     </GridLayout>
 
     <Button
-        android:id="@+id/game_button_reset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/game_control_button_active"
-        android:fontFamily="@font/ibm_plex_sans_semibold"
-        android:onClick="resetGame"
-        android:text="@string/menu_reset"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
         android:id="@+id/game_button_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -243,5 +229,33 @@
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/game_text_highest"
         app:layout_constraintTop_toBottomOf="@+id/game_text_placeholder_score_value" />
+
+    <TextView
+        android:id="@+id/game_text_opponent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="80dp"
+        android:fontFamily="@font/ibm_plex_sans_medium"
+        android:text="@string/results_opponent"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/game_text_highest" />
+
+    <TextView
+        android:id="@+id/game_text_placeholder_opponent_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/ibm_plex_sans_medium"
+        android:text="@string/placeholder_score"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/game_text_highest"
+        app:layout_constraintTop_toBottomOf="@+id/game_text_placeholder_highest_value" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,7 +25,7 @@ public class ResultsActivity extends AppCompatActivity {
         var intent = getIntent();
 
         // Retrieve necessary information from "GameActivity"
-        var scoreString = intent.getStringExtra("score");
+        var scoreString = String.valueOf(intent.getIntExtra("score", 0));
         var isHighest = intent.getBooleanExtra("isHighest", false);
         this.stringMode = intent.getStringExtra("mode");
 
@@ -39,6 +39,20 @@ public class ResultsActivity extends AppCompatActivity {
         } else {
             ((TextView) findViewById(R.id.results_text_placeholder_highest_score_message)).setText("");
         }
+
+        // For multiplayer, display a message indicating the result and show opponent score
+        var type = intent.getIntExtra("type", 0);
+        if (type == 1) {
+            var result = intent.getIntExtra("result", 0);
+            var opponentScore = intent.getIntExtra("opponent_score", 0);
+
+            ((TextView) findViewById(R.id.results_text_title)).setText(
+                    result == 2 ? "You Won" : result == 1 ? "Draw" : "You Lost"
+            );
+            (findViewById(R.id.results_text_opponent)).setVisibility(View.VISIBLE);
+            (findViewById(R.id.results_text_placeholder_opponent_value)).setVisibility(View.VISIBLE);
+            ((TextView) findViewById(R.id.results_text_placeholder_opponent_value)).setText(String.valueOf(opponentScore));
+        }
     }
 
     ////////// Event Handler(s) //////////
@@ -49,8 +63,7 @@ public class ResultsActivity extends AppCompatActivity {
      * @param view the triggered UI element; "Settings" button
      */
     public void openSettings(View view) {
-        var intent = new Intent(this, SettingsActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, SettingsActivity.class));
     }
 
     /**
@@ -59,8 +72,11 @@ public class ResultsActivity extends AppCompatActivity {
      * @param view the triggered UI element; "Restart" button
      */
     public void openGame(View view) {
-        var intent = new Intent(this, GameActivity.class);
+        var type = getIntent().getIntExtra("type", 1);
+        var intent = new Intent(this, type == 1 ? LobbyActivity.class : GameActivity.class);
+
         intent.putExtra("mode", stringMode);
+        intent.putExtra("type", type);
         startActivity(intent);
     }
 
@@ -70,8 +86,7 @@ public class ResultsActivity extends AppCompatActivity {
      * @param view the triggered UI element; "Home" button
      */
     public void openHome(View view) {
-        var intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     ////////// Utility //////////

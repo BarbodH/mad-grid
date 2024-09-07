@@ -193,7 +193,7 @@ public class MadGrid {
      * Deactivates button feedback to user when during sequence display, i.e., {code playingStatus}
      * is {@code false}.
      */
-    private void deactivateButtons() {
+    public void deactivateButtons() {
         for (var button : buttons)
             button.setBackgroundResource(R.drawable.grid_button_background_inactive);
     }

@@ -36,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
     public void openGame(View view) {
         var intent = new Intent(this, GameActivity.class);
         intent.putExtra("mode", modeStrings[this.mode]);
+        intent.putExtra("type", 0);
+        startActivity(intent);
+    }
+
+    public void openMultiplayer(View view) {
+        var intent = new Intent(this, LobbyActivity.class);
+        intent.putExtra("mode", this.mode);
         startActivity(intent);
     }
 
