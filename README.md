@@ -5,7 +5,7 @@
 [<img src="/readme/download-google-play.png" align="center" height="100" hspace="2" vspace="2">](https://play.google.com/store/apps/details?id=com.barbodh.madgrid)
 
 Mad Grid is a visual sequence memory game originally inspired by [Human Benchmark](https://humanbenchmark.com/).
-The game consists of a 2×2 grid, which displays a randomly generated sequence to be perfectly replicated by the user.
+The game consists of a 3×3 grid, which displays a randomly generated sequence to be perfectly replicated by the user.
 The game becomes progressively more difficult as the length of the sequence increments in each level.
 
 ## Features
@@ -16,6 +16,7 @@ Mad Grid consists of three game modes:
 - Messy: similar to Classic mode, but an entirely new sequence is generated following the successful completion of each level.
 
 Additional features include:
+- Real-time multiplayer feature allowing players to compete head-to-head online
 - Guide page providing interactive tutorials and text descriptions
 
 ## Screenshots
