@@ -19,7 +19,7 @@ public class MadGridApplication extends Application {
     }
 
     public void initializeStompClient() {
-        stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://<SERVER_IP>:8080/ws");
+        stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "wss://mad-grid-api.nn.r.appspot.com/ws");
         stompClient.connect();
     }
 }
