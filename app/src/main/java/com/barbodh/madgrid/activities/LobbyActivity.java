@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +14,8 @@ import com.barbodh.madgrid.model.IncomingPlayer;
 import com.barbodh.madgrid.model.LobbyNotification;
 import com.barbodh.madgrid.util.StringUtil;
 import com.google.gson.Gson;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.reactivex.disposables.Disposable;
 import ua.naiksoftware.stomp.StompClient;
@@ -42,28 +44,49 @@ public class LobbyActivity extends AppCompatActivity {
         incomingPlayer = new IncomingPlayer(StringUtil.generateRandomString(10), mode);
         Log.d("LobbyActivity", "Generated ID: " + incomingPlayer.getId());
 
+        joinLobby();
+    }
+
+    /**
+     *
+     */
+    private void joinLobby() {
         // STOMP handshake
         MadGridApplication.getInstance().initializeStompClient();
         stompClient = MadGridApplication.getInstance().getStompClient();
 
         // Send player to the server lobby for matchmaking
+        var connectionSuccess = new AtomicBoolean(false);
         disposableTopic1 = stompClient.send("/game/seek-opponent", gson.toJson(incomingPlayer)).subscribe(
-                () -> { /* No action needed. */ },
-                throwable -> runOnUiThread(() -> Toast.makeText(this, "No internet connection available.", Toast.LENGTH_LONG).show())
+                () -> runOnUiThread(() -> {
+                    connectionSuccess.set(true);
+                    ((TextView) findViewById(R.id.lobby_text_message)).setText(getString(R.string.lobby_message_successful));
+                    findViewById(R.id.lobby_button_retry).setVisibility(View.GONE);
+                }),
+                throwable -> runOnUiThread(() -> {
+                    connectionSuccess.set(false);
+                    ((TextView) findViewById(R.id.lobby_text_message)).setText(getString(R.string.lobby_message_error));
+                    findViewById(R.id.lobby_button_retry).setVisibility(View.VISIBLE);
+                })
         );
+        if (!connectionSuccess.get()) return;
 
-        // Wait for player to get matched by the server and receive game information
+        // If connection is successful, wait for player to get matched by the server and receive game information
         disposableTopic2 = stompClient.topic("/player/" + incomingPlayer.getId() + "/lobby/notify").subscribe(topicMessage -> {
             var lobbyNotification = gson.fromJson(topicMessage.getPayload(), LobbyNotification.class);
             if (lobbyNotification.isMatched()) {
                 var intent = new Intent(this, GameActivity.class);
-                intent.putExtra("mode", modeStrings[mode]);
+                intent.putExtra("mode", modeStrings[incomingPlayer.getGameMode()]);
                 intent.putExtra("type", 1);
                 intent.putExtra("player_id", incomingPlayer.getId());
                 intent.putExtra("multiplayer_game", lobbyNotification.getMultiplayerGame());
                 startActivity(intent);
             }
-        }, throwable -> { /* No action needed. */ });
+        });
+    }
+
+    public void joinLobby(View view) {
+        joinLobby();
     }
 
     public void returnHome(View view) {

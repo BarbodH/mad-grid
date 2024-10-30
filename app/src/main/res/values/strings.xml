@@ -52,7 +52,9 @@
     <string name="game_box4Text">4</string>
 
     <!-- lobby items -->
-    <string name="lobby_message">You have been added to the queue.\nWaiting to be matched with an opponent…</string>
+    <string name="lobby_message_successful">You have been added to the queue.\nWaiting to be matched with an opponent…</string>
+    <string name="lobby_message_error">Failed to connect to the server. Please check your connection and try again.</string>
+    <string name="lobby_button_retry">Retry</string>
 
     <!-- results items -->
     <string name="results_title">Game Over!</string>
