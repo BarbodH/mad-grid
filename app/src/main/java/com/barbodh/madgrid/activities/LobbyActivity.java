@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,7 +23,8 @@ public class LobbyActivity extends AppCompatActivity {
     ////////// Field(s) //////////
 
     private final Gson gson = new Gson();
-    private Disposable disposableTopic;
+    private Disposable disposableTopic1;
+    private Disposable disposableTopic2;
     private StompClient stompClient;
     private IncomingPlayer incomingPlayer;
 
@@ -41,15 +43,17 @@ public class LobbyActivity extends AppCompatActivity {
         Log.d("LobbyActivity", "Generated ID: " + incomingPlayer.getId());
 
         // STOMP handshake
-        // TODO: This is a temporary solution; future solutions should monitor connectivity and re-use previous handshakes, if feasible.
         MadGridApplication.getInstance().initializeStompClient();
         stompClient = MadGridApplication.getInstance().getStompClient();
 
         // Send player to the server lobby for matchmaking
-        stompClient.send("/game/seek-opponent", gson.toJson(incomingPlayer)).subscribe();
+        disposableTopic1 = stompClient.send("/game/seek-opponent", gson.toJson(incomingPlayer)).subscribe(
+                () -> { /* No action needed. */ },
+                throwable -> runOnUiThread(() -> Toast.makeText(this, "No internet connection available.", Toast.LENGTH_LONG).show())
+        );
 
         // Wait for player to get matched by the server and receive game information
-        disposableTopic = stompClient.topic("/player/" + incomingPlayer.getId() + "/lobby/notify").subscribe(topicMessage -> {
+        disposableTopic2 = stompClient.topic("/player/" + incomingPlayer.getId() + "/lobby/notify").subscribe(topicMessage -> {
             var lobbyNotification = gson.fromJson(topicMessage.getPayload(), LobbyNotification.class);
             if (lobbyNotification.isMatched()) {
                 var intent = new Intent(this, GameActivity.class);
@@ -59,7 +63,7 @@ public class LobbyActivity extends AppCompatActivity {
                 intent.putExtra("multiplayer_game", lobbyNotification.getMultiplayerGame());
                 startActivity(intent);
             }
-        });
+        }, throwable -> { /* No action needed. */ });
     }
 
     public void returnHome(View view) {
@@ -75,8 +79,11 @@ public class LobbyActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         stompClient.send("/game/exit-lobby", incomingPlayer.getId());
-        if (disposableTopic != null && !disposableTopic.isDisposed()) {
-            disposableTopic.dispose();
+        if (disposableTopic1 != null && !disposableTopic1.isDisposed()) {
+            disposableTopic1.dispose();
+        }
+        if (disposableTopic2 != null && !disposableTopic2.isDisposed()) {
+            disposableTopic2.dispose();
         }
     }
 }
