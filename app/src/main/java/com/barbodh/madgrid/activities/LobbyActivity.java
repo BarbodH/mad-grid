@@ -48,7 +48,8 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * Connects the player to the game lobby for matchmaking and listens for matchmaking.
+     * Updates the UI view if the connection is not successful.
      */
     private void joinLobby() {
         // STOMP handshake
@@ -85,15 +86,6 @@ public class LobbyActivity extends AppCompatActivity {
         });
     }
 
-    public void joinLobby(View view) {
-        joinLobby();
-    }
-
-    public void returnHome(View view) {
-        stompClient.send("/game/exit-lobby", gson.toJson(incomingPlayer.getId())).subscribe();
-        startActivity(new Intent(this, MainActivity.class));
-    }
-
     /**
      * Called when the activity is no longer visible to the user. Disposes of the `disposableTopic`
      * to release resources and prevent memory leaks.
@@ -108,5 +100,26 @@ public class LobbyActivity extends AppCompatActivity {
         if (disposableTopic2 != null && !disposableTopic2.isDisposed()) {
             disposableTopic2.dispose();
         }
+    }
+
+    ////////// Event Listener(s) //////////
+
+    /**
+     * UI-accessible overload of {@link #joinLobby()} to initiate the lobby connection process.
+     *
+     * @param view the view that triggers this method
+     */
+    public void joinLobby(View view) {
+        joinLobby();
+    }
+
+    /**
+     * Navigates to {@code MainActivity}.
+     *
+     * @param view the triggered UI element; back button
+     */
+    public void returnHome(View view) {
+        stompClient.send("/game/exit-lobby", gson.toJson(incomingPlayer.getId())).subscribe();
+        startActivity(new Intent(this, MainActivity.class));
     }
 }
